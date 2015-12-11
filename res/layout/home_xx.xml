@@ -1,0 +1,15 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base"
+    android:background="@color/white"
+    android:clickable="true" 
+    >
+    <LinearLayout
+        style="@style/style_base"
+        android:id="@+id/xx_fragment"
+        android:background="@color/white"
+        android:orientation="vertical" >
+       
+    </LinearLayout>
+
+</RelativeLayout>

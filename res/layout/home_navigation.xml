@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/yl_data"
+         android:background="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/line" >
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_above="@+id/navigationbartest_ui_RollNavigationBar"
+        android:background="@color/nav_line" />
+
+    <cn.w.song.widget.navigation.RollNavigationBar
+        android:id="@+id/navigationbartest_ui_RollNavigationBar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/nav_bar_size"
+        android:layout_alignParentBottom="true"
+        android:background="@color/nav_bg"
+        android:orientation="horizontal" >
+    </cn.w.song.widget.navigation.RollNavigationBar>
+
+</RelativeLayout>

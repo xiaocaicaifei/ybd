@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:background="@color/login_bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_marginTop="30dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="30dip"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/login_show_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitCenter"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dip"
+        android:layout_marginLeft="42dip"
+        android:layout_marginRight="42dip"
+        android:layout_marginTop="21dip" >
+
+        <Button
+            android:id="@+id/login_zc"
+            android:layout_width="0dip"
+            android:layout_height="33dip"
+            android:layout_weight="1"
+            android:background="@color/login_zc"
+            android:text="@string/zc"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/login_dl"
+            android:layout_width="0dip"
+            android:layout_height="33dip"
+            android:layout_marginLeft="36dip"
+            android:layout_weight="1"
+            android:background="@color/login_dl"
+            android:text="@string/dl"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dip"
+        android:layout_marginLeft="42dip"
+        android:layout_marginRight="42dip" >
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/login_wb"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_wbdl" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_marginLeft="36dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/login_wx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/login_wxdl" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

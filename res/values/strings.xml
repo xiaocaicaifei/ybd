@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">艺论</string>
+    
+    <!-- 登录 -->
+    <string name="zc">注册</string>
+    <string name="dl">登录</string>
+    <string name="qsrndzh">请输入您的账号</string>
+    <string name="qsrndmm">请输入您的密码</string>
+    <string name="qsrndsjh">请输入手机号</string>
+    <string name="qsryzm">请输入验证码</string>
+    <string name="ljzc">立即注册</string>
+    <string name="wjmm"><u>忘记密码?</u></string>
+    <string name="kjfsdl">快捷方式登录</string>
+    <string name="xyb">下一步</string>
+    <string name="szmm">设置密码</string>
+    <string name="qrmm">确认密码</string>
+    
+    <!-- 注册 -->
+    <string name="tj">提交</string>
+    <string name="tx">头像</string>
+    <string name="nc">昵称</string>
+    <string name="xb">性别</string>
+    <string name="wz">位置</string>
+    <string name="bt">必填</string>
+    <string name="qsrnc">请输入昵称</string>
+    <string name="wc">完成</string>
+    
+    <!-- 个人中心 -->
+    <string name="grzx">个人中心</string>
+    <string name="xy">信用</string>
+    <string name="gm">购买</string>
+    <string name="mc">卖出</string>
+    <string name="fs">粉丝</string>
+    <string name="grzl">个人资料</string>
+    <string name="xc">相册</string>
+    <string name="qb">钱包</string>
+    <string name="zjhmdfs">专家&#160;&#160;黑名单&#160;&#160;粉丝</string>
+    <string name="cy">常用</string>
+    <string name="sz">设置</string>
+    <string name="sqrz">申请认证</string>
+    
+    <!-- 艺论 -->
+    <string name="yl">艺论</string>
+    <string name="sjtj">数据统计</string>
+    <string name="wygz">我要估值</string>
+    <string name="wypf">我要评分</string>
+    <string name="djlk">大家来看</string>
+    <string name="yl_gm">购买:</string>
+    <string name="yl_mc">卖出:</string>
+    <string name="yl_xy">信用:</string>
+    <string name="yl_fs">粉丝:</string>
+    <string name="yl_hf">回复</string>
+    
+    <!-- 圈子 -->
+    <string name="zan">赞</string>
+    <string name="pl">评论</string>
+    <string name="zf">转发</string>
+    <string name="ts">投诉</string>
+    
+    <!-- 消息 -->
+    <string name="ss">搜索</string>
+    
+    <!-- 选择位置弹出框 -->
+    <string name="xzwz">选择位置</string>
+    <string name="qx">取消</string> 
+    <string name="qd">确定</string>
+    
+
+    <!-- 下拉刷新 -->
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新</string>
+    <string name="xlistview_header_hint_loading">正在刷新...</string>
+    <string name="xlistview_header_last_time">上次更新：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_normal2">没有更多的数据</string>
+    <string name="xlistview_footer_hint_ready">松开加载</string>
+    <string name="xlistview_footer_hint_loading">正在加载...</string>
+
+    <!-- 微信回调 -->
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unknown">发送返回</string>
+
+</resources>

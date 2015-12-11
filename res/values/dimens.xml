@@ -1,0 +1,23 @@
+<resources>
+
+    
+	<!-- 字体默认大小 -->
+	<dimen name="default_size">15sp</dimen>
+	<!-- 统一界面头的高度 -->
+	<dimen name="uniform_title_height">48dip</dimen>
+	
+	
+	<!-- 艺论 -->
+	<dimen name="yl_username_msg_size">13sp</dimen><!-- 介绍用户名部分的字体大小 -->
+	<dimen name="yl_desc_msg_size">14sp</dimen><!-- 描述信息部分的所有字体的大小 -->
+	
+	<!-- 底部菜单栏高度 -->
+    <dimen name="nav_bar_size">49dip</dimen>
+    <dimen name="nav_item_h">25dip</dimen>
+    <dimen name="nav_item_w">30.4dip</dimen>
+    <dimen name="nav_txt_size">12sp</dimen>
+    <dimen name="nav_unread_size">12sp</dimen>
+    
+    <dimen name="dialog_height">224dip</dimen><!-- 自定义弹出框的高度 -->
+	<dimen name="dialog_width">338dip</dimen><!-- 自定义弹出框的宽度 -->
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- 界面白色字体的颜色 -->
+    <color name="white">#ffffff</color>
+    
+    <!-- 标题红色头的颜色 -->
+    <color name="unitform_title_red">#cb0918</color>
+    <!-- 统一背景的灰颜色 -->
+    <color name="unitform_background_gray">#fbfaf8</color>
+    <!-- 统一按钮的红颜色 -->
+    <color name="unitform_button_red">#ff323a</color>
+    <!-- 统一按钮的灰颜色 -->
+    <color name="unitform_button_gray">#f0ece9</color>
+    <!-- 统一横线的颜色 -->
+    <color name="unitform_line_color">#c8c4c2</color>
+    
+    
+    <!-- 注册页面验证码的字体的颜色 -->
+    <color name="regist_yzm_color">#5e5c5d</color>
+    
+    <!-- 选择位置弹出框-标题头的字体颜色 -->
+    <color name="custome_dialog_select_location_title_color">#6d6b6c</color>
+    <color name="province_line_border">#C7C7C7</color><!-- 省线的颜色 -->
+    
+    <!-- 登录界面 -->
+    <color name="login_bg">#ECECEC</color><!-- 登录背景 -->
+    <color name="login_zc">#767676</color><!-- 登录 注册按钮 -->
+    <color name="login_dl">#FF3239</color><!-- 登录 登录按钮 -->
+    <color name="login_text_gray">#8c8c8c</color><!-- 登录界面灰颜色的字体 -->
+    <color name="login_input_text">#282828</color><!-- 输入框字体的颜色 -->
+    
+    <!-- 个人中心 -->
+    <color name="grzx_gray_color">#747474</color><!-- 个人中心灰色字体的颜色 -->
+    <color name="grzx_gray_color_press">#d0f8f8f8</color><!-- 个人中心每一行按下的颜色 -->
+    
+    <!-- 艺论 -->
+    <color name="yl_username_color">#ff7132</color><!--用户名的字体 -->
+	<color name="yl_username_msg_gray_color">#929292</color><!-- 用户名下面的用于描述的灰色的字体 -->
+	<color name="yl_username_msg_black_color">#1c1c1c</color><!-- 用户名下面的用于描述的黑色的字体 -->
+	<color name="yl_xq_color">#666666</color><!-- 详情字体的颜色 -->
+	<color name="yl_hf_name">#28609e</color><!-- 用户回复的字体的颜色 -->
+	<color name="yl_bottom_color">#7d7d7d</color><!-- 最下边 投诉 转发 评论数字体的颜色 -->
+	<color name="yl_sjtj_color">#6d6b6c</color><!-- 艺论-数据统计的字体 -->
+	
+	<!-- 消息 -->
+	<color name="xx_search_hint_color">#8e8e93</color><!-- 消息-搜索框提示字体的颜色 -->
+	<color name="xx_list_title_color">#333333</color><!-- 消息-列表的标题的颜色 -->
+    
+    <!-- 下边导航条的颜色 -->
+    <color name="nav_bg">#f8f8f8</color>
+    <color name="nav_txt">#929292</color>
+    <color name="nav_txt_sel">#ff3239</color>
+    <color name="nav_line"> #ccc</color>
+    
+</resources>

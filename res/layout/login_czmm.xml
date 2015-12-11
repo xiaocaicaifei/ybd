@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <View
+        style="@style/uniform_line"
+        android:layout_marginTop="13dip" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_marginLeft="17dip"
+        android:layout_marginRight="17dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_mm_logo" />
+
+        <EditText
+            android:id="@+id/regist_mm_et"
+            style="@style/uniform_input"
+            android:layout_marginLeft="6dip"
+            android:hint="@string/szmm"
+            android:inputType="textPassword"
+            android:maxLength="18" />
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_marginLeft="17dip"
+        android:layout_marginRight="0dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_mm_logo" />
+
+        <EditText
+            android:id="@+id/regist_qrmm_et"
+            style="@style/uniform_input"
+            android:layout_weight="1"
+            android:layout_marginLeft="6dip"
+            android:hint="@string/qrmm"
+            android:inputType="textPassword"
+            android:maxLength="18" />
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+    <Button
+        android:id="@+id/login_xyb_b"
+        style="@style/login_button"
+        android:layout_marginTop="13dip"
+        android:text="@string/xyb" />
+
+</LinearLayout>

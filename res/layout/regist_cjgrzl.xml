@@ -1,0 +1,133 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="86dip"
+        android:layout_marginTop="15dip" >
+
+        <ImageView
+            android:layout_width="86dip"
+            android:layout_height="86dip"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/regist_cjgrzl_tx_bg" />
+
+        <ImageView
+            android:id="@+id/tx_iv"
+            android:layout_width="81dip"
+            android:layout_height="81dip"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+
+        <RelativeLayout
+            android:layout_width="86dip"
+            android:layout_height="86dip"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" >
+
+            <ImageView
+                style="@style/style_base_component2"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="66dip"
+                android:background="@drawable/regist_cjgrzl_tx_bj" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        style="@style/uniform_input_left_prompt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dip"
+        android:text="@string/tx" />
+
+    <View
+        style="@style/uniform_line"
+        android:layout_marginTop="15dip" />
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_height="48dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/uniform_input_left_prompt"
+            android:text="@string/nc" />
+
+        <EditText
+            android:id="@+id/nc_et"
+            style="@style/uniform_input"
+            android:layout_marginLeft="37dip"
+            android:hint="@string/qsrnc"
+            android:inputType="none"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_height="48dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/uniform_input_left_prompt"
+            android:text="@string/xb" />
+
+        <EditText
+            android:id="@+id/xb_et"
+            style="@style/uniform_input"
+            android:layout_marginLeft="37dip"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:inputType="none"
+            android:singleLine="true" />
+        <ImageView 
+            android:id="@+id/xb_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/regist_cjgrzl_open"/>
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_height="48dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/uniform_input_left_prompt"
+            android:text="@string/wz" />
+
+        <EditText
+            android:id="@+id/wz_et"
+            style="@style/uniform_input"
+            android:layout_marginLeft="37dip"
+            android:hint="@string/bt"
+            android:inputType="none"
+            android:focusable="false"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+    <Button
+        android:id="@+id/login_login_b"
+        style="@style/login_button"
+        android:textColor="@color/white"
+        android:layout_marginTop="13dip"
+        android:text="@string/wc" />
+</LinearLayout>
