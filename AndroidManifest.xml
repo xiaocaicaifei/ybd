@@ -109,6 +109,12 @@
             >
         </activity>
          
+        <!-- 圈子-上传图片 -->
+        <activity android:name="com.ybd.yl.qz.QzSctpActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            ></activity>
+        
         <!-- 微信回调类，接收说有微信的回调信息 -->
         <activity
             android:name=".wxapi.WXEntryActivity"

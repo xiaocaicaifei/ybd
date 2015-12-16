@@ -43,7 +43,7 @@ public class XxIndexFragment extends BaseFragment implements HomeClickListener,O
     
     
     @Override
-    public void onclick(View v) {
+    public void onHomeclick(View v) {
         
     }
     @Override

@@ -50,7 +50,7 @@ public class GrIndexFragment extends BaseFragment implements HomeClickListener{
     
     
     @Override
-    public void onclick(View v) {
+    public void onHomeclick(View v) {
         
     }
     @Override

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.util.DisplayMetrics;
@@ -16,12 +17,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.nineoldandroids.view.ViewHelper;
 import com.ybd.common.C;
-import com.ybd.common.L;
 import com.ybd.common.PropertiesUtil;
 import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
@@ -120,12 +118,22 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
     }
 
     @Override
-    public void onclick(View v) {
+    public void onHomeclick(View v) {
 
     }
 
     @Override
     public void onClick(View v) {
+    	switch (v.getId()) {
+		case R.id.right_rl:
+			Intent intent=new Intent();
+			intent.setClass(activity, QzSctpActivity.class);
+			startActivityForResult(intent,0);
+			break;
+
+		default:
+			break;
+		}
     }
 
     /**

@@ -37,7 +37,7 @@ public class XxFragment extends BaseFragment implements HomeClickListener, OnCli
     }
 
     @Override
-    public void onclick(View v) {
+    public void onHomeclick(View v) {
         // TODO Auto-generated method stub
         
     }

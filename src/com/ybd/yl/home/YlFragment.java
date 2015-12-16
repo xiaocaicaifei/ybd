@@ -28,7 +28,7 @@ public class YlFragment extends BaseFragment implements HomeClickListener{
         return v;
     }
     @Override
-    public void onclick(View v) {
+    public void onHomeclick(View v) {
         // TODO Auto-generated method stub
         
     }

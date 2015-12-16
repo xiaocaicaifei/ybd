@@ -10,5 +10,5 @@ import android.view.View;
  */
 public interface HomeClickListener {
 
-	public void onclick(View v);
+	public void onHomeclick(View v);
 }

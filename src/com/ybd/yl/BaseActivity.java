@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.ybd.common.App;
 import com.ybd.common.C;
+import com.ybd.common.L;
 import com.ybd.common.SystemBarTintManager;
 
 /**
@@ -108,24 +109,25 @@ public abstract class BaseActivity extends FragmentActivity implements App {
      * @param titleName 标题头显示的文字
      */
      public void initPublicView(String titleName,int leftId,int rightId,OnClickListener leftClickListener,OnClickListener rightClickListener) {
-         leftRelativeLayout = (RelativeLayout) activity.findViewById(R.id.left_rl);
-         rightRelativeLayout = (RelativeLayout) activity.findViewById(R.id.right_rl);
-         leftImageView=(ImageView) activity.findViewById(R.id.left_iv);
-         rightImageView=(ImageView) activity.findViewById(R.id.right_iv);
-         if (leftId==R.drawable.login_fh) {//如果是特殊情况，是返回按钮
-             leftRelativeLayout.setOnClickListener(new OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     activity.finish();
-                 }
-             });
-         }
+         leftRelativeLayout = (RelativeLayout) findViewById(R.id.left_rl);
+         rightRelativeLayout = (RelativeLayout) findViewById(R.id.right_rl);
+         leftImageView=(ImageView) findViewById(R.id.left_iv);
+         rightImageView=(ImageView) findViewById(R.id.right_iv);
          if(leftId==0){//表示左边没有按钮
              leftImageView.setVisibility(View.GONE);
          }else{
              leftImageView.setVisibility(View.VISIBLE);
              leftImageView.setBackgroundResource(leftId);
-             leftRelativeLayout.setOnClickListener(leftClickListener);
+             if (leftId==R.drawable.login_fh) {//如果是特殊情况，是返回按钮
+            	 leftRelativeLayout.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						activity.finish();
+					}
+				});
+             }else{
+            	 leftRelativeLayout.setOnClickListener(leftClickListener);
+             }
          }
          if(rightId==0){//表示右边没有按钮
              rightImageView.setVisibility(View.GONE);

@@ -58,6 +58,9 @@
     <string name="pl">评论</string>
     <string name="zf">转发</string>
     <string name="ts">投诉</string>
+    <string name="xxxsd">写下想说的</string>
+    <string name="qrsc">确认上传</string>
+    <string name="xzbqhfb">选择标签后发布，大家将会在此标签种看到你发布的内容哦~</string>
     
     <!-- 消息 -->
     <string name="ss">搜索</string>

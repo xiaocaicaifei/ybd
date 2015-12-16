@@ -156,20 +156,22 @@ public abstract class BaseFragment extends Fragment {
          leftImageView=(ImageView) view.findViewById(R.id.left_iv);
          rightImageView=(ImageView) view.findViewById(R.id.right_iv);
          titleTextView = (TextView) view.findViewById(R.id.title_name_tv);
-         if (leftId==R.drawable.login_fh) {//如果是特殊情况，是返回按钮
-             leftRelativeLayout.setOnClickListener(new OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     activity.finish();
-                 }
-             });
-         }
+         
          if(leftId==0){//表示左边没有按钮
              leftImageView.setVisibility(View.GONE);
          }else{
              leftImageView.setVisibility(View.VISIBLE);
              leftImageView.setBackgroundResource(leftId);
-             leftRelativeLayout.setOnClickListener(leftClickListener);
+             if (leftId==R.drawable.login_fh) {//如果是特殊情况，是返回按钮
+            	 leftRelativeLayout.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						activity.finish();
+					}
+				});
+             }else{
+            	 leftRelativeLayout.setOnClickListener(leftClickListener);
+             }
          }
          if(rightId==0){//表示右边没有按钮
              rightImageView.setVisibility(View.GONE);

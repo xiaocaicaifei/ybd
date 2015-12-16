@@ -43,6 +43,11 @@
 	<color name="yl_bottom_color">#7d7d7d</color><!-- 最下边 投诉 转发 评论数字体的颜色 -->
 	<color name="yl_sjtj_color">#6d6b6c</color><!-- 艺论-数据统计的字体 -->
 	
+	<!-- 圈子 -->
+	<color name="qz_sctp_xxxsd">#666666</color><!-- 圈子-上传图片-写下想说的 -->
+	<color name="qz_sctp_zd12z">#666666</color><!-- 圈子-上传图片-最多12张 -->
+	
+	
 	<!-- 消息 -->
 	<color name="xx_search_hint_color">#8e8e93</color><!-- 消息-搜索框提示字体的颜色 -->
 	<color name="xx_list_title_color">#333333</color><!-- 消息-列表的标题的颜色 -->
