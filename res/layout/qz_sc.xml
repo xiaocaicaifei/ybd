@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+        <TextView 
+            style="@style/style_base_component2"
+            android:layout_marginLeft="21dip"
+            android:layout_marginRight="21dip"
+            android:layout_marginTop="17dip"
+            android:text="@string/xzbqhfb"
+            android:textSize="@dimen/qz_sctp_zd12z"
+            android:textColor="@color/qz_sctp_zd12z"/>
+</LinearLayout>
