@@ -21,9 +21,9 @@
             android:textColorHint="@color/qz_sctp_xxxsd"
             android:textSize="@dimen/qz_sctp_xxxsd" />
         <GridView
-            android:id="@+id/tp_gl"
+            android:id="@+id/tp_gv"
             style="@style/style_base_component"
-            android:columnCount="4"
+			android:numColumns="4"
             android:layout_weight="1"
             android:horizontalSpacing="5dip"
             android:verticalSpacing="5dip"

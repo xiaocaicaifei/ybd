@@ -61,6 +61,13 @@
     <string name="xxxsd">写下想说的</string>
     <string name="qrsc">确认上传</string>
     <string name="xzbqhfb">选择标签后发布，大家将会在此标签种看到你发布的内容哦~</string>
+    <string name="dd">当代</string>
+    <string name="jxd">近现代</string>
+    <string name="gd">古代</string>
+    <string name="pz">拍照</string>
+    <string name="tp">图片</string>
+    <string name="wz2">文字</string>
+    <string name="yl2">预览</string>
     
     <!-- 消息 -->
     <string name="ss">搜索</string>

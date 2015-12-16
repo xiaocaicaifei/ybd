@@ -127,7 +127,7 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
     	switch (v.getId()) {
 		case R.id.right_rl:
 			Intent intent=new Intent();
-			intent.setClass(activity, QzSctpActivity.class);
+			intent.setClass(activity, QzScActivity.class);
 			startActivityForResult(intent,0);
 			break;
 

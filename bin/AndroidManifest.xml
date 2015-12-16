@@ -110,11 +110,21 @@
         </activity>
          
         <!-- 圈子-上传图片 -->
-        <activity android:name="com.ybd.yl.qz.QzSctpActivity"
+        <activity android:name="com.ybd.yl.qz.QzScSctpActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             ></activity>
         
+        <!-- 圈子-上传 -->
+        <activity android:name="com.ybd.yl.qz.QzScActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            ></activity>
+        <!-- 圈子-上传-选择相册图片 -->
+        <activity android:name="com.ybd.yl.common.SelectPhotoMultipleActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            ></activity>
         <!-- 微信回调类，接收说有微信的回调信息 -->
         <activity
             android:name=".wxapi.WXEntryActivity"

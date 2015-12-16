@@ -17,8 +17,8 @@
 
     <!-- padding：Button里面的文字与Button边界的间隔 -->
     <padding
-        android:bottom="7dip"
-        android:left="7dip"
-        android:right="7dip"
-        android:top="7dip" />
+        android:bottom="0dip"
+        android:left="0dip"
+        android:right="0dip"
+        android:top="0dip" />
 </shape>

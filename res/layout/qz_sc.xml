@@ -11,6 +11,74 @@
             android:layout_marginRight="21dip"
             android:layout_marginTop="17dip"
             android:text="@string/xzbqhfb"
-            android:textSize="@dimen/qz_sctp_zd12z"
+            android:textSize="@dimen/qz_sctp_xxxsd"
             android:textColor="@color/qz_sctp_zd12z"/>
+        
+        <LinearLayout 
+            style="@style/style_base_component"
+            android:layout_height="22dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="12dip"
+            android:orientation="horizontal">
+            <Button 
+                android:id="@+id/dd_b"
+                style="@style/style_base"
+                android:text="@string/dd"
+                android:textColor="@color/unitform_button_red"
+                android:layout_weight="1"
+                android:background="@drawable/yl_share_button2"/>
+             <Button 
+                android:id="@+id/jxd_b"
+                style="@style/style_base"
+                android:text="@string/jxd"
+                android:layout_marginLeft="5dip"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:background="@drawable/yl_share_button"/>
+              <Button 
+                android:id="@+id/gd_b"
+                style="@style/style_base"
+                android:text="@string/gd"
+                android:layout_marginLeft="5dip"
+                android:textColor="@color/unitform_button_red"
+                android:layout_weight="1"
+                android:background="@drawable/yl_share_button2"/>
+        </LinearLayout>
+        <LinearLayout 
+            style="@style/style_base"
+            android:layout_weight="1">
+        </LinearLayout>
+        <LinearLayout 
+            style="@style/style_base_component"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginBottom="22dip"
+            android:background="@drawable/qz_share_sc"
+            android:orientation="vertical"
+            >
+              <TextView 
+                  android:id="@+id/pz_tv"
+                  android:layout_height="39dip"
+                  android:gravity="center_vertical|center_horizontal"
+                  android:textColor="@color/unitform_button_red"
+                  style="@style/style_base_component"
+                  android:text="@string/pz"/>
+            <View style="@style/uniform_line"/>
+            <TextView 
+                  android:id="@+id/tp_tv"
+                  android:layout_height="39dip"
+                  style="@style/style_base_component"
+                  android:gravity="center_vertical|center_horizontal"
+                  android:textColor="@color/unitform_button_red"
+                  android:text="@string/tp"/>
+            <View style="@style/uniform_line"/>
+            <TextView 
+                  android:id="@+id/wz_tv"
+                  android:layout_height="39dip"
+                  style="@style/style_base_component"
+                  android:gravity="center_vertical|center_horizontal"
+                  android:textColor="@color/unitform_button_red"
+                  android:text="@string/wz2"/>
+        </LinearLayout>
 </LinearLayout>

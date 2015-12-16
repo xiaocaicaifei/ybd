@@ -17,6 +17,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ybd.common.MainApplication;
 import com.ybd.yl.R;
 
+/**
+ * 选择相册-单选
+ * 
+ * @author cyf
+ * @version $Id: SelectPhotoAdapter.java, v 0.1 2015-12-16 下午4:59:09 cyf Exp $
+ */
 public class SelectPhotoAdapter extends BaseAdapter {
     private List<Map<String, String>> list        = new ArrayList<Map<String, String>>();
     private Activity                  activity;

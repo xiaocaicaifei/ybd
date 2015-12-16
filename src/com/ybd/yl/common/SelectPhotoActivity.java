@@ -24,7 +24,7 @@ import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 
 /**
- * 图片多选
+ * 选择相册-单选
  * @author cyf
  * @version $Id: SelectPhoto.java, v 0.1 2015-11-19 上午10:09:03 cyf Exp $
  */
