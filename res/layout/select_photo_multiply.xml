@@ -24,7 +24,7 @@
 	    <TextView 
 	        android:id="@+id/yl_tv"
 	        style="@style/style_base_component2"
-	        android:text="@string/yl"
+	        android:text="@string/yl2"
 	        android:textColor="@color/yl_username_msg_gray_color"
 	        android:textSize="15sp"
 	        />

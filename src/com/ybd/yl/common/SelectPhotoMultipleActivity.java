@@ -9,24 +9,19 @@ import java.util.Map;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ybd.common.PicUtil;
+import com.ybd.common.L;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
-import com.ybd.yl.qz.QzScActivity;
 import com.ybd.yl.qz.QzScSctpActivity;
 
 /**
@@ -38,9 +33,11 @@ public class SelectPhotoMultipleActivity extends BaseActivity implements OnClick
     private GridView          xcGridView;                                 //相册
     private SelectPhotoMultipleAdapter       adapter;
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-    private String selectImagePath="";//用户选择的照片
+//    private String selectImagePath="";//用户选择的照片
     private TextView ylTextView;//预览
     private Button qdButton;//确定
+    private int selectNum;//选定照片的数量
+    private int sumSelectNum;//一共可选的数量（可选12张-牌照的数量）
 
 
     @Override
@@ -50,13 +47,35 @@ public class SelectPhotoMultipleActivity extends BaseActivity implements OnClick
         init();
         getImages();
     }
+    /**
+     * 选中图片的时候的事件
+     */
+    OnClickListener onSelectListener=new OnClickListener() {
+        
+        @Override
+        public void onClick(View v) {
+            if(v.getTag().toString().equals("0")){
+                selectNum--;
+            }else{
+                selectNum++;
+            }
+            if(selectNum==0){
+                qdButton.setBackgroundResource(R.drawable.login_share_button2);
+                qdButton.setTextColor(R.color.yl_username_msg_gray_color);
+            }else{
+                qdButton.setBackgroundResource(R.drawable.login_share_button);
+                qdButton.setTextColor(R.color.white);
+            }
+            qdButton.setText("确定("+selectNum+"/"+sumSelectNum+")");
+        }
+    };
 
     /**
      * 初始化页面控件
      */
     private void init() {
         xcGridView = (GridView) findViewById(R.id.xc_gv);
-        adapter = new SelectPhotoMultipleAdapter(list, activity);
+        adapter = new SelectPhotoMultipleAdapter(list, activity,onSelectListener);
         xcGridView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 //        xcGridView.setOnItemClickListener(new OnItemClickListener() {
@@ -78,6 +97,7 @@ public class SelectPhotoMultipleActivity extends BaseActivity implements OnClick
         qdButton.setOnClickListener(this);
         ylTextView=(TextView) findViewById(R.id.yl_tv);
         ylTextView.setOnClickListener(this);
+        
     }
 
     /**
@@ -107,54 +127,81 @@ public class SelectPhotoMultipleActivity extends BaseActivity implements OnClick
                         .getColumnIndex(MediaStore.Images.Media.DATA));
                     HashMap<String, Object> map = new HashMap<String, Object>();
                     map.put("path", "file:///" + path);
+                    map.put("ispz", "0");
+                    for(Map<String, Object> m:QzScSctpActivity.list){
+                        if(m.get("path").toString().equals("file:///" + path)){
+                            map.put("select", "1");
+                            selectNum++;
+                        }
+                    }
                     l.add(map);
                 }
 
                 list.clear();
                 list.addAll(l);
-                adapter.notifyDataSetChanged();
+                if(selectNum==0){
+                    qdButton.setBackgroundResource(R.drawable.login_share_button2);
+                    qdButton.setTextColor(R.color.yl_username_msg_gray_color);
+                }else{
+                    qdButton.setBackgroundResource(R.drawable.login_share_button);
+                    qdButton.setTextColor(R.color.white);
+                }
+                sumSelectNum=12-((QzScSctpActivity.list.size()-1)-selectNum);
+                if(sumSelectNum>12){
+                    sumSelectNum=12;
+                }
+                qdButton.setText("确定("+selectNum+"/"+sumSelectNum+")");
             }
         }).start();
     }
 
-    private void cropImageUri(Uri uri, int outputX, int outputY, int requestCode) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", outputX);
-        intent.putExtra("outputY", outputY);
-        intent.putExtra("scale", true);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        intent.putExtra("return-data", false);
-        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        intent.putExtra("noFaceDetection", true); // no face detection
-        startActivityForResult(intent, requestCode);
-    }
+//    private void cropImageUri(Uri uri, int outputX, int outputY, int requestCode) {
+//        Intent intent = new Intent("com.android.camera.action.CROP");
+//        intent.setDataAndType(uri, "image/*");
+//        intent.putExtra("crop", "true");
+//        intent.putExtra("aspectX", 1);
+//        intent.putExtra("aspectY", 1);
+//        intent.putExtra("outputX", outputX);
+//        intent.putExtra("outputY", outputY);
+//        intent.putExtra("scale", true);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//        intent.putExtra("return-data", false);
+//        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+//        intent.putExtra("noFaceDetection", true); // no face detection
+//        startActivityForResult(intent, requestCode);
+//    }
 
     @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         super.onActivityResult(arg0, arg1, arg2);
-        if (arg1 == RESULT_OK) {
-            if (arg0 == 1) {
-                selectImagePath = PicUtil.savePz(arg2);
-                Uri imageUri = Uri.parse("file:///" + selectImagePath);
-                cropImageUri(imageUri, 300, 300, 2);
-            } else if (arg0 == 2) {
-                Intent intent = new Intent();
-                intent.putExtra("path", selectImagePath.replace("file:///",""));
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        }
+//        if (arg1 == RESULT_OK) {
+//            if (arg0 == 1) {
+//                selectImagePath = PicUtil.savePz(arg2);
+//                Uri imageUri = Uri.parse("file:///" + selectImagePath);
+//                cropImageUri(imageUri, 300, 300, 2);
+//            } else if (arg0 == 2) {
+//                Intent intent = new Intent();
+//                intent.putExtra("path", selectImagePath.replace("file:///",""));
+//                setResult(RESULT_OK, intent);
+//                finish();
+//            }
+//        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.yl_tv:
-                
+                List<Map<String, Object>> l2=new ArrayList<Map<String,Object>>();
+                for(Map<String, Object> map:adapter.getList()){
+                    if(map.get("select")!=null&&map.get("select").toString().equals("1")){
+                        l2.add(map);
+                    }
+                }
+                Intent intent=new Intent();
+                intent.putExtra("object", (Serializable)l2);
+                intent.setClass(activity, PreviewImgActivity.class);
+                startActivity(intent);
                 break;
             case R.id.qd_b:
                 List<Map<String, Object>> l=new ArrayList<Map<String,Object>>();
@@ -163,15 +210,22 @@ public class SelectPhotoMultipleActivity extends BaseActivity implements OnClick
                         l.add(map);
                     }
                 }
+//                List<Map<String,Object>> l3=new ArrayList<Map<String,Object>>();
+//                for(Map<String, Object> m:QzScSctpActivity.list){
+//                    if(m.get("ispz")!=null&&m.get("ispz").toString().equals("0")){
+//                        
+//                    }else{
+//                        l3.add(m);
+//                    }
+//                }
+//                QzScSctpActivity.list.removeAll(l3);
+                QzScSctpActivity.list.addAll(0,l);
                 //更多按钮
-                Map<String, Object> map2=new HashMap<String, Object>();
-                map2.put("path", "drawable://"+R.drawable.qz_sc_sctp_gd);
-                l.add(l.size(),map2);
                 
-                Intent intent=new Intent();
-                intent.putExtra("path", (Serializable)l);
-                intent.setClass(activity, QzScSctpActivity.class);
-                startActivity(intent);
+                Intent intent2=new Intent();
+//                intent.putExtra("path", (Serializable)l);
+                intent2.setClass(activity, QzScSctpActivity.class);
+                startActivity(intent2);
                 break;
             default:
                 break;

@@ -7,18 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.ybd.common.L;
 import com.ybd.common.PicUtil;
+import com.ybd.common.PropertiesUtil;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
-import com.ybd.yl.common.SelectPhotoActivity;
 import com.ybd.yl.common.SelectPhotoMultipleActivity;
 
 /**
@@ -98,11 +96,15 @@ public class QzScActivity extends BaseActivity implements OnClickListener {
                 startActivityForResult(i, 0);
                 break;
             case R.id.tp_tv:
+                PropertiesUtil.write(activity, "ND", selectNd);//保存年代信息
                 intent.setClass(activity, SelectPhotoMultipleActivity.class);
-                startActivityForResult(intent, 1);
+                startActivity(intent);
                 break;
             case R.id.wz_tv:
-
+                PropertiesUtil.write(activity, "ND", selectNd);//保存年代信息
+                intent.setClass(activity, QzScSctp2Activity.class);
+                startActivity(intent);
+                finish();
                 break;
 
             default:
@@ -110,7 +112,6 @@ public class QzScActivity extends BaseActivity implements OnClickListener {
         }
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         super.onActivityResult(arg0, arg1, arg2);
@@ -118,28 +119,20 @@ public class QzScActivity extends BaseActivity implements OnClickListener {
             if(arg0==0){//拍照
                 String path = PicUtil.savePz(arg2);
 //                Uri imageUri = Uri.parse("file:///" + path);
-                List<Map<String, Object>> list = null;
+//                List<Map<String, Object>> list = null;
                 Map<String, Object> map=new HashMap<String, Object>();
                 map.put("path", "file:///"+path);
-                if(this.getIntent().hasExtra("path")){
-                    list=(List<Map<String, Object>>) this.getIntent().getExtras().getSerializable("path");
-                }else{
-                    list=new ArrayList<Map<String,Object>>();
-                }
-                list.add(map);
-              //更多按钮
-                Map<String, Object> map2=new HashMap<String, Object>();
-                map2.put("path", "drawable://"+R.drawable.qz_sc_sctp_gd);
-                list.add(list.size(),map2);
-                
+                map.put("ispz", "1");
+//                if(this.getIntent().hasExtra("path")){
+//                    list=(List<Map<String, Object>>) this.getIntent().getExtras().getSerializable("path");
+//                }else{
+//                    list=new ArrayList<Map<String,Object>>();
+//                }
+//                list.add(map);
+                QzScSctpActivity.list.add(0,map);
                 Intent intent=new Intent();
-                intent.putExtra("path", (Serializable)list);
                 intent.setClass(activity, QzScSctpActivity.class);
                 startActivity(intent);
-            }else if(arg0==1){//图片
-//                String path=arg2.getExtras().getString("path");
-//                NetWork.submit(activity, new UploadFile(path));
-//                txImageView.setImageBitmap(ImageUtil.toRoundBitmap2(ImageUtil.getLoacalBitmap(path)));
             }
         }
     }

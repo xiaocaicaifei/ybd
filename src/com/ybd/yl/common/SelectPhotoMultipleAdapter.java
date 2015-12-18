@@ -13,9 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ybd.common.MainApplication;
@@ -31,10 +29,12 @@ public class SelectPhotoMultipleAdapter extends BaseAdapter {
     private Activity                  activity;
     private ImageLoader               imageLoader = ImageLoader.getInstance();
     WindowManager                     wm;
-    public SelectPhotoMultipleAdapter(List<Map<String, Object>> list, Activity activity) {
+    private OnClickListener selectListener;
+    public SelectPhotoMultipleAdapter(List<Map<String, Object>> list, Activity activity,OnClickListener clickListener) {
         this.list = list;
         this.activity = activity;
         wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
+        this.selectListener=clickListener;
     }
 
     @Override
@@ -93,13 +93,16 @@ public class SelectPhotoMultipleAdapter extends BaseAdapter {
                 if(map.get("select")!=null&&map.get("select").toString().equals("1")){
                     map.put("select","0");
                     v.setBackgroundResource(R.drawable.select_photo_multiply);
+                    v.setTag("0");
+                    selectListener.onClick(v);
                 }else{
                     map.put("select","1");
                     v.setBackgroundResource(R.drawable.select_photo_multiply_select);
                     Map<String, Object> m=new HashMap<String, Object>();
                     m.put("path", map.get("path").toString());
+                    v.setTag("1");
+                    selectListener.onClick(v);
                 }
-                
             }
         });
         if(map.get("select")!=null&& map.get("select").toString().equals("1")){

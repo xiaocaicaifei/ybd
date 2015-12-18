@@ -16,6 +16,7 @@
             style="@style/style_base_component"
             android:hint="@string/xxxsd"
             android:inputType="textMultiLine"
+            android:layout_height="87dip"
             android:lines="3"
             android:background="@null"
             android:textColorHint="@color/qz_sctp_xxxsd"

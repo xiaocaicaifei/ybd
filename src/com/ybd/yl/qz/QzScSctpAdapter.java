@@ -1,6 +1,5 @@
 package com.ybd.yl.qz;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.ybd.common.L;
 import com.ybd.common.MainApplication;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.common.tools.ScreenDisplay;
@@ -36,6 +34,7 @@ public class QzScSctpAdapter extends BaseAdapter {
     public QzScSctpAdapter(List<Map<String, Object>> list, Activity activity) {
         this.list = list;
         this.activity = activity;
+        
     }
 
     @Override
@@ -70,7 +69,7 @@ public class QzScSctpAdapter extends BaseAdapter {
             viewHoler = (ViewHoler) convertView.getTag();
         }
         if(!PaseJson.getMapMsg(map, "path").equals("")){
-            L.v(PaseJson.getMapMsg(map, "path"));
+//            L.v(PaseJson.getMapMsg(map, "path"));
             imageLoader.displayImage(PaseJson.getMapMsg(map, "path"), viewHoler.tpImageView,
                 MainApplication.getOptions());
         }
@@ -81,9 +80,6 @@ public class QzScSctpAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     Intent intent=new Intent();
                     intent.setClass(activity, QzScActivity.class);
-                    List<Map<String, Object>> l=new ArrayList<Map<String,Object>>();
-                    l.addAll(list.subList(0, list.size()-1));
-                    intent.putExtra("path", (Serializable)l);
                     activity.startActivity(intent);
                 }
             });

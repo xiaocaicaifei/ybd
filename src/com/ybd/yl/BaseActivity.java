@@ -1,6 +1,11 @@
 package com.ybd.yl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,6 +31,10 @@ import com.ybd.common.App;
 import com.ybd.common.C;
 import com.ybd.common.L;
 import com.ybd.common.SystemBarTintManager;
+import com.ybd.common.net.Data;
+import com.ybd.common.net.INetWork;
+import com.ybd.common.net.INetWorkResult;
+import com.ybd.common.tools.PaseJson;
 
 /**
  * 基础的Activity,所有的Activity必须继承
@@ -66,6 +75,7 @@ public abstract class BaseActivity extends FragmentActivity implements App {
     private RelativeLayout rightRelativeLayout;//统一标题头右边按钮的背景层
     private ImageView leftImageView;//统一标题头左边按钮
     private ImageView rightImageView;//统一标题头右边的按钮
+    private TextView rightTextView;//统一标题头右边的文字
 
     /**
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -142,6 +152,44 @@ public abstract class BaseActivity extends FragmentActivity implements App {
          }
          
      }
+     /**
+      * 初始化公用的控件标题头的部分(右边的是文字)
+      * @param titleName 标题头显示的文字
+      */
+      public void initPublicView(String titleName,int leftId,String rightName,OnClickListener leftClickListener,OnClickListener rightClickListener) {
+          leftRelativeLayout = (RelativeLayout) findViewById(R.id.left_rl);
+          rightRelativeLayout = (RelativeLayout) findViewById(R.id.right_rl);
+          leftImageView=(ImageView) findViewById(R.id.left_iv);
+          rightTextView=(TextView) findViewById(R.id.right_tv);
+          if(leftId==0){//表示左边没有按钮
+              leftImageView.setVisibility(View.GONE);
+          }else{
+              leftImageView.setVisibility(View.VISIBLE);
+              leftImageView.setBackgroundResource(leftId);
+              if (leftId==R.drawable.login_fh) {//如果是特殊情况，是返回按钮
+                  leftRelativeLayout.setOnClickListener(new OnClickListener() {
+                     @Override
+                     public void onClick(View arg0) {
+                         activity.finish();
+                     }
+                 });
+              }else{
+                  leftRelativeLayout.setOnClickListener(leftClickListener);
+              }
+          }
+          if(rightName.equals("")){//表示右边没有按钮
+              rightTextView.setVisibility(View.GONE);
+          }else{
+              rightTextView.setVisibility(View.VISIBLE);
+              rightTextView.setText(rightName);
+              rightRelativeLayout.setOnClickListener(rightClickListener);
+          }
+          titleTextView = (TextView) activity.findViewById(R.id.title_name_tv);
+          if (titleTextView != null) {
+              titleTextView.setText(titleName);
+          }
+          
+      }
     /**
      * 控制台上打印 {@link BaseActivity#allActivity}
      */
@@ -359,6 +407,51 @@ public abstract class BaseActivity extends FragmentActivity implements App {
             startActivityForResult(Intent.createChooser(intent, "请选择要上传的文件"), requestCode);
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(activity, "请安装文件管理器", Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    /**
+     * 上传附件
+     * @author Administrator
+     *
+     */
+    public class UploadFile implements INetWork {
+//        private String picPath;
+        INetWorkResult netWorkResult;
+        List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
+
+        public UploadFile(List<Map<String, Object>> l,INetWorkResult result) {
+//            this.picPath = picPath;
+            this.netWorkResult=result;
+            list.addAll(l);
+        }
+        @Override
+        public boolean validate() {
+            return true;
+        }
+        @Override
+        public Data getSubmitData() throws Exception {
+            Data d = new Data("fs/uploadFile.json");
+            d.addData("temp", "");
+//            d.addData("path", picPath);
+            for(Map<String, Object> m:list){
+                d.addPath(m.get("path").toString().replace("file:///", ""));
+            }
+            return d;
+        }
+
+        @Override
+        public void result(String result) throws Exception {
+//            @SuppressWarnings("unchecked")
+//            Map<String, Object> map=(Map<String, Object>) PaseJson.paseJsonToObject(result);
+//            if(map.get("code").equals("0")){
+//                String []str=(String[]) map.get("fileList");
+//                tempPhotoUrl=str[0];
+//            }else{
+//                toastShow("上传图片失败！");
+//            }
+            JSONObject jsonObject=new JSONObject(result);
+            netWorkResult.result(jsonObject.get("fileList").toString());
         }
     }
 

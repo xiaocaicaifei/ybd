@@ -5,7 +5,7 @@
 	<ImageView 
 	    android:id="@+id/photo_iv"
 	   	style="@style/style_base_component2"
-	    android:scaleType="fitStart"/>
+	    android:scaleType="center"/>
 	<ImageView 
 	    android:id="@+id/select_icon_iv"
 	    style="@style/style_base_component2"

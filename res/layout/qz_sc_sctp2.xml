@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title2" />
+
+    <LinearLayout
+        style="@style/style_base"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="15dip"
+        android:orientation="vertical" >
+        <EditText
+            android:id="@+id/nr_et"
+            android:gravity="top|left"
+            style="@style/style_base_component"
+            android:layout_height="87dip"
+            android:hint="@string/xxxsd"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:background="@null"
+            android:textColorHint="@color/qz_sctp_xxxsd"
+            android:textSize="@dimen/qz_sctp_xxxsd" />
+        <!-- <Button
+            android:layout_gravity="bottom"
+            android:id="@+id/qrsc_b"
+            android:layout_width="fill_parent"
+            android:layout_height="33dip"
+            style="@style/login_button"
+        	android:text="@string/qrsc"
+        	android:layout_marginBottom="20dip"
+            /> -->
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,6 +9,7 @@
     </issue>
     <issue id="InefficientWeight" severity="ignore" />
     <issue id="InflateParams" severity="ignore" />
+    <issue id="JavascriptInterface" severity="ignore" />
     <issue id="NestedScrolling">
         <ignore path="res/layout/gr_index.xml" />
     </issue>

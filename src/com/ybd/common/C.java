@@ -24,7 +24,8 @@ public class C {
     
 //    public static final String WX_APP_SECRET = "wxd930ea5d5a258f4f";
 
-//    public static String  IP        = "http://192.168.199.202:8080/"; // 毛哥本机
-    public static String  IP        = "http://120.24.175.13:8080/"; // 外网服务器
+    public static String  IP        = "http://192.168.199.202:8080/"; // 毛哥本机
+//    public static String  IP        = "http://192.168.1.100:8080/"; // 毛哥本机
+//    public static String  IP        = "http://120.24.175.13:8080/"; // 外网服务器
 
 }
