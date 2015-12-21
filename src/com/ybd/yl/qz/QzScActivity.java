@@ -1,9 +1,6 @@
 package com.ybd.yl.qz;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
@@ -40,7 +37,7 @@ public class QzScActivity extends BaseActivity implements OnClickListener {
         initPublicView("上传", R.drawable.login_fh, 0, null, null);
         init();
     }
-    
+
     /**
      * 初始化控件
      */
@@ -99,6 +96,7 @@ public class QzScActivity extends BaseActivity implements OnClickListener {
                 PropertiesUtil.write(activity, "ND", selectNd);//保存年代信息
                 intent.setClass(activity, SelectPhotoMultipleActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.wz_tv:
                 PropertiesUtil.write(activity, "ND", selectNd);//保存年代信息
@@ -111,28 +109,29 @@ public class QzScActivity extends BaseActivity implements OnClickListener {
                 break;
         }
     }
-    
+
     @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         super.onActivityResult(arg0, arg1, arg2);
-        if(arg1==RESULT_OK){
-            if(arg0==0){//拍照
+        if (arg1 == RESULT_OK) {
+            if (arg0 == 0) {//拍照
                 String path = PicUtil.savePz(arg2);
-//                Uri imageUri = Uri.parse("file:///" + path);
-//                List<Map<String, Object>> list = null;
-                Map<String, Object> map=new HashMap<String, Object>();
-                map.put("path", "file:///"+path);
+                //                Uri imageUri = Uri.parse("file:///" + path);
+                //                List<Map<String, Object>> list = null;
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("path", "file:///" + path);
                 map.put("ispz", "1");
-//                if(this.getIntent().hasExtra("path")){
-//                    list=(List<Map<String, Object>>) this.getIntent().getExtras().getSerializable("path");
-//                }else{
-//                    list=new ArrayList<Map<String,Object>>();
-//                }
-//                list.add(map);
-                QzScSctpActivity.list.add(0,map);
-                Intent intent=new Intent();
+                //                if(this.getIntent().hasExtra("path")){
+                //                    list=(List<Map<String, Object>>) this.getIntent().getExtras().getSerializable("path");
+                //                }else{
+                //                    list=new ArrayList<Map<String,Object>>();
+                //                }
+                //                list.add(map);
+                QzScSctpActivity.list.add(0, map);
+                Intent intent = new Intent();
                 intent.setClass(activity, QzScSctpActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
     }

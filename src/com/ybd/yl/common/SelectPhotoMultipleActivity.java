@@ -226,6 +226,7 @@ public class SelectPhotoMultipleActivity extends BaseActivity implements OnClick
 //                intent.putExtra("path", (Serializable)l);
                 intent2.setClass(activity, QzScSctpActivity.class);
                 startActivity(intent2);
+                finish();
                 break;
             default:
                 break;

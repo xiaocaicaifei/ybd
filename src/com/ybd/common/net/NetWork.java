@@ -9,6 +9,8 @@ import android.app.Service;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.ybd.common.App;
 import com.ybd.common.L;
@@ -79,6 +81,7 @@ public class NetWork {
         }
 
     }
+    
 
     /**
      * 提交数据,可以向服务器多次请求，弹出一个提示框，注意：<br>

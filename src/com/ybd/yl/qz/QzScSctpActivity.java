@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
@@ -103,6 +107,15 @@ public class QzScSctpActivity extends BaseActivity implements OnClickListener {
         
         @Override
         public void result(String result) throws Exception {
+            JSONObject jsonObject=new JSONObject(result);
+            if(jsonObject.getString("code").equals("0")){
+                toastShow("发送成功！");
+                Intent intent=new Intent("QZSX");
+                LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
+                finish();
+            }else{
+                toastShow("发送失败！");
+            }
         }
     };
 }

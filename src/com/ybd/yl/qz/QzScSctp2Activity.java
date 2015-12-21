@@ -2,6 +2,8 @@ package com.ybd.yl.qz;
 
 import org.json.JSONObject;
 
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -74,10 +76,12 @@ public class QzScSctp2Activity extends BaseActivity implements OnClickListener {
         public void result(String result) throws Exception {
             JSONObject jsonObject=new JSONObject(result);
             if(jsonObject.getString("code").equals("0")){
-                toastShow("保存成功！");
+                toastShow("发送成功！");
+                Intent intent=new Intent("QZSX");
+                LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
                 finish();
             }else{
-                toastShow("保存失败！");
+                toastShow("发送失败！");
             }
         }
     };

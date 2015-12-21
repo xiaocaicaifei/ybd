@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.util.DisplayMetrics;
@@ -42,6 +46,7 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
     private BaseAdapter               adapter;
     private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     DrawerLayout                      drawerLayout;
+    private ReceiverBroadCase         receiverBroadCase;
 
     @Override
     protected void initComponentBase() {
@@ -49,6 +54,7 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
         initPublicView("圈子", R.drawable.yl_sz, R.drawable.yl_sc, QzIndexFragment.this,
             QzIndexFragment.this);
         initListView();
+        registBroad();//注册广播接收
         //        initDrawerLayout();
         page = 1;
         NetWork.submit(activity, qzList);
@@ -59,15 +65,26 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
         int height = ScreenDisplay.getScreenHeight2(activity)
                      - ScreenDisplay.dip2px(activity, R.dimen.uniform_title_height)
                      - ScreenDisplay.dip2px(activity, R.dimen.nav_bar_size)
-                     -ScreenDisplay.dip2px(activity, 35);
+                     - ScreenDisplay.dip2px(activity, 35);
         //动态设置Listview的高度
         ScreenDisplay.setViewWidthAndHeight(listView, 0, height);
         listView.setPullLoadEnable(true);
         listView.setPullRefreshEnable(true);
-        setXListViewListener(listView, qzList,list);
+        setXListViewListener(listView, qzList, list);
         adapter = new QzIndexAdapter(list, activity);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 注册广播
+     */
+    private void registBroad() {
+        LocalBroadcastManager broadcastManager=LocalBroadcastManager.getInstance(activity);
+        receiverBroadCase = new ReceiverBroadCase();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("QZSX");
+        broadcastManager.registerReceiver(receiverBroadCase, filter);
     }
 
     /**
@@ -124,16 +141,16 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
 
     @Override
     public void onClick(View v) {
-    	switch (v.getId()) {
-		case R.id.right_rl:
-			Intent intent=new Intent();
-			intent.setClass(activity, QzScActivity.class);
-			startActivityForResult(intent,0);
-			break;
+        switch (v.getId()) {
+            case R.id.right_rl:
+                Intent intent = new Intent();
+                intent.setClass(activity, QzScActivity.class);
+                startActivityForResult(intent, 0);
+                break;
 
-		default:
-			break;
-		}
+            default:
+                break;
+        }
     }
 
     /**
@@ -168,15 +185,26 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
                         public void result(String result) throws Exception {
                             Map<String, Object> map = (Map<String, Object>) PaseJson
                                 .paseJsonToObject(result);
-                            List<Map<String, Object>> l=(List<Map<String, Object>>) map.get("circleList");
+                            List<Map<String, Object>> l = (List<Map<String, Object>>) map
+                                .get("circleList");
                             list.addAll(l);
                             adapter.notifyDataSetChanged();
-                            int total=Integer.parseInt(map.get("totalCount").toString());
-                            if (l.size()+(page-1)*C.PAGE_SIZE >=total) {
+                            int total = Integer.parseInt(map.get("totalCount").toString());
+                            if (l.size() + (page - 1) * C.PAGE_SIZE >= total) {
                                 listView.setPullLoadMorEnable(false);
-                            }else{
+                            } else {
                                 listView.setPullLoadMorEnable(true);
                             }
                         }
                     };
+
+    private class ReceiverBroadCase extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            page = 1;
+            list.clear();
+            NetWork.submit(activity, false, qzList);
+        }
+    }
 }

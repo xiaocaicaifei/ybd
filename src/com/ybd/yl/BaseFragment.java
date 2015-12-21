@@ -81,7 +81,7 @@ public abstract class BaseFragment extends Fragment {
                                 try {
                                     page = 1;
                                     list.clear();
-                                    NetWork.submit(activity, serverSubmit);
+                                    NetWork.submit(activity, false,serverSubmit);
                                     listView.stopRefresh();
                                     listView.stopLoadMore();
                                 } catch (Exception e) {
@@ -99,7 +99,7 @@ public abstract class BaseFragment extends Fragment {
                             public void run() {
                                 try {
                                     page++;
-                                    NetWork.submit(activity, serverSubmit);
+                                    NetWork.submit(activity,false,serverSubmit);
                                     listView.stopRefresh();
                                     listView.stopLoadMore();
                                     listView.setRefreshTime(new Date().toLocaleString());

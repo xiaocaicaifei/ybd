@@ -1,26 +1,31 @@
 package com.ybd.yl.qz;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ybd.common.C;
 import com.ybd.common.GridViewRun;
-import com.ybd.common.L;
-import com.ybd.common.ListViewRun;
 import com.ybd.common.MainApplication;
+import com.ybd.common.PropertiesUtil;
+import com.ybd.common.net.Data;
+import com.ybd.common.net.INetWork;
+import com.ybd.common.net.NetWork;
 import com.ybd.common.tools.DateUtil;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.common.tools.ScreenDisplay;
@@ -59,8 +64,8 @@ public class QzIndexAdapter extends BaseAdapter {
 
     @SuppressWarnings("unchecked")
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Map<String, Object> map = list.get(position);
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final Map<String, Object> map = list.get(position);
         List<Map<String, Object>> l = (List<Map<String, Object>>) map.get("circlePicMsg");
         List<Map<String, Object>> l2 = (List<Map<String, Object>>) map.get("comment");
         ViewHoler viewHoler = null;
@@ -122,7 +127,16 @@ public class QzIndexAdapter extends BaseAdapter {
         viewHoler.fsTextView.setText(PaseJson.getMapMsg(map, "followers_count"));
         viewHoler.descriptionTextView.setText(PaseJson.getMapMsg(map, "description"));
         viewHoler.plTextView.setText(l2.size() + "");
-        viewHoler.zanTextView.setText(PaseJson.getMapMsg(map, "thum_count").toString());
+//        String zanNum=PaseJson.getMapMsg(map, "thum_count").toString();
+//        viewHoler.zanTextView.setText(zanNum);
+        String isZan=PaseJson.getMapMsg(map, "is_thumb").toString();
+        if(isZan.equals("0")){
+            viewHoler.zanImageView.setBackgroundResource(R.drawable.qz_zan);
+            viewHoler.zanTextView.setTextColor(activity.getResources().getColor(R.color.yl_username_msg_gray_color));
+        }else{
+            viewHoler.zanImageView.setBackgroundResource(R.drawable.qz_zan_select);
+            viewHoler.zanTextView.setTextColor(activity.getResources().getColor(R.color.unitform_button_red));
+        }
         BaseAdapter tpAdapter = new QzIndexTpAdapter(l, activity);
         viewHoler.tpGridView.setAdapter(tpAdapter);
         tpAdapter.notifyDataSetChanged();
@@ -135,8 +149,66 @@ public class QzIndexAdapter extends BaseAdapter {
         }else{
             viewHoler.plListViewRun.setVisibility(View.VISIBLE);
         }
-
+        
+        viewHoler.zanLinearLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                String zanNum=PaseJson.getMapMsg(map, "thum_count").toString();
+                if(PaseJson.getMapMsg(map, "is_thumb").toString().equals("0")){
+                    map.put("is_thumb", "1");
+                    NetWork.submit(activity, new ZanOperate("0", PaseJson.getMapMsg(map, "circle_id")));
+                }else{
+                    map.put("is_thumb", "0");
+                    NetWork.submit(activity, new ZanOperate("1", PaseJson.getMapMsg(map, "circle_id")));
+                }
+                notifyDataSetChanged();
+            }
+        });
         return convertView;
+    }
+    
+    /**
+     * 赞和取消赞
+     * 
+     * @author cyf
+     * @version $Id: QzIndexAdapter.java, v 0.1 2015-12-21 下午2:03:07 cyf Exp $
+     */
+    private class ZanOperate implements INetWork{
+        String isZan;
+        String circleId;
+
+        public ZanOperate(String isZan,String circleId) {
+            this.isZan=isZan;
+            this.circleId=circleId;
+        }
+        @Override
+        public boolean validate() {
+            return true;
+        }
+
+        @Override
+        public Data getSubmitData() throws Exception {
+            Data data=new Data("thumb/ThumbUp.json");
+            data.addData("user_id", PropertiesUtil.read(activity, PropertiesUtil.USERID));
+            data.addData("circle_id", circleId);
+            data.addData("is_praise", isZan);
+            return data;
+        }
+
+        @Override
+        public void result(String result) throws Exception {
+            JSONObject  jsonObject=new JSONObject(result);
+            if(jsonObject.get("code").toString().equals("0")){
+                if(isZan.equals("0")){
+                    Toast.makeText(activity, "已赞", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(activity, "取消赞成功", Toast.LENGTH_LONG).show();
+                }
+            }else{
+                Toast.makeText(activity, "操作失败", Toast.LENGTH_LONG).show();
+            }
+        }
+        
     }
 
     class ViewHoler {
