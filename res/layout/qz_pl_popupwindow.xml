@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clickbg"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00000000"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/style_base_bg"
+        android:layout_height="41dip"
+        android:layout_alignParentBottom="true"
+        android:background="#f8f8f8" 
+        android:orientation="vertical">
+        
+        <View style="@style/uniform_line" android:id="@+id/up_line"/>
+
+        <EditText
+            android:id="@+id/pl_ev"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:textSize="14sp"
+            android:textColor="#484848"
+            android:background="@null"
+            android:maxLines="3"
+            android:layout_below="@id/up_line"
+            android:inputType="text"
+            android:imeOptions="actionSend"
+            android:layout_centerVertical="true"
+            style="@style/style_base_component" />
+        <View 
+            style="@style/uniform_line" 
+            android:layout_height="1.5dip"
+            android:layout_marginLeft="12dip"
+            android:layout_marginRight="12dip"
+            android:layout_marginBottom="6dip"
+            android:layout_below="@id/pl_ev"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+</RelativeLayout>

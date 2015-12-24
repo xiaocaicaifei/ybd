@@ -28,7 +28,7 @@ import cn.w.song.widget.navigation.adapter.RollNavigationBarAdapter;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 /**
- * 工作微信导航栏
+ * 导航栏
  * 
  * @author cyf
  * @version $Id: NavigationActivity.java, v 0.1 2014-4-10 下午4:39:05 cyf Exp $
@@ -64,7 +64,7 @@ public class NavigationActivity extends BaseActivity {
         /* 设置滑动条的滑动时间，时间范围在0.1~1s，不在范围则默认0.1s */
         rnb.setSelecterMoveContinueTime(0.1f);
         /* 设置滑动条样式（图片） */
-        rnb.setSelecterDrawableSource(R.drawable.home_dh);// 必须
+//        rnb.setSelecterDrawableSource(R.drawable.home_dh);// 必须
         /* 设置导航栏的被选位置 */
 
 //        rnb.setSelectedChildPosition(Navigation.QZ.getIndex());// 可以不设置（设置选中第几个）

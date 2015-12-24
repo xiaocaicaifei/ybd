@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <TextView
+        style="@style/style_base_component2"
+        android:layout_marginLeft="15dip"
+        android:layout_marginTop="15dip"
+        android:text="@string/qxztsyy"
+        android:textColor="@color/qz_ts"
+        android:textSize="14sp" />
+
+    <RadioGroup
+        android:id="@+id/ts_rg"
+        style="@style/style_base_component2"
+        android:layout_marginLeft="15dip"
+        android:checkedButton="@+id/one_rb"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@id/one_rb"
+            style="@style/style_base_component"
+            android:button="@drawable/qz_ts_radiobutton"
+            android:text="@string/qnfdtpbtqc"
+            android:layout_marginTop="15dip"
+            android:paddingLeft="15dip"
+            android:textColor="@color/qz_ts" />
+
+        <RadioButton
+            android:id="@+id/two_rb"
+            style="@style/style_base_component"
+            android:button="@drawable/qz_ts_radiobutton"
+            android:text="@string/fdyl"
+            android:paddingLeft="15dip"
+            android:layout_marginTop="15dip"
+            android:textColor="@color/qz_ts" />
+
+        <RadioButton
+            android:id="@+id/three_rb"
+            style="@style/style_base_component"
+            android:button="@drawable/qz_ts_radiobutton"
+            android:text="@string/sq"
+            android:paddingLeft="15dip"
+            android:layout_marginTop="15dip"
+            android:textColor="@color/qz_ts" />
+
+        <RadioButton
+            android:id="@+id/four_rb"
+            style="@style/style_base_component"
+            android:button="@drawable/qz_ts_radiobutton"
+            android:text="@string/la"
+            android:paddingLeft="15dip"
+            android:layout_marginTop="15dip"
+            android:textColor="@color/qz_ts" />
+    </RadioGroup>
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_height="41dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:layout_marginTop="64dip"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/qrtj_b"
+            style="@style/style_base"
+            android:background="@drawable/yl_share_button"
+            android:text="@string/qrtj"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

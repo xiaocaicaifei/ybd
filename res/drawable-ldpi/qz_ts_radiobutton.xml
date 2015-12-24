@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	圈子-投诉
+ -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android"> 
+    <item 
+    	  android:state_enabled="true" 
+          android:state_checked="true"
+          android:drawable="@drawable/qz_ts_fs_select"/> 
+    <item              
+          android:state_enabled="true"     
+          android:state_checked="false"
+          android:drawable="@drawable/qz_ts_fs_unselect"/> 
+</selector>

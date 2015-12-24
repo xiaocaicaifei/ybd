@@ -129,4 +129,5 @@
    	    <item name="android:paddingLeft">11dip</item>
    	    <item name="android:paddingRight">11dip</item>
    	</style>
+   	
 </resources>

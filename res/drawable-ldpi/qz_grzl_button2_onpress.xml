@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 圈子-个人资料 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true"><shape>
+
+            <!-- 填充的颜色 -->
+            <solid android:color="@color/qz_grzl_red_onpress" />
+            <!-- 弧度 -->
+            <corners android:radius="5dip" />
+        </shape></item>
+    <item ><shape>
+            <!-- 填充的颜色 -->
+            <solid android:color="@color/unitform_button_red" />
+            <!-- android:radius 弧形的半径 -->
+            <corners android:radius="5dip" />
+        </shape></item>
+
+</selector>

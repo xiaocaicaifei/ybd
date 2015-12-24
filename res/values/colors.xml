@@ -46,6 +46,10 @@
 	<!-- 圈子 -->
 	<color name="qz_sctp_xxxsd">#666666</color><!-- 圈子-上传图片-写下想说的 -->
 	<color name="qz_sctp_zd12z">#666666</color><!-- 圈子-上传图片-最多12张 -->
+	<color name="qz_ts">#666666</color><!-- 圈子-投诉 -->
+	<color name="qz_xxzl">#747474</color>
+	<color name="qz_grzl_gray_onpress">#efefef</color><!-- 圈子-个人资料-灰色按钮按下的背景颜色 -->
+	<color name="qz_grzl_red_onpress">#ea2d34</color><!-- 圈子-个人资料-红色按钮按下的背景颜色 -->
 	
 	
 	<!-- 消息 -->

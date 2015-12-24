@@ -1,16 +1,20 @@
 package com.ybd.yl.qz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,10 +45,12 @@ public class QzIndexAdapter extends BaseAdapter {
     private List<Map<String, Object>> list        = new ArrayList<Map<String, Object>>();
     private Activity                  activity;
     ImageLoader                       imageLoader = ImageLoader.getInstance();
+    private OnClickListener plClickListener;
 
-    public QzIndexAdapter(List<Map<String, Object>> list, Activity activity) {
+    public QzIndexAdapter(List<Map<String, Object>> list, Activity activity,OnClickListener plClickListener) {
         this.list = list;
         this.activity = activity;
+        this.plClickListener=plClickListener;
     }
 
     @Override
@@ -67,7 +73,7 @@ public class QzIndexAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Map<String, Object> map = list.get(position);
         List<Map<String, Object>> l = (List<Map<String, Object>>) map.get("circlePicMsg");
-        List<Map<String, Object>> l2 = (List<Map<String, Object>>) map.get("comment");
+        final List<Map<String, Object>> l2 = (List<Map<String, Object>>) map.get("comment");
         ViewHoler viewHoler = null;
         if (convertView == null) {
             viewHoler = new ViewHoler();
@@ -118,9 +124,18 @@ public class QzIndexAdapter extends BaseAdapter {
         } else {
             viewHoler.zjImageView.setVisibility(View.VISIBLE);
         }
+        viewHoler.txImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.putExtra("bcrUserId", PaseJson.getMapMsg(map, "user_id"));
+                intent.setClass(activity, QzXxzlActivity.class);
+                activity.startActivity(intent);
+            }
+        });
         viewHoler.timeTextView.setText(DateUtil.getTimeFormat("HH:mm", PaseJson.getMapMsg(map, "issue_time")));
-        Map<String, Object> m=(Map<String, Object>) map.get("json_attributes");
-        viewHoler.ddTextView.setText(PaseJson.getMapMsg(m, "address"));
+//        Map<String, Object> m=(Map<String, Object>) map.get("json_attributes");
+        viewHoler.ddTextView.setText(PaseJson.getMapMsg(map, "address"));
         viewHoler.gmTextView.setText(PaseJson.getMapMsg(map, "buy_vol") + "件");
         viewHoler.mcTextView.setText(PaseJson.getMapMsg(map, "sale_vol") + "件");
         viewHoler.xyTextView.setText(PaseJson.getMapMsg(map, "degree_credit") + "分");
@@ -137,11 +152,37 @@ public class QzIndexAdapter extends BaseAdapter {
             viewHoler.zanImageView.setBackgroundResource(R.drawable.qz_zan_select);
             viewHoler.zanTextView.setTextColor(activity.getResources().getColor(R.color.unitform_button_red));
         }
+        viewHoler.plLinearLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String, Object> m=new HashMap<String, Object>();
+                m.put("circleId", PaseJson.getMapMsg(map, "circle_id"));
+                m.put("note", "");
+                m.put("parentId", "");
+                m.put("parentUserid", "");
+                v.setTag(m);
+                plClickListener.onClick(v);
+            }
+        });
         BaseAdapter tpAdapter = new QzIndexTpAdapter(l, activity);
         viewHoler.tpGridView.setAdapter(tpAdapter);
         tpAdapter.notifyDataSetChanged();
         BaseAdapter plAdapter = new QzIndexPlAdapter(l2, activity);
         viewHoler.plListViewRun.setAdapter(plAdapter);
+        viewHoler.plListViewRun.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Map<String,Object> map2=l2.get(position);
+                Map<String, Object> m=new HashMap<String, Object>();
+                m.put("circleId", PaseJson.getMapMsg(map, "circle_id"));
+                m.put("note", "");
+                m.put("parentId", PaseJson.getMapMsg(map2, "id"));
+                m.put("parentUserid", PaseJson.getMapMsg(map2, "user_id"));
+                m.put("position", position+"");
+                view.setTag(m);
+                plClickListener.onClick(view);
+            }
+        });
         plAdapter.notifyDataSetChanged();
         ScreenDisplay.setListViewHeightBasedOnChildren(viewHoler.plListViewRun);
         if(l2.size()==0){
@@ -162,6 +203,16 @@ public class QzIndexAdapter extends BaseAdapter {
                     NetWork.submit(activity, new ZanOperate("1", PaseJson.getMapMsg(map, "circle_id")));
                 }
                 notifyDataSetChanged();
+            }
+        });
+        viewHoler.tsLinearLayout.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.putExtra("qzid",PaseJson.getMapMsg(map, "circle_id"));
+                intent.setClass(activity, QzTsActivity.class);
+                activity.startActivity(intent);
             }
         });
         return convertView;

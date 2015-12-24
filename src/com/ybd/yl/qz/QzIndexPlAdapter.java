@@ -49,7 +49,6 @@ public class QzIndexPlAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        L.v(position+"PL");
         Map<String, Object> map = list.get(position);
         ViewHoler viewHoler = null;
         if (convertView == null) {

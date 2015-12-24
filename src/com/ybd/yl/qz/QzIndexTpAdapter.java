@@ -54,7 +54,6 @@ public class QzIndexTpAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        L.v(position+"TP");
         Map<String, Object> map = list.get(position);
         ViewHoler viewHoler = null;
         if (convertView == null) {

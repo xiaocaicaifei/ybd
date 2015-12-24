@@ -68,6 +68,18 @@
     <string name="tp">图片</string>
     <string name="wz2">文字</string>
     <string name="yl2">预览</string>
+    <string name="qxztsyy">请选择投诉原因</string>
+    <string name="qnfdtpbtqc">亲，您发的图片不太清楚</string>
+    <string name="fdyl">反动言论</string>
+    <string name="sq">色情</string>
+    <string name="la">拉黑</string>
+    <string name="qrtj">确认提交</string>
+    <string name="xgbz">修改备注</string>
+    <string name="sj">手机</string>
+    <string name="yx">邮箱</string>
+    <string name="pb">屏蔽</string>
+    <string name="swzj">设为专家</string>
+    <string name="fsxx">发送消息</string>
     
     <!-- 消息 -->
     <string name="ss">搜索</string>

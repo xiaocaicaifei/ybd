@@ -21,7 +21,9 @@
     <!-- 圈子 -->
     <dimen name="qz_sctp_xxxsd">12sp</dimen><!-- 上传图片页面-写下想说的文字的大小 -->
     <dimen name="qz_sctp_zd12z">10sp</dimen><!-- 上传图片页面-最多12张文字的大小 -->
+    <dimen name="qz_xgbz">14sp</dimen><!-- 圈子-修改备注页面的字体的大小 -->
     
     <dimen name="dialog_height">224dip</dimen><!-- 自定义弹出框的高度 -->
 	<dimen name="dialog_width">338dip</dimen><!-- 自定义弹出框的宽度 -->
+	
 </resources>
