@@ -80,6 +80,7 @@
     <string name="pb">屏蔽</string>
     <string name="swzj">设为专家</string>
     <string name="fsxx">发送消息</string>
+    <string name="fs2">发送</string>
     
     <!-- 消息 -->
     <string name="ss">搜索</string>
@@ -105,5 +106,9 @@
     <string name="errcode_cancel">发送取消</string>
     <string name="errcode_deny">发送被拒绝</string>
     <string name="errcode_unknown">发送返回</string>
-
+    
+    <string name="xx">消息</string>
+    <string name="qz">圈子</string>
+    <string name="pm">拍卖</string>
+	<string name="gr">个人</string>
 </resources>

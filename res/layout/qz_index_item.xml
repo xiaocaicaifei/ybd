@@ -186,7 +186,7 @@
     </com.ybd.common.GridViewRun>
 
     <ListView
-        android:id="@+id/pl_lvr"
+        android:id="@+id/pl_lv"
         style="@style/style_base_component"
         android:layout_marginLeft="11dip"
         android:layout_marginRight="11dip"

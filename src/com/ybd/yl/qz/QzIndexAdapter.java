@@ -104,13 +104,15 @@ public class QzIndexAdapter extends BaseAdapter {
             viewHoler.zanTextView = (TextView) convertView.findViewById(R.id.zan_tv);
             viewHoler.zanImageView = (ImageView) convertView.findViewById(R.id.zan_iv);
             viewHoler.tpGridView = (GridViewRun) convertView.findViewById(R.id.tp_gv);
-            viewHoler.plListViewRun = (ListView) convertView.findViewById(R.id.pl_lvr);
+            viewHoler.plListViewRun = (ListView) convertView.findViewById(R.id.pl_lv);
             convertView.setTag(viewHoler);
         } else {
             viewHoler = (ViewHoler) convertView.getTag();
         }
-        imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "icon_url"), viewHoler.txImageView,
-            MainApplication.getRoundOptions());
+        if(!PaseJson.getMapMsg(map, "icon_url").equals("")){
+            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "icon_url"), viewHoler.txImageView,
+                MainApplication.getRoundOptions());
+        }
         //是否是大V
         if (map.get("is_bv").toString().equals("0")) {
             viewHoler.dvImageView.setVisibility(View.GONE);

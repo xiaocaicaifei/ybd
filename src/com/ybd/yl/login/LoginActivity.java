@@ -37,7 +37,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void initComponentBase() {
         setContentView(R.layout.login);
-        initPublicView("登录");
+//        initPublicView("登录");
         //        setStateColor(1);
         init();
         NetWork.submit(activity, new GetPhoto());

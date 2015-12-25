@@ -1,6 +1,7 @@
 package com.ybd.yl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -14,6 +15,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -36,7 +38,10 @@ import com.ybd.common.SystemBarTintManager;
 import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
 import com.ybd.common.net.INetWorkResult;
+import com.ybd.common.net.NetWork;
 import com.ybd.common.tools.PaseJson;
+import com.ybd.common.xListView.XListView;
+import com.ybd.common.xListView.XListView.IXListViewListener;
 
 /**
  * 基础的Activity,所有的Activity必须继承
@@ -68,16 +73,17 @@ public abstract class BaseActivity extends FragmentActivity implements App {
 
     //    private DatePickerDialog dateDialog = null;
     //    private TimePickerDialog timeDialog = null;
+    public LayoutInflater                         inflater;
 
     //    /** 初始化组件（子类重写此方法） */
     protected abstract void initComponentBase();
-    
-    private TextView titleTextView;
-    private RelativeLayout leftRelativeLayout;//统一标题头左边按钮的背景层
-    private RelativeLayout rightRelativeLayout;//统一标题头右边按钮的背景层
-    private ImageView leftImageView;//统一标题头左边按钮
-    private ImageView rightImageView;//统一标题头右边的按钮
-    private TextView rightTextView;//统一标题头右边的文字
+
+    private TextView       titleTextView;
+    private RelativeLayout leftRelativeLayout;  //统一标题头左边按钮的背景层
+    private RelativeLayout rightRelativeLayout; //统一标题头右边按钮的背景层
+    private ImageView      leftImageView;       //统一标题头左边按钮
+    private ImageView      rightImageView;      //统一标题头右边的按钮
+    private TextView       rightTextView;       //统一标题头右边的文字
 
     /**
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -95,108 +101,121 @@ public abstract class BaseActivity extends FragmentActivity implements App {
         allActivity.add(this);
         dumpActivity();
         activity = this;
+        inflater = getLayoutInflater(); //调用Activity的getLayoutInflater()
         initComponentBase();
     }
-    /**
-     * 初始化公用的控件
-     * @param titleName 标题头显示的文字
-     */
-    public void initPublicView(String titleName){
-        leftRelativeLayout=(RelativeLayout) findViewById(R.id.left_rl);
-        if(leftRelativeLayout!=null){
-            leftRelativeLayout.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
-        }
-       titleTextView=(TextView) findViewById(R.id.title_name_tv);
-       if(titleTextView!=null){
-           titleTextView.setText(titleName);
-       }
+
+    public void closePeek() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
-    
-    public void closePeek(){
-        InputMethodManager inputMethodManager=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);  
-        inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);  
-    }
+
     /**
      * 初始化公用的控件标题头的部分
      * @param titleName 标题头显示的文字
      */
-     public void initPublicView(String titleName,int leftId,int rightId,OnClickListener leftClickListener,OnClickListener rightClickListener) {
-         leftRelativeLayout = (RelativeLayout) findViewById(R.id.left_rl);
-         rightRelativeLayout = (RelativeLayout) findViewById(R.id.right_rl);
-         leftImageView=(ImageView) findViewById(R.id.left_iv);
-         rightImageView=(ImageView) findViewById(R.id.right_iv);
-         if(leftId==0){//表示左边没有按钮
-             leftImageView.setVisibility(View.GONE);
-         }else{
-             leftImageView.setVisibility(View.VISIBLE);
-             leftImageView.setBackgroundResource(leftId);
-             if (leftId==R.drawable.login_fh) {//如果是特殊情况，是返回按钮
-            	 leftRelativeLayout.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						activity.finish();
-					}
-				});
-             }else{
-            	 leftRelativeLayout.setOnClickListener(leftClickListener);
-             }
-         }
-         if(rightId==0){//表示右边没有按钮
-             rightImageView.setVisibility(View.GONE);
-         }else{
-             rightImageView.setVisibility(View.VISIBLE);
-             rightImageView.setBackgroundResource(leftId);
-             rightRelativeLayout.setOnClickListener(rightClickListener);
-         }
-         titleTextView = (TextView) activity.findViewById(R.id.title_name_tv);
-         if (titleTextView != null) {
-             titleTextView.setText(titleName);
-         }
-         
-     }
-     /**
-      * 初始化公用的控件标题头的部分(右边的是文字)
-      * @param titleName 标题头显示的文字
-      */
-      public void initPublicView(String titleName,int leftId,String rightName,OnClickListener leftClickListener,OnClickListener rightClickListener) {
-          leftRelativeLayout = (RelativeLayout) findViewById(R.id.left_rl);
-          rightRelativeLayout = (RelativeLayout) findViewById(R.id.right_rl);
-          leftImageView=(ImageView) findViewById(R.id.left_iv);
-          rightTextView=(TextView) findViewById(R.id.right_tv);
-          if(leftId==0){//表示左边没有按钮
-              leftImageView.setVisibility(View.GONE);
-          }else{
-              leftImageView.setVisibility(View.VISIBLE);
-              leftImageView.setBackgroundResource(leftId);
-              if (leftId==R.drawable.login_fh) {//如果是特殊情况，是返回按钮
-                  leftRelativeLayout.setOnClickListener(new OnClickListener() {
-                     @Override
-                     public void onClick(View arg0) {
-                         activity.finish();
-                     }
-                 });
-              }else{
-                  leftRelativeLayout.setOnClickListener(leftClickListener);
-              }
-          }
-          if(rightName.equals("")){//表示右边没有按钮
-              rightTextView.setVisibility(View.GONE);
-          }else{
-              rightTextView.setVisibility(View.VISIBLE);
-              rightTextView.setText(rightName);
-              rightRelativeLayout.setOnClickListener(rightClickListener);
-          }
-          titleTextView = (TextView) activity.findViewById(R.id.title_name_tv);
-          if (titleTextView != null) {
-              titleTextView.setText(titleName);
-          }
-          
-      }
+    public void initPublicView(String titleName, int leftId, int rightId,
+                               OnClickListener leftClickListener, OnClickListener rightClickListener) {
+        leftRelativeLayout = (RelativeLayout) findViewById(R.id.left_rl);
+        rightRelativeLayout = (RelativeLayout) findViewById(R.id.right_rl);
+        leftImageView = (ImageView) findViewById(R.id.left_iv);
+        rightImageView = (ImageView) findViewById(R.id.right_iv);
+        if (leftId == 0) {//表示左边没有按钮
+            leftImageView.setVisibility(View.GONE);
+        } else {
+            leftImageView.setVisibility(View.VISIBLE);
+            leftImageView.setBackgroundResource(leftId);
+            if (leftId == R.drawable.login_fh) {//如果是特殊情况，是返回按钮
+                leftRelativeLayout.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        activity.finish();
+                    }
+                });
+            } else {
+                leftRelativeLayout.setOnClickListener(leftClickListener);
+            }
+        }
+        if (rightId == 0) {//表示右边没有按钮
+            rightImageView.setVisibility(View.GONE);
+        } else {
+            rightImageView.setVisibility(View.VISIBLE);
+            rightImageView.setBackgroundResource(rightId);
+            rightRelativeLayout.setOnClickListener(rightClickListener);
+        }
+        titleTextView = (TextView) activity.findViewById(R.id.title_name_tv);
+        if (titleTextView != null) {
+            titleTextView.setText(titleName);
+        }
+
+    }
+
+    /**
+     * 初始化公用的控件标题头的部分
+     * @param titleName 标题头显示的文字
+     */
+    public void initPublicView(String titleName) {
+        leftRelativeLayout = (RelativeLayout) findViewById(R.id.left_rl);
+        rightRelativeLayout = (RelativeLayout) findViewById(R.id.right_rl);
+        leftImageView = (ImageView) findViewById(R.id.left_iv);
+        rightImageView = (ImageView) findViewById(R.id.right_iv);
+        leftImageView.setVisibility(View.VISIBLE);
+        leftImageView.setBackgroundResource(R.drawable.login_fh);
+        leftRelativeLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                activity.finish();
+            }
+        });
+
+        rightImageView.setVisibility(View.GONE);
+        titleTextView = (TextView) activity.findViewById(R.id.title_name_tv);
+        if (titleTextView != null) {
+            titleTextView.setText(titleName);
+        }
+
+    }
+
+    /**
+     * 初始化公用的控件标题头的部分(右边的是文字)
+     * @param titleName 标题头显示的文字
+     */
+    public void initPublicView(String titleName, int leftId, String rightName,
+                               OnClickListener leftClickListener, OnClickListener rightClickListener) {
+        leftRelativeLayout = (RelativeLayout) findViewById(R.id.left_rl);
+        rightRelativeLayout = (RelativeLayout) findViewById(R.id.right_rl);
+        leftImageView = (ImageView) findViewById(R.id.left_iv);
+        rightTextView = (TextView) findViewById(R.id.right_tv);
+        if (leftId == 0) {//表示左边没有按钮
+            leftImageView.setVisibility(View.GONE);
+        } else {
+            leftImageView.setVisibility(View.VISIBLE);
+            leftImageView.setBackgroundResource(leftId);
+            if (leftId == R.drawable.login_fh) {//如果是特殊情况，是返回按钮
+                leftRelativeLayout.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        activity.finish();
+                    }
+                });
+            } else {
+                leftRelativeLayout.setOnClickListener(leftClickListener);
+            }
+        }
+        if (rightName.equals("")) {//表示右边没有按钮
+            rightTextView.setVisibility(View.GONE);
+        } else {
+            rightTextView.setVisibility(View.VISIBLE);
+            rightTextView.setText(rightName);
+            rightRelativeLayout.setOnClickListener(rightClickListener);
+        }
+        titleTextView = (TextView) activity.findViewById(R.id.title_name_tv);
+        if (titleTextView != null) {
+            titleTextView.setText(titleName);
+        }
+
+    }
+
     /**
      * 控制台上打印 {@link BaseActivity#allActivity}
      */
@@ -363,46 +382,48 @@ public abstract class BaseActivity extends FragmentActivity implements App {
      * @param listView
      * @param serverSubmit
      */
-    //    public void setXListViewListener(final XListView listView,
-    //	    final INetWork serverSubmit) {
-    //	listView.setXListViewListener(new IXListViewListener() {// 实现下拉刷新和加载更多的接口
-    //	    @Override
-    //	    public void onRefresh() {
-    //		new Handler().postDelayed(new Runnable() {// 实现延迟2秒加载刷新
-    //			    @Override
-    //			    public void run() {
-    //				// 不实现顶部刷新
-    //				try {
-    //				    page = 1;
-    //				    NetWork.submit(activity, serverSubmit);
-    //				} catch (Exception e) {
-    //				    e.printStackTrace();
-    //				}
-    //			    }
-    //			}, 2000);
-    //	    }
-    //
-    //	    @Override
-    //	    public void onLoadMore() {
-    //		new Handler().postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
-    //			    @SuppressWarnings("deprecation")
-    //			    @Override
-    //			    public void run() {
-    //				try {
-    //				    page++;
-    //				    NetWork.submit(activity, serverSubmit);
-    //				    listView.stopRefresh();
-    //				    listView.stopLoadMore();
-    //				    listView.setRefreshTime(new Date()
-    //					    .toLocaleString());
-    //				} catch (Exception e) {
-    //				    e.printStackTrace();
-    //				}
-    //			    }
-    //			}, 2000);
-    //	    }
-    //	});
-    //    }
+    public void setXListViewListener(final XListView listView, final INetWork serverSubmit,
+                                     final List<Map<String, Object>> list) {
+        listView.setXListViewListener(new IXListViewListener() {// 实现下拉刷新和加载更多的接口
+                @Override
+                public void onRefresh() {
+                    new Handler().postDelayed(new Runnable() {// 实现延迟2秒加载刷新
+                            @Override
+                            public void run() {
+                                // 不实现顶部刷新
+                                try {
+                                    page = 1;
+                                    list.clear();
+                                    NetWork.submit(activity, false, serverSubmit);
+                                    listView.stopRefresh();
+                                    listView.stopLoadMore();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 2000);
+                }
+
+                @Override
+                public void onLoadMore() {
+                    new Handler().postDelayed(new Runnable() {// 实现底部延迟2秒加载更多的功能
+                            @SuppressWarnings("deprecation")
+                            @Override
+                            public void run() {
+                                try {
+                                    page++;
+                                    NetWork.submit(activity, false, serverSubmit);
+                                    listView.stopRefresh();
+                                    listView.stopLoadMore();
+                                    listView.setRefreshTime(new Date().toLocaleString());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 2000);
+                }
+            });
+    }
 
     public void showFileChooser(int requestCode) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -416,32 +437,34 @@ public abstract class BaseActivity extends FragmentActivity implements App {
             Toast.makeText(activity, "请安装文件管理器", Toast.LENGTH_SHORT).show();
         }
     }
-    
+
     /**
      * 上传附件
      * @author Administrator
      *
      */
     public class UploadFile implements INetWork {
-//        private String picPath;
-        INetWorkResult netWorkResult;
-        List<Map<String, Object>> list=new ArrayList<Map<String,Object>>();
+        //        private String picPath;
+        INetWorkResult            netWorkResult;
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
-        public UploadFile(List<Map<String, Object>> l,INetWorkResult result) {
-//            this.picPath = picPath;
-            this.netWorkResult=result;
+        public UploadFile(List<Map<String, Object>> l, INetWorkResult result) {
+            //            this.picPath = picPath;
+            this.netWorkResult = result;
             list.addAll(l);
         }
+
         @Override
         public boolean validate() {
             return true;
         }
+
         @Override
         public Data getSubmitData() throws Exception {
             Data d = new Data("fs/uploadFile.json");
             d.addData("temp", "");
-//            d.addData("path", picPath);
-            for(Map<String, Object> m:list){
+            //            d.addData("path", picPath);
+            for (Map<String, Object> m : list) {
                 d.addPath(m.get("path").toString().replace("file:///", ""));
             }
             return d;
@@ -449,15 +472,15 @@ public abstract class BaseActivity extends FragmentActivity implements App {
 
         @Override
         public void result(String result) throws Exception {
-//            @SuppressWarnings("unchecked")
-//            Map<String, Object> map=(Map<String, Object>) PaseJson.paseJsonToObject(result);
-//            if(map.get("code").equals("0")){
-//                String []str=(String[]) map.get("fileList");
-//                tempPhotoUrl=str[0];
-//            }else{
-//                toastShow("上传图片失败！");
-//            }
-            JSONObject jsonObject=new JSONObject(result);
+            //            @SuppressWarnings("unchecked")
+            //            Map<String, Object> map=(Map<String, Object>) PaseJson.paseJsonToObject(result);
+            //            if(map.get("code").equals("0")){
+            //                String []str=(String[]) map.get("fileList");
+            //                tempPhotoUrl=str[0];
+            //            }else{
+            //                toastShow("上传图片失败！");
+            //            }
+            JSONObject jsonObject = new JSONObject(result);
             netWorkResult.result(jsonObject.get("fileList").toString());
         }
     }

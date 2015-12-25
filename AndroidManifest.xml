@@ -64,93 +64,105 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
-        <!-- 用户注册界面 -设置密码-->
+        <!-- 用户注册界面 -设置密码 -->
         <activity
             android:name="com.ybd.yl.login.RegistSzmmActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
-         <!-- 用户注册界面 -填写个人资料-->
+        <!-- 用户注册界面 -填写个人资料 -->
         <activity
             android:name="com.ybd.yl.login.RegistCjgrzlActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <!-- 选择照片 -->
-         <activity
+        <activity
             android:name="com.ybd.yl.common.SelectPhotoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <!-- 找回密码 -->
-         <activity
+        <activity
             android:name="com.ybd.yl.login.LoginZhmmActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
-        <!-- 找回密码 -填写验证码-->
-         <activity
+        <!-- 找回密码 -填写验证码 -->
+        <activity
             android:name="com.ybd.yl.login.LoginTxyzmActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <!-- 找回密码-重置密码 -->
-         <activity
+        <activity
             android:name="com.ybd.yl.login.LoginCzmmActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <!-- 艺论-数据统计界面 -->
-        <activity 
+        <activity
             android:name="com.ybd.yl.yl.YlSjtjActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            >
+            android:windowSoftInputMode="adjustResize" >
         </activity>
-         
+
+        <!-- 圈子-主界面 -->
+        <activity
+            android:name="com.ybd.yl.qz.QzIndexActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
         <!-- 圈子-上传 -->
-        <activity android:name="com.ybd.yl.qz.QzScActivity"
+        <activity
+            android:name="com.ybd.yl.qz.QzScActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            ></activity>
-        
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+
         <!-- 圈子-上传图片 -->
-        <activity android:name="com.ybd.yl.qz.QzScSctpActivity"
+        <activity
+            android:name="com.ybd.yl.qz.QzScSctpActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            ></activity>
-        
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+
         <!-- 圈子-上传图片(只有文字) -->
-        <activity android:name="com.ybd.yl.qz.QzScSctp2Activity"
+        <activity
+            android:name="com.ybd.yl.qz.QzScSctp2Activity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            ></activity>
-        
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+
         <!-- 圈子-投诉 -->
-        <activity android:name="com.ybd.yl.qz.QzTsActivity"
+        <activity
+            android:name="com.ybd.yl.qz.QzTsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            ></activity>
-        
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+
         <!-- 圈子-上传-选择相册图片 -->
-        <activity android:name="com.ybd.yl.common.SelectPhotoMultipleActivity"
+        <activity
+            android:name="com.ybd.yl.common.SelectPhotoMultipleActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            ></activity>
-        
-         <!-- 圈子-图片预览 -->
-         <activity android:name="com.ybd.yl.common.PreviewImgActivity"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+
+        <!-- 圈子-图片预览 -->
+        <activity
+            android:name="com.ybd.yl.common.PreviewImgActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            ></activity>
-         
-         <!-- 圈子-个人资料 -->
-         <activity android:name="com.ybd.yl.qz.QzXxzlActivity"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+
+        <!-- 圈子-个人资料 -->
+        <activity
+            android:name="com.ybd.yl.qz.QzXxzlActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            ></activity>
-         
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+
         <!-- 微信回调类，接收说有微信的回调信息 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -164,13 +176,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-        <!-- 选择位置 -以弹出框的形式-->
+        <!-- 选择位置 -以弹出框的形式 -->
         <activity
             android:name=".dialog.DialogSelectPosition"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
         </activity>
-        <!-- 选择位置 -以弹出框的形式-->
+        <!-- 选择位置 -以弹出框的形式 -->
         <activity
             android:name=".dialog.SelectGzActivity"
             android:screenOrientation="portrait"

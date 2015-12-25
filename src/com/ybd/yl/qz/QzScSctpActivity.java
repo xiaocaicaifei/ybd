@@ -101,7 +101,7 @@ public class QzScSctpActivity extends BaseActivity implements OnClickListener {
             data.addData("user_id", PropertiesUtil.read(activity, PropertiesUtil.USERID));
             data.addData("fbtype", PropertiesUtil.read(activity, "ND"));
             data.addData("description", nrEditText.getText().toString());
-            data.addData("paths", path);
+            data.addData("path", path);
             return data;
         }
         

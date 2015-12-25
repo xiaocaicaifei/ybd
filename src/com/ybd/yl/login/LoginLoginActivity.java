@@ -23,6 +23,7 @@ import com.ybd.yl.BaseActivity;
 import com.ybd.yl.MainActivity;
 import com.ybd.yl.R;
 import com.ybd.yl.home.NavigationActivity;
+import com.ybd.yl.qz.QzIndexActivity;
 
 /**
  * 用户登录
@@ -115,7 +116,7 @@ public class LoginLoginActivity extends BaseActivity implements OnClickListener 
             Map<String, Object> data=(Map<String, Object>) map.get("data");
             Intent intent = new Intent();
             if (map.get("code").toString().equals("3")) {
-                intent.setClass(activity, NavigationActivity.class);
+                intent.setClass(activity, QzIndexActivity.class);
                 startActivity(intent);
 //                finish();
                 //保存用户信息

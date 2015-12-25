@@ -18,6 +18,8 @@
     <dimen name="nav_txt_size">12sp</dimen>
     <dimen name="nav_unread_size">12sp</dimen>
     
+    <dimen name="nav_bottom_text_value">12sp</dimen><!-- 底部菜单栏字体的大小 -->
+    
     <!-- 圈子 -->
     <dimen name="qz_sctp_xxxsd">12sp</dimen><!-- 上传图片页面-写下想说的文字的大小 -->
     <dimen name="qz_sctp_zd12z">10sp</dimen><!-- 上传图片页面-最多12张文字的大小 -->
