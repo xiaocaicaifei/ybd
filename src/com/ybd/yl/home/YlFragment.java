@@ -24,7 +24,7 @@ public class YlFragment extends BaseFragment implements HomeClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.home_yl, container, false);
-        toFragmentContent(new YlIndexFragment(),R.id.yl_fragment,null);
+//        toFragmentContent(new YlIndexFragment(),R.id.yl_fragment,null);
         return v;
     }
     @Override

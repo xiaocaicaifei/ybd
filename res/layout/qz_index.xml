@@ -25,7 +25,7 @@
             Select="qz" />
     </LinearLayout>
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:id="@+id/pl_rl"
         style="@style/style_base_bg"
         android:layout_height="51dip"
@@ -65,6 +65,6 @@
             android:layout_height="1.5dip"
             android:layout_marginLeft="12dip"
             android:layout_marginRight="12dip" />
-    </LinearLayout>
+    </LinearLayout> -->
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.ybd.yl.qz;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.sax.StartElementListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +36,8 @@ import com.ybd.common.tools.DateUtil;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.common.tools.ScreenDisplay;
 import com.ybd.yl.R;
+import com.ybd.yl.common.PreviewImg2Activity;
+import com.ybd.yl.common.PreviewImgActivity;
 
 /**
  * 圈子主页面的适配器
@@ -72,7 +76,7 @@ public class QzIndexAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Map<String, Object> map = list.get(position);
-        List<Map<String, Object>> l = (List<Map<String, Object>>) map.get("circlePicMsg");
+        final List<Map<String, Object>> l = (List<Map<String, Object>>) map.get("circlePicMsg");
         final List<Map<String, Object>> l2 = (List<Map<String, Object>>) map.get("comment");
         ViewHoler viewHoler = null;
         if (convertView == null) {
@@ -169,6 +173,15 @@ public class QzIndexAdapter extends BaseAdapter {
         BaseAdapter tpAdapter = new QzIndexTpAdapter(l, activity);
         viewHoler.tpGridView.setAdapter(tpAdapter);
         tpAdapter.notifyDataSetChanged();
+        viewHoler.tpGridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent();
+                intent.putExtra("object", (Serializable)l);
+                intent.setClass(activity, PreviewImg2Activity.class);
+                activity.startActivity(intent);
+            }
+        });
         BaseAdapter plAdapter = new QzIndexPlAdapter(l2, activity);
         viewHoler.plListViewRun.setAdapter(plAdapter);
         viewHoler.plListViewRun.setOnItemClickListener(new OnItemClickListener() {

@@ -12,19 +12,16 @@ import java.util.Map;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.util.DisplayMetrics;
-import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnDragListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.nineoldandroids.view.ViewHelper;
-import com.ybd.yl.BaseFragment;
+import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
-import com.ybd.yl.home.HomeClickListener;
 
 /**
  * 个人-主页
@@ -32,7 +29,7 @@ import com.ybd.yl.home.HomeClickListener;
  * @author cyf
  * @version $Id: HomeFragment.java, v 0.1 2015年1月16日 上午11:16:50cyf  Exp $
  */
-public class YlIndexFragment extends BaseFragment implements HomeClickListener, OnClickListener {
+public class YlIndexFragment extends BaseActivity implements  OnClickListener {
     private ListView                  listView;
     private BaseAdapter               adapter;
     private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -40,7 +37,8 @@ public class YlIndexFragment extends BaseFragment implements HomeClickListener, 
 
     @Override
     protected void initComponentBase() {
-        view = inflater.inflate(R.layout.yl_index, null, false);
+//        view = inflater.inflate(R.layout.yl_index, null, false);
+        setContentView(R.layout.yl_index);
         initPublicView("艺论", R.drawable.yl_sz, R.drawable.yl_sc, YlIndexFragment.this,
             YlIndexFragment.this);
         initListView();
@@ -48,7 +46,7 @@ public class YlIndexFragment extends BaseFragment implements HomeClickListener, 
     }
 
     private void initListView() {
-        listView = (ListView) view.findViewById(R.id.list_lv);
+        listView = (ListView) findViewById(R.id.list_lv);
         for (int i = 0; i < 3; i++) {
             Map<String, Object> map = new HashMap<String, Object>();
             list.add(map);
@@ -59,7 +57,7 @@ public class YlIndexFragment extends BaseFragment implements HomeClickListener, 
     }
 
     private void initDrawerLayout() {
-        drawerLayout = (DrawerLayout) view.findViewById(R.id.drawerlayout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
             Gravity.RIGHT);
         DisplayMetrics dm = activity.getResources().getDisplayMetrics();
@@ -94,6 +92,7 @@ public class YlIndexFragment extends BaseFragment implements HomeClickListener, 
 
             @Override
             public void onDrawerOpened(View arg0) {
+                
             }
 
             @Override
@@ -102,11 +101,6 @@ public class YlIndexFragment extends BaseFragment implements HomeClickListener, 
                     DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
             }
         });
-    }
-
-    @Override
-    public void onHomeclick(View v) {
-
     }
 
     @Override

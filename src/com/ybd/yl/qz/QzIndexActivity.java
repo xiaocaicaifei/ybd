@@ -28,7 +28,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -62,8 +61,9 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
     private View                      cxPopupView;
     private PopupWindow               popupWindow;
     private EditText                  plEditText;                                 //评论
-    private Map<String, Object>       plMap;                                       //点击评论后，带回来的信息
-    private LinearLayout plLinearLayout;//评论
+    private Map<String, Object>       plMap;                                      //点击评论后，带回来的信息
+                                                                                   //    private LinearLayout plLinearLayout;//评论
+
     @Override
     protected void initComponentBase() {
         setContentView(R.layout.qz_index);
@@ -71,7 +71,7 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
             QzIndexActivity.this);
         initListView();
         registBroad();//注册广播接收
-        //        initDrawerLayout();
+//        initDrawerLayout();
         page = 1;
         NetWork.submit(activity, qzList);
         initPlPopWindow();
@@ -79,12 +79,12 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
 
     private void initListView() {
         listView = (XListView) findViewById(R.id.list_lv);
-//        int height = ScreenDisplay.getScreenHeight2(activity)
-//                     - ScreenDisplay.dip2px(activity, R.dimen.uniform_title_height)
-//                     - ScreenDisplay.dip2px(activity, R.dimen.nav_bar_size)
-//                     - ScreenDisplay.dip2px(activity, 35);
-////        动态设置Listview的高度
-//        ScreenDisplay.setViewWidthAndHeight(listView, 0, height);
+        //        int height = ScreenDisplay.getScreenHeight2(activity)
+        //                     - ScreenDisplay.dip2px(activity, R.dimen.uniform_title_height)
+        //                     - ScreenDisplay.dip2px(activity, R.dimen.nav_bar_size)
+        //                     - ScreenDisplay.dip2px(activity, 35);
+        ////        动态设置Listview的高度
+        //        ScreenDisplay.setViewWidthAndHeight(listView, 0, height);
         listView.setPullLoadEnable(true);
         listView.setPullRefreshEnable(true);
         setXListViewListener(listView, qzList, list);
@@ -106,15 +106,11 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND
                     || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    String circleId = PaseJson.getMapMsg(plMap,
-                            "circleId");
-                        String note = v.getText().toString();
-                        String parentId = PaseJson.getMapMsg(plMap,
-                            "parentId");
-                        String parentUserid = PaseJson.getMapMsg(plMap,
-                            "parentUserid");
-                        NetWork.submit(activity, new HfNetWork(
-                            circleId, note, parentId, parentUserid));
+                    String circleId = PaseJson.getMapMsg(plMap, "circleId");
+                    String note = v.getText().toString();
+                    String parentId = PaseJson.getMapMsg(plMap, "parentId");
+                    String parentUserid = PaseJson.getMapMsg(plMap, "parentUserid");
+                    NetWork.submit(activity, new HfNetWork(circleId, note, parentId, parentUserid));
                     return true;
                 }
                 return false;
@@ -130,10 +126,10 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
                                                 @SuppressWarnings("unchecked")
                                                 @Override
                                                 public void onClick(View v) {
-                                                    plMap = (Map<String, Object>) v
-                                                        .getTag();
+                                                    plMap = (Map<String, Object>) v.getTag();
 
-                                                    popupWindow.showAsDropDown(activity.getCurrentFocus(),
+                                                    popupWindow.showAsDropDown(
+                                                        activity.getCurrentFocus(),
                                                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,
                                                         0, 0);
                                                     KeyboardOperate.hideOrOpenKeyboard(activity);
@@ -155,6 +151,7 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
             @Override
             public void onClick(View arg0) {
                 popupWindow.dismiss();
+                KeyboardOperate.hideOrOpenKeyboard(activity);
             }
         });
         return popupWindow;
@@ -329,13 +326,13 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
 
         @Override
         public void result(String result) throws Exception {
-            JSONObject jsonObject=new JSONObject(result);
+            JSONObject jsonObject = new JSONObject(result);
             KeyboardOperate.hideOrOpenKeyboard(activity);//关闭键盘
             plEditText.setText("");
-            if(jsonObject.getString("code").equals("0")){
+            if (jsonObject.getString("code").equals("0")) {
                 toastShow("评论成功");
                 popupWindow.dismiss();
-            }else{
+            } else {
                 toastShow("评论失败");
                 popupWindow.dismiss();
             }

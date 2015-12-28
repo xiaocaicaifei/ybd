@@ -112,7 +112,7 @@
         <activity
             android:name="com.ybd.yl.qz.QzIndexActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustResize" >
         </activity>
         <!-- 圈子-上传 -->
         <activity
@@ -152,6 +152,13 @@
         <!-- 圈子-图片预览 -->
         <activity
             android:name="com.ybd.yl.common.PreviewImgActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        
+        <!-- 圈子-图片预览(显示网络图片) -->
+        <activity
+            android:name="com.ybd.yl.common.PreviewImg2Activity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>

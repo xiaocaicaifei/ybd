@@ -24,19 +24,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ybd.common.C;
 import com.ybd.common.SlidePageAdapter;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 
 /**
- * 用webview显示多个图片（显示本地图片）
+ * 用webview显示多个图片（显示网络图片）
  * 要显示该页面，需要使用Intent传入两个参数，分别是”object“(List<Map<String, Object>>这里面是图片地址的集合)，"index"(int)
  * 
  * @author caiyanfei
  * @version $Id: ShowImgActivity.java, v 0.1 2014-11-13 下午6:03:16 caiyanfei Exp $
  */
-public class PreviewImgActivity extends BaseActivity {
+public class PreviewImg2Activity extends BaseActivity {
     Context                   context;
     ViewPager                 viewPager;
     RelativeLayout            layout;
@@ -152,7 +153,7 @@ public class PreviewImgActivity extends BaseActivity {
             });
 
             String data = "<html onclick='window.imagelistener.openImage();'><div style='height:100%;width:100%;background:url("
-                          + addrStr
+                          + C.IP+addrStr
                           + ") no-repeat center center;background-size:100% auto;' /><html>";
             webView.loadDataWithBaseURL(null, data, "text/html", "utf-8", null);
             //			if(i>0){
