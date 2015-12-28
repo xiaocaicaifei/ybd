@@ -177,31 +177,48 @@
         android:id="@+id/tp_gv"
         style="@style/style_base_component"
         android:layout_marginLeft="11dip"
-        android:listSelector="@android:color/transparent"
         android:layout_marginRight="11dip"
         android:layout_marginTop="12dip"
         android:horizontalSpacing="4dip"
+        android:listSelector="@android:color/transparent"
         android:numColumns="3"
         android:verticalSpacing="4dip" >
     </com.ybd.common.GridViewRun>
 
-    <ListView
-        android:id="@+id/pl_lv"
+    <LinearLayout
+        android:id="@+id/pl2_ll"
         style="@style/style_base_component"
+        android:layout_marginBottom="12dip"
         android:layout_marginLeft="11dip"
         android:layout_marginRight="11dip"
-        android:paddingTop="8dip"
-        android:paddingBottom="8dip"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
         android:layout_marginTop="12dip"
-        android:layout_marginBottom="12dip"
-        android:listSelector="@android:color/transparent"
         android:background="@color/unitform_background_gray"
-        android:divider="@color/unitform_background_gray"
-        android:dividerHeight="6dip"
-        android:scrollbars="none" >
-    </ListView>
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/pl_lv"
+            style="@style/style_base_component"
+            android:divider="@color/unitform_background_gray"
+            android:dividerHeight="6dip"
+            android:listSelector="@android:color/transparent"
+            android:paddingBottom="8dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="8dip"
+            android:scrollbars="none" >
+        </ListView>
+        <TextView 
+            android:id="@+id/xsqb_tv"
+            style="@style/style_base_component2"
+            android:textSize="15sp"
+            android:layout_marginRight="10dip"
+            android:layout_marginBottom="10dip"
+            android:text="@string/xsqb"
+            android:layout_gravity="right|center_vertical"
+            android:drawableRight="@drawable/qz_xsqb"
+            android:drawablePadding="10dip"/>
+
+    </LinearLayout>
 
     <View
         style="@style/uniform_line3"
@@ -230,6 +247,7 @@
                     android:id="@+id/ts_iv"
                     style="@style/style_base_component2"
                     android:background="@drawable/qz_ts" />
+
                 <TextView
                     android:id="@+id/ts_tv"
                     style="@style/style_base_component2"
@@ -261,6 +279,7 @@
                     android:id="@+id/zf_iv"
                     style="@style/style_base_component2"
                     android:background="@drawable/qz_zf" />
+
                 <TextView
                     android:id="@+id/zf_tv"
                     style="@style/style_base_component2"

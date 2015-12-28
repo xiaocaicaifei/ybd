@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.sax.StartElementListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,7 +36,6 @@ import com.ybd.common.tools.PaseJson;
 import com.ybd.common.tools.ScreenDisplay;
 import com.ybd.yl.R;
 import com.ybd.yl.common.PreviewImg2Activity;
-import com.ybd.yl.common.PreviewImgActivity;
 
 /**
  * 圈子主页面的适配器
@@ -78,6 +76,16 @@ public class QzIndexAdapter extends BaseAdapter {
         final Map<String, Object> map = list.get(position);
         final List<Map<String, Object>> l = (List<Map<String, Object>>) map.get("circlePicMsg");
         final List<Map<String, Object>> l2 = (List<Map<String, Object>>) map.get("comment");
+        final List<Map<String, Object>> l3=new ArrayList<Map<String,Object>>();
+        final List<Map<String, Object>> l4=new ArrayList<Map<String,Object>>();
+        
+        if(l2.size()>3){
+            l3.addAll(l2.subList(1, 4));
+            l4.addAll(l2.subList(4, l2.size()));
+        }else{
+            l3.addAll(l2);
+        }
+        
         ViewHoler viewHoler = null;
         if (convertView == null) {
             viewHoler = new ViewHoler();
@@ -109,6 +117,8 @@ public class QzIndexAdapter extends BaseAdapter {
             viewHoler.zanImageView = (ImageView) convertView.findViewById(R.id.zan_iv);
             viewHoler.tpGridView = (GridViewRun) convertView.findViewById(R.id.tp_gv);
             viewHoler.plListViewRun = (ListView) convertView.findViewById(R.id.pl_lv);
+            viewHoler.plLinearLayout2=(LinearLayout) convertView.findViewById(R.id.pl2_ll);
+            viewHoler.xsqbTextView=(TextView) convertView.findViewById(R.id.xsqb_tv);
             convertView.setTag(viewHoler);
         } else {
             viewHoler = (ViewHoler) convertView.getTag();
@@ -182,7 +192,7 @@ public class QzIndexAdapter extends BaseAdapter {
                 activity.startActivity(intent);
             }
         });
-        BaseAdapter plAdapter = new QzIndexPlAdapter(l2, activity);
+        final BaseAdapter plAdapter = new QzIndexPlAdapter(l3, activity);
         viewHoler.plListViewRun.setAdapter(plAdapter);
         viewHoler.plListViewRun.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -201,10 +211,23 @@ public class QzIndexAdapter extends BaseAdapter {
         plAdapter.notifyDataSetChanged();
         ScreenDisplay.setListViewHeightBasedOnChildren(viewHoler.plListViewRun);
         if(l2.size()==0){
-            viewHoler.plListViewRun.setVisibility(View.GONE);
+            viewHoler.plLinearLayout2.setVisibility(View.GONE);
         }else{
-            viewHoler.plListViewRun.setVisibility(View.VISIBLE);
+            viewHoler.plLinearLayout2.setVisibility(View.VISIBLE);
         }
+        if(l4.size()==0){
+            viewHoler.xsqbTextView.setVisibility(View.GONE);
+        }else{
+            viewHoler.xsqbTextView.setVisibility(View.VISIBLE);
+        }
+        viewHoler.xsqbTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                l3.addAll(l4);
+                plAdapter.notifyDataSetChanged();
+            }
+        });
+        
         
         viewHoler.zanLinearLayout.setOnClickListener(new OnClickListener() {
             @Override
@@ -303,5 +326,7 @@ public class QzIndexAdapter extends BaseAdapter {
         LinearLayout zanLinearLayout;    //赞的层
         GridViewRun     tpGridView;         //图片的列表
         ListView  plListViewRun;      //艺论的评论
+        LinearLayout plLinearLayout2;//显示全部评论的层
+        TextView xsqbTextView;//显示全部的评论
     }
 }
