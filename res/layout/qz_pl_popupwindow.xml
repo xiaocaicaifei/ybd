@@ -9,32 +9,39 @@
    <LinearLayout
         android:id="@+id/pl_rl"
         style="@style/style_base_bg"
+        android:layout_alignParentBottom="true"
         android:background="@color/unitform_background_gray"
         android:orientation="vertical" >
+        
         <View style="@style/uniform_line" />
 
         <LinearLayout
-            style="@style/style_base_component2"
+            style="@style/style_base_component"
             android:paddingTop="5dip"
             android:paddingBottom="5dip"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
-            android:gravity="center_vertical"
             android:orientation="horizontal" >
 
             <EditText
                 android:id="@+id/pl_ev"
                 style="@style/style_base_component"
-                android:layout_weight="1"
                 android:background="@null"
                 android:gravity="bottom|left"
                 android:inputType="textMultiLine"
+                android:layout_weight="1"
                 android:textColor="#484848"
                 android:textSize="14sp" />
             <Button 
+                android:id="@+id/fs_b"
                 style="@style/style_base_component2"
                 android:text="@string/fs2"
-                android:background="@drawable/qz_grzl_button1_onpress"
+                android:textColor="@android:color/black"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="5dip"
+                android:paddingBottom="5dip"
+                android:background="@drawable/qz_grzl_button2_onpress"
                 android:layout_marginLeft="0dip"/>
         </LinearLayout>
 

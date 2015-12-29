@@ -195,7 +195,7 @@
         android:background="@color/unitform_background_gray"
         android:orientation="vertical" >
 
-        <ListView
+        <com.ybd.common.ListViewRun
             android:id="@+id/pl_lv"
             style="@style/style_base_component"
             android:divider="@color/unitform_background_gray"
@@ -206,7 +206,7 @@
             android:paddingRight="10dip"
             android:paddingTop="8dip"
             android:scrollbars="none" >
-        </ListView>
+        </com.ybd.common.ListViewRun>
         <TextView 
             android:id="@+id/xsqb_tv"
             style="@style/style_base_component2"

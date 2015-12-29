@@ -19,13 +19,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ybd.common.C;
 import com.ybd.common.GridViewRun;
+import com.ybd.common.ListViewRun;
 import com.ybd.common.MainApplication;
 import com.ybd.common.PropertiesUtil;
 import com.ybd.common.net.Data;
@@ -80,8 +80,8 @@ public class QzIndexAdapter extends BaseAdapter {
         final List<Map<String, Object>> l4=new ArrayList<Map<String,Object>>();
         
         if(l2.size()>3){
-            l3.addAll(l2.subList(1, 4));
-            l4.addAll(l2.subList(4, l2.size()));
+            l3.addAll(l2.subList(0, 3));
+            l4.addAll(l2.subList(3, l2.size()));
         }else{
             l3.addAll(l2);
         }
@@ -116,7 +116,7 @@ public class QzIndexAdapter extends BaseAdapter {
             viewHoler.zanTextView = (TextView) convertView.findViewById(R.id.zan_tv);
             viewHoler.zanImageView = (ImageView) convertView.findViewById(R.id.zan_iv);
             viewHoler.tpGridView = (GridViewRun) convertView.findViewById(R.id.tp_gv);
-            viewHoler.plListViewRun = (ListView) convertView.findViewById(R.id.pl_lv);
+            viewHoler.plListViewRun = (ListViewRun) convertView.findViewById(R.id.pl_lv);
             viewHoler.plLinearLayout2=(LinearLayout) convertView.findViewById(R.id.pl2_ll);
             viewHoler.xsqbTextView=(TextView) convertView.findViewById(R.id.xsqb_tv);
             convertView.setTag(viewHoler);
@@ -176,6 +176,7 @@ public class QzIndexAdapter extends BaseAdapter {
                 m.put("note", "");
                 m.put("parentId", "");
                 m.put("parentUserid", "");
+                m.put("index", position);
                 v.setTag(m);
                 plClickListener.onClick(v);
             }
@@ -196,14 +197,15 @@ public class QzIndexAdapter extends BaseAdapter {
         viewHoler.plListViewRun.setAdapter(plAdapter);
         viewHoler.plListViewRun.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Map<String,Object> map2=l2.get(position);
+            public void onItemClick(AdapterView<?> parent, View view, int position2, long id) {
+                Map<String,Object> map2=l2.get(position2);
                 Map<String, Object> m=new HashMap<String, Object>();
                 m.put("circleId", PaseJson.getMapMsg(map, "circle_id"));
                 m.put("note", "");
                 m.put("parentId", PaseJson.getMapMsg(map2, "id"));
                 m.put("parentUserid", PaseJson.getMapMsg(map2, "user_id"));
-                m.put("position", position+"");
+                m.put("parent_username", PaseJson.getMapMsg(map2, "user_name"));
+                m.put("index",position );
                 view.setTag(m);
                 plClickListener.onClick(view);
             }
@@ -220,11 +222,16 @@ public class QzIndexAdapter extends BaseAdapter {
         }else{
             viewHoler.xsqbTextView.setVisibility(View.VISIBLE);
         }
+        if(!PaseJson.getMapMsg(map, "isShowAllPl").equals("")&&PaseJson.getMapMsg(map, "isShowAllPl").equals("true")){//展开全部的情况
+            l3.addAll(l4);
+            viewHoler.xsqbTextView.setVisibility(View.GONE);
+        }
         viewHoler.xsqbTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 l3.addAll(l4);
                 plAdapter.notifyDataSetChanged();
+                v.setVisibility(View.GONE);
             }
         });
         
@@ -325,7 +332,7 @@ public class QzIndexAdapter extends BaseAdapter {
         ImageView    zanImageView;       //赞的图标
         LinearLayout zanLinearLayout;    //赞的层
         GridViewRun     tpGridView;         //图片的列表
-        ListView  plListViewRun;      //艺论的评论
+        ListViewRun  plListViewRun;      //艺论的评论
         LinearLayout plLinearLayout2;//显示全部评论的层
         TextView xsqbTextView;//显示全部的评论
     }

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,9 +19,7 @@ import com.ybd.common.tools.FileUtils;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.common.tools.StringUtil;
 import com.ybd.yl.BaseActivity;
-import com.ybd.yl.MainActivity;
 import com.ybd.yl.R;
-import com.ybd.yl.home.NavigationActivity;
 import com.ybd.yl.qz.QzIndexActivity;
 
 /**
@@ -124,8 +121,8 @@ public class LoginLoginActivity extends BaseActivity implements OnClickListener 
                     PaseJson.getMapMsg(data, "id"));
                 PropertiesUtil.write(activity, PropertiesUtil.ACCOUNT, zhEditText.getText().toString());
                 PropertiesUtil.write(activity, PropertiesUtil.PASSWORD, mmEditText.getText().toString());
-//                PropertiesUtil.write(activity, PropertiesUtil.NICKNAME,
-//                    PaseJson.getMapMsg(data, "nickname"));
+                PropertiesUtil.write(activity, PropertiesUtil.NICKNAME,
+                    PaseJson.getMapMsg(data, "nick_name"));
 //                PropertiesUtil.write(activity, PropertiesUtil.HEADIMGURL,
 //                    PaseJson.getMapMsg(data, "icon_url"));
 
@@ -137,6 +134,7 @@ public class LoginLoginActivity extends BaseActivity implements OnClickListener 
                 //保存用户信息
                 PropertiesUtil.write(activity, PropertiesUtil.USERID,
                     PaseJson.getMapMsg(data, "id"));
+               
             } else if (map.get("code").toString().equals("1")){
                 toastShow("该用户不存在，请先注册！");
             }else {

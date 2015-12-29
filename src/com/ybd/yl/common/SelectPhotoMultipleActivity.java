@@ -19,7 +19,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ybd.common.L;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 import com.ybd.yl.qz.QzScSctpActivity;
@@ -139,18 +138,23 @@ public class SelectPhotoMultipleActivity extends BaseActivity implements OnClick
 
                 list.clear();
                 list.addAll(l);
-                if(selectNum==0){
-                    qdButton.setBackgroundResource(R.drawable.login_share_button2);
-                    qdButton.setTextColor(R.color.yl_username_msg_gray_color);
-                }else{
-                    qdButton.setBackgroundResource(R.drawable.login_share_button);
-                    qdButton.setTextColor(R.color.white);
+                try {
+                    if(selectNum==0){
+                        qdButton.setBackgroundResource(R.drawable.login_share_button2);
+                        qdButton.setTextColor(R.color.yl_username_msg_gray_color);
+                    }else{
+                        qdButton.setBackgroundResource(R.drawable.login_share_button);
+                        qdButton.setTextColor(R.color.white);
+                    }
+                    sumSelectNum=12-((QzScSctpActivity.list.size()-1)-selectNum);
+                    if(sumSelectNum>12){
+                        sumSelectNum=12;
+                    }
+                    qdButton.setText("确定("+selectNum+"/"+sumSelectNum+")");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                sumSelectNum=12-((QzScSctpActivity.list.size()-1)-selectNum);
-                if(sumSelectNum>12){
-                    sumSelectNum=12;
-                }
-                qdButton.setText("确定("+selectNum+"/"+sumSelectNum+")");
+                
             }
         }).start();
     }

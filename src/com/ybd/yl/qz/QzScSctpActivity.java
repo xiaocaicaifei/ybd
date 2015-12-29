@@ -112,6 +112,7 @@ public class QzScSctpActivity extends BaseActivity implements OnClickListener {
                 toastShow("发送成功！");
                 Intent intent=new Intent("QZSX");
                 LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
+                list.clear();
                 finish();
             }else{
                 toastShow("发送失败！");

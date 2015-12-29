@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -54,31 +56,31 @@ public class QzIndexPlAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHoler = new ViewHoler();
             convertView = LayoutInflater.from(activity).inflate(R.layout.qz_index_pl_item, null);// 这个过程相当耗时间
-            viewHoler.plrTextView = (TextView) convertView.findViewById(R.id.plr_tv);
-            viewHoler.hfTextView = (TextView) convertView.findViewById(R.id.hf_tv);
-            viewHoler.bplrTextView = (TextView) convertView.findViewById(R.id.bplr_tv);
             viewHoler.nrTextView = (TextView) convertView.findViewById(R.id.nr_tv);
             convertView.setTag(viewHoler);
         } else {
             viewHoler = (ViewHoler) convertView.getTag();
         }
-       viewHoler.plrTextView.setText(PaseJson.getMapMsg(map, "user_name"));
-       if(PaseJson.getMapMsg(map, "parent_username").equals("")){
-           viewHoler.hfTextView.setVisibility(View.GONE);
-           viewHoler.bplrTextView.setVisibility(View.GONE);
-       }else{
-           viewHoler.hfTextView.setVisibility(View.VISIBLE);
-           viewHoler.bplrTextView.setVisibility(View.VISIBLE);
-           viewHoler.bplrTextView.setText(PaseJson.getMapMsg(map, "parent_username"));
-       }
-       viewHoler.nrTextView.setText(PaseJson.getMapMsg(map, "note"));
+        String str = "";
+        str += "<font color='#28609e' onclick='javascript:plr();'>"
+               + PaseJson.getMapMsg(map, "user_name") + "</font>";//评论人
+        if (!PaseJson.getMapMsg(map, "parent_username").equals("")) {
+            str += " 回复  ";//回复
+            str += "<font color='#28609e'>" + PaseJson.getMapMsg(map, "parent_username")
+                   + "</font>";//被评论人
+        }
+        str += "：";//单独加上一个冒号
+        str+=PaseJson.getMapMsg(map, "note");
+        viewHoler.nrTextView.setText(Html.fromHtml(str));
         return convertView;
     }
 
     class ViewHoler {
-        TextView plrTextView;//评论人
-        TextView hfTextView;//隔开评论人和被评论人的回复
-        TextView bplrTextView;//被评论人
-        TextView nrTextView;//内容
+        TextView nrTextView; //内容
+    }
+
+    @JavascriptInterface
+    public void plr() {
+        L.v("ddddddddddddddd");
     }
 }
