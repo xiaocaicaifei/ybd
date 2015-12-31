@@ -169,7 +169,7 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
             @Override
             public void onClick(View arg0) {
                 popupWindow.dismiss();
-                KeyboardOperate.hideOrOpenKeyboard(activity);
+//                KeyboardOperate.hideOrOpenKeyboard(activity);
             }
         });
         return popupWindow;

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,8 +22,6 @@ import com.ybd.common.tools.ScreenDisplay;
 import com.ybd.yl.R;
 import com.ybd.yl.common.PreviewImgActivity;
 import com.ybd.yl.common.SelectPhotoMultiple2Activity;
-import com.ybd.yl.common.SelectPhotoMultipleActivity;
-import com.ybd.yl.qz.QzScActivity;
 
 /**
  * 艺论-上传-图片的适配器

@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.ybd.common.GridViewRun;
-import com.ybd.common.L;
 import com.ybd.common.PropertiesUtil;
 import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
@@ -204,12 +203,16 @@ public class YlScActivity extends BaseActivity implements OnClickListener {
             case R.id.bx_b:
                 zzEditText.setText("不详");
                 bxButton.setTextAppearance(activity, R.style.yl_sc_button_select);
-                wkButton.setTextAppearance(activity, R.drawable.yl_share_button3);
+//                bxButton.setBackgroundResource(R.drawable.yl_share_button4);
+                wkButton.setTextAppearance(activity, R.style.yl_sc_button_unselect);
+//                wkButton.setBackgroundResource(R.drawable.yl_share_button3);
                 break;
             case R.id.wk_b:
                 zzEditText.setText("无款");
                 wkButton.setTextAppearance(activity, R.style.yl_sc_button_select);
+//                wkButton.setBackgroundResource(R.drawable.yl_share_button4);
                 bxButton.setTextAppearance(activity, R.style.yl_sc_button_unselect);
+//                bxButton.setBackgroundResource(R.drawable.yl_share_button3);
                 break;
             case R.id.zb_b:
                 zdEditText.setText("纸本");
@@ -230,10 +233,10 @@ public class YlScActivity extends BaseActivity implements OnClickListener {
                 zbButton.setTextAppearance(activity, R.style.yl_sc_button_unselect);
                 break;
             case R.id.zjsp_b:
-                
+                intent.setClass(activity, YlScDzxysActivity.class);
+                startActivity(intent);
                 break;
             case R.id.qrsc_b:
-                L.v("L:"+list.size()+":"+(list.size()==0));
                 if(list.size()==1){
                     toastShow("至少要上传一张图片！");
                     return;

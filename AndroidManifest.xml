@@ -182,10 +182,34 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+        <!-- 艺论-上传-支付 -->
+        <activity
+            android:name="com.ybd.yl.yl.YlScZfActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>YlScCzcgActivity
+        <!-- 艺论-上传-充值 -->
+        <activity
+            android:name="com.ybd.yl.yl.YlScCzActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <!-- 艺论-上传-充值成功 -->
+        <activity
+            android:name="com.ybd.yl.yl.YlScCzcgActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
 
         <!-- 艺论-上传-选择相册图片 -->
         <activity
             android:name="com.ybd.yl.common.SelectPhotoMultiple2Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <!-- 艺论-上传-选择相册图片 -->
+        <activity
+            android:name="com.ybd.yl.yl.YlScDzxysActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>

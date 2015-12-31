@@ -69,7 +69,7 @@ public abstract class BaseActivity extends FragmentActivity implements App {
      * 当前页数
      */
     public int                                    page               = 1;
-    public static Activity                               activity;
+    public Activity                               activity;
 
     //    private DatePickerDialog dateDialog = null;
     //    private TimePickerDialog timeDialog = null;

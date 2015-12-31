@@ -102,6 +102,27 @@
     <string name="ch">x</string>
     <string name="xq">详情：</string>
     <string name="srxq">输入详情</string>
+    <string name="bwbty">不，我不同意</string>
+    <string name="swyjydbqr">是，我已经阅读并确认</string>
+    <string name="bcxzf">本次需支付</string>
+    <string name="qcz">去充值</string>
+    <string name="wzklyx">我再考虑一下</string>
+    <string name="xzczje">选择充值金额</string>
+    <string name="ssy">30</string>
+    <string name="wsy">50</string>
+    <string name="yby">100</string>
+    <string name="lby">200</string>
+    <string name="sby">300</string>
+    <string name="wby">500</string>
+    <string name="zdyje">自定义金额：</string>
+    <string name="srje">输入金额</string>
+    <string name="xzzffs">选择支付方式</string>
+    <string name="wxzf">微信支付</string>
+    <string name="zfbzf">支付宝支付</string>
+    <string name="ylzf">银联支付</string>
+    <string name="czcg">充值成功</string>
+    <string name="qwzfymwczf">前往支付页面，完成支付</string>
+    <string name="qzf">去支付</string>
     
     <!-- 消息 -->
     <string name="ss">搜索</string>

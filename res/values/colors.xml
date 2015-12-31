@@ -57,6 +57,8 @@
 	<color name="yl_sc_ms">#8c8c8c</color><!-- 艺论-上传-作者的描述 -->
 	<color name="yl_sc_zd12z">#cbcbcb</color><!-- 艺论-上传-最多显示12张字体的颜色 -->
 	<color name="yl_sc_nr">#333333</color><!-- 艺论-上传-内容字体的颜色 -->
+	<color name="yl_sc_cz_xzczje">#666666</color><!-- 艺论-上传-充值-选择充值金额字体 -->
+	<color name="yl_sc_cz_zdyje">#8c8c8c</color><!-- 艺论-上传-自定义金额 -->
 	
 	
 	<!-- 消息 -->

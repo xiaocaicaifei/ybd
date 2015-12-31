@@ -167,5 +167,19 @@
         <item name="android:layout_marginLeft">12dip</item>
         <item name="android:background">@drawable/yl_share_button4</item>
     </style>
+    <!-- 艺论-上传-充值-未选择按钮的样式 -->
+    <style name="yl_sc_cz_button_unselect" parent="@style/style_base_component">
+        <item name="android:textColor">@color/yl_sc_cz_xzczje</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:layout_height">38dip</item>
+        <item name="android:background">@drawable/yl_share_button3</item>
+    </style>
+    <!-- 艺论-上传-充值-选择按钮的样式 -->
+    <style name="yl_sc_cz_button_select" parent="@style/style_base_component2">
+        <item name="android:textColor">@color/unitform_button_red</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:layout_height">38dip</item>
+        <item name="android:background">@drawable/yl_share_button4</item>
+    </style>
 
 </resources>
