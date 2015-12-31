@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.ybd.yl.BaseFragment;
 import com.ybd.yl.R;
-import com.ybd.yl.yl.YlIndexFragment;
 
 /**
  * 首页-艺论

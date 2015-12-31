@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -23,10 +23,10 @@
         <item name="android:textSize">16sp</item>
     </style>
     <!-- 用于设置整个页面最外层的样式 -->
-	<style name="style_base_bg" parent="@style/style_base">
+    <style name="style_base_bg" parent="@style/style_base">
         <item name="android:background">@color/unitform_background_gray</item>
-        
     </style>
+
     <style name="style_base_component" parent="style_base">
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -50,7 +50,6 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginRight">13dip</item>
     </style>
-	
 
     <!-- Toast樣式 -->
     <style name="toast_view" parent="style_base_component">
@@ -58,14 +57,14 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:gravity">center</item>
     </style>
-    
+
     <!-- 地址自定义弹出框 -->
-    <style name="Dialog" parent="android:style/Theme.Dialog">  
-        <item name="android:background">@color/unitform_button_gray</item>  
-        <item name="android:windowBackground">@android:color/transparent</item>  
-        <item name="android:windowNoTitle">true</item>  
-        <item name="android:windowIsFloating">true</item>  
-    </style>  
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">@color/unitform_button_gray</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 
     <!-- 统一的横线线的样式 -->
     <style name="uniform_line" parent="@style/style_base_component">
@@ -95,7 +94,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/login_text_gray</item>
     </style>
-    
+
     <!-- 统一的搜索框的样式 -->
     <style name="uniform_search_input" parent="@style/style_base_component">
         <item name="android:background">@drawable/xx_share_search</item>
@@ -111,23 +110,62 @@
         <item name="android:layout_marginTop">7dip</item>
         <item name="android:layout_marginBottom">7dip</item>
     </style>
-    
+
     <!-- 统一的Listview的样式 -->
-   	<style name="uniform_listview" parent="@style/style_base">
-   	    <item name="android:divider">@color/unitform_background_gray</item>
-   	    <item name="android:dividerHeight">1dip</item>
-   	    <item name="android:listSelector">@android:color/transparent</item>
-   	</style>
-   	
-   	<!-- 个人中心-主页面-Linearout的样式 -->
-   	<style name="grzx_layout" parent="@style/style_base">
-   	    <item name="android:layout_height">52dip</item>
-   	    <item name="android:background">@drawable/uniform_onpress</item>
-   	    <item name="android:gravity">center_vertical</item>
-   	    <item name="android:orientation">horizontal</item>
-   	    <item name="android:clickable">true</item>
-   	    <item name="android:paddingLeft">11dip</item>
-   	    <item name="android:paddingRight">11dip</item>
-   	</style>
-   	
+    <style name="uniform_listview" parent="@style/style_base">
+        <item name="android:divider">@color/unitform_background_gray</item>
+        <item name="android:dividerHeight">1dip</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+    </style>
+
+    <!-- 个人中心-主页面-Linearout的样式 -->
+    <style name="grzx_layout" parent="@style/style_base">
+        <item name="android:layout_height">52dip</item>
+        <item name="android:background">@drawable/uniform_onpress</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:clickable">true</item>
+        <item name="android:paddingLeft">11dip</item>
+        <item name="android:paddingRight">11dip</item>
+    </style>
+
+    <!-- 艺论 -上传-描述字体的样式 -->
+    <style name="yl_sc_ms" parent="@style/style_base_component2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/yl_sc_ms</item>
+    </style>
+    <!-- 艺论 -上传-描述字体的样式 -->
+    <style name="yl_sc_nr" parent="@style/style_base_component2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/yl_sc_ms</item>
+    </style>
+    <!-- 艺论-上传-内容输入框的样式 -->
+    <style name="yl_sc_nr_input" parent="@style/style_base_component">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColorHint">@color/unitform_line_color</item>
+        <item name="android:textColor">@color/yl_sc_nr</item>
+        <item name="android:background">@null</item>
+        <item name="android:maxLength">7</item>
+    </style>
+    <!-- 艺论-上传-未选择按钮的样式 -->
+    <style name="yl_sc_button_unselect" parent="@style/style_base_component2">
+        <item name="android:textColor">@color/unitform_line_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_height">25dip</item>
+        <item name="android:paddingLeft">15dip</item>
+        <item name="android:paddingRight">15dip</item>
+        <item name="android:layout_marginLeft">12dip</item>
+        <item name="android:background">@drawable/yl_share_button3</item>
+    </style>
+    <!-- 艺论-上传-选择按钮的样式 -->
+    <style name="yl_sc_button_select" parent="@style/style_base_component2">
+        <item name="android:textColor">@color/unitform_button_red</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_height">25dip</item>
+        <item name="android:paddingLeft">15dip</item>
+        <item name="android:paddingRight">15dip</item>
+        <item name="android:layout_marginLeft">12dip</item>
+        <item name="android:background">@drawable/yl_share_button4</item>
+    </style>
+
 </resources>

@@ -105,6 +105,8 @@ public class PreviewImgActivity extends BaseActivity {
             String addrStr="";
             if(PaseJson.getMapMsg(am, "path").equals("")){
                 addrStr=PaseJson.getMapMsg(am, "pic_url");
+            }else{
+                addrStr=PaseJson.getMapMsg(am, "path");
             }
 //            String addrStr = am.get("path").toString();
 //            String addrStr = C.IP+"/download.mo?uuid=b1639941-a37e-4f0a-a22d-145dcfb62bf0&id=40288acf4c6d6f74014c6d7a50380006";

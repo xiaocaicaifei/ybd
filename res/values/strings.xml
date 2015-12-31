@@ -60,7 +60,7 @@
     <string name="ts">投诉</string>
     <string name="xxxsd">写下想说的</string>
     <string name="qrsc">确认上传</string>
-    <string name="xzbqhfb">选择标签后发布，大家将会在此标签种看到你发布的内容哦~</string>
+    <string name="xzbqhfb">选择标签后发布，大家将会在此标签中看到你发布的内容哦~</string>
     <string name="dd">当代</string>
     <string name="jxd">近现代</string>
     <string name="gd">古代</string>
@@ -82,6 +82,26 @@
     <string name="fsxx">发送消息</string>
     <string name="fs2">发送</string>
     <string name="xsqb">显示全部</string>
+    
+    <!-- 艺论 -->
+    <string name="zjsp">直接上拍</string>
+    <string name="zd12z">最多12张...</string>
+    <string name="zz">作者：</string>
+    <string name="srzzmc">输入作者名字</string>
+    <string name="bx">不详</string>
+    <string name="wk">无款</string>
+    <string name="zd">质地：</string>
+    <string name="srzd">输入质地</string>
+    <string name="zb">纸本</string>
+    <string name="jb">绢本</string>
+    <string name="lb">绫本</string>
+    <string name="cc">尺寸：</string>
+    <string name="srcd">输入长度</string>
+    <string name="srkd">输入宽度</string>
+    <string name="cm">cm</string>
+    <string name="ch">x</string>
+    <string name="xq">详情：</string>
+    <string name="srxq">输入详情</string>
     
     <!-- 消息 -->
     <string name="ss">搜索</string>

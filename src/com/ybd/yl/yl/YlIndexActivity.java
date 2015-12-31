@@ -2,12 +2,13 @@
  * hnjz.com Inc.
  * Copyright (c) 2004-2015 All Rights Reserved.
  */
-package com.ybd.yl.qz;
+package com.ybd.yl.yl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.BroadcastReceiver;
@@ -17,22 +18,16 @@ import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.DrawerLayout.DrawerListener;
-import android.util.DisplayMetrics;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
-import com.nineoldandroids.view.ViewHelper;
 import com.ybd.common.C;
 import com.ybd.common.PropertiesUtil;
 import com.ybd.common.net.Data;
@@ -42,32 +37,34 @@ import com.ybd.common.tools.KeyboardOperate;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.common.tools.ScreenDisplay;
 import com.ybd.common.xListView.XListView;
-import com.ybd.yl.BaseFragment;
+import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 import com.ybd.yl.home.HomeClickListener;
 
 /**
- * 圈子-主页
+ * 艺论-主页
  * 
  * @author cyf
  * @version $Id: HomeFragment.java, v 0.1 2015年1月16日 上午11:16:50cyf  Exp $
  */
-public class QzIndexFragment extends BaseFragment implements HomeClickListener, OnClickListener {
+public class YlIndexActivity extends BaseActivity implements HomeClickListener, OnClickListener {
     private XListView                 listView;
-    private BaseAdapter               adapter;
+    private YlIndexAdapter               adapter;
     private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     DrawerLayout                      drawerLayout;
     private ReceiverBroadCase         receiverBroadCase;
     private View                      cxPopupView;
     private PopupWindow               popupWindow;
     private EditText                  plEditText;                                 //评论
-    private Map<String, Object>       plMap;                                       //点击评论后，带回来的信息
+    private Button                    fsButton;                                    //发送按钮
+    private Map<String, Object>       plMap;                                      //点击评论后，带回来的信息
+                                                                                   //    private LinearLayout plLinearLayout;//评论
 
     @Override
     protected void initComponentBase() {
-        view = inflater.inflate(R.layout.qz_index, null, false);
-        initPublicView("圈子", R.drawable.yl_sz, R.drawable.yl_sc, QzIndexFragment.this,
-            QzIndexFragment.this);
+        setContentView(R.layout.yl_index);
+        initPublicView("艺论", R.drawable.yl_sz, R.drawable.yl_sc, YlIndexActivity.this,
+            YlIndexActivity.this);
         initListView();
         registBroad();//注册广播接收
         //        initDrawerLayout();
@@ -77,17 +74,17 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
     }
 
     private void initListView() {
-        listView = (XListView) view.findViewById(R.id.list_lv);
-        int height = ScreenDisplay.getScreenHeight2(activity)
-                     - ScreenDisplay.dip2px(activity, R.dimen.uniform_title_height)
-                     - ScreenDisplay.dip2px(activity, R.dimen.nav_bar_size)
-                     - ScreenDisplay.dip2px(activity, 35);
-        //动态设置Listview的高度
-        ScreenDisplay.setViewWidthAndHeight(listView, 0, height);
+        listView = (XListView) findViewById(R.id.list_lv);
+        //        int height = ScreenDisplay.getScreenHeight2(activity)
+        //                     - ScreenDisplay.dip2px(activity, R.dimen.uniform_title_height)
+        //                     - ScreenDisplay.dip2px(activity, R.dimen.nav_bar_size)
+        //                     - ScreenDisplay.dip2px(activity, 35);
+        ////        动态设置Listview的高度
+        //        ScreenDisplay.setViewWidthAndHeight(listView, 0, height);
         listView.setPullLoadEnable(true);
         listView.setPullRefreshEnable(true);
         setXListViewListener(listView, qzList, list);
-        adapter = new QzIndexAdapter(list, activity, onClickListener);
+        adapter = new YlIndexAdapter(list, activity, onClickListener);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -98,27 +95,47 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
     private void initPlPopWindow() {
         cxPopupView = inflater.inflate(R.layout.qz_pl_popupwindow, null);
         popupWindow = createPopupWindwo(cxPopupView, ScreenDisplay.getScreenWidth(activity));
+        fsButton = (Button) cxPopupView.findViewById(R.id.fs_b);
+        fsButton.setOnClickListener(this);
         plEditText = (EditText) cxPopupView.findViewById(R.id.pl_ev);
-        plEditText.setOnEditorActionListener(new OnEditorActionListener() {
-
+        fsButton.setEnabled(false);
+        plEditText.addTextChangedListener(new TextWatcher() {
+            
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND
-                    || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    String circleId = PaseJson.getMapMsg(plMap,
-                            "circleId");
-                        String note = v.getText().toString();
-                        String parentId = PaseJson.getMapMsg(plMap,
-                            "parentId");
-                        String parentUserid = PaseJson.getMapMsg(plMap,
-                            "parentUserid");
-                        NetWork.submit(activity, new HfNetWork(
-                            circleId, note, parentId, parentUserid));
-                    return true;
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length()>0){
+                    fsButton.setEnabled(true);
+                    fsButton.setBackgroundResource(R.drawable.qz_grzl_button2_onpress);
+                    fsButton.setTextColor(activity.getResources().getColor(R.color.white));
+                }else{
+                    fsButton.setEnabled(false);
+                    fsButton.setBackgroundResource(R.drawable.qz_grzl_button1_onpress);
+                    fsButton.setTextColor(activity.getResources().getColor(R.color.black));
                 }
-                return false;
             }
         });
+        //        plEditText.setOnEditorActionListener(new OnEditorActionListener() {
+        //
+        //            @Override
+        //            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        //                if (actionId == EditorInfo.IME_ACTION_SEND
+        //                    || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+        //                    String circleId = PaseJson.getMapMsg(plMap, "circleId");
+        //                    String note = v.getText().toString();
+        //                    String parentId = PaseJson.getMapMsg(plMap, "parentId");
+        //                    String parentUserid = PaseJson.getMapMsg(plMap, "parentUserid");
+        //                    NetWork.submit(activity, new HfNetWork(circleId, note, parentId, parentUserid));
+        //                    return true;
+        //                }
+        //                return false;
+        //            }
+        //        });
     }
 
     /**
@@ -129,10 +146,9 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
                                                 @SuppressWarnings("unchecked")
                                                 @Override
                                                 public void onClick(View v) {
-                                                    plMap = (Map<String, Object>) v
-                                                        .getTag();
-
-                                                    popupWindow.showAsDropDown(view,
+                                                    plMap = (Map<String, Object>) v.getTag();
+                                                    popupWindow.showAsDropDown(
+                                                        activity.getCurrentFocus(),
                                                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,
                                                         0, 0);
                                                     KeyboardOperate.hideOrOpenKeyboard(activity);
@@ -154,6 +170,7 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
             @Override
             public void onClick(View arg0) {
                 popupWindow.dismiss();
+                KeyboardOperate.hideOrOpenKeyboard(activity);
             }
         });
         return popupWindow;
@@ -173,49 +190,49 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
     /**
      * 初始化左边滑动设置
      */
-    private void initDrawerLayout() {
-        drawerLayout = (DrawerLayout) view.findViewById(R.id.drawerlayout);
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
-        DisplayMetrics dm = activity.getResources().getDisplayMetrics();
-        LayoutParams lp = drawerLayout.getLayoutParams();
-        lp.height = dm.heightPixels;
-        drawerLayout.setLayoutParams(lp);//设置高度为全屏高度
-        drawerLayout.setDrawerListener(new DrawerListener() {
-
-            @Override
-            public void onDrawerStateChanged(int arg0) {
-            }
-
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                View mContent = drawerLayout.getChildAt(0);
-                View mMenu = drawerView;
-                float scale = 1 - slideOffset;
-                float rightScale = 0.8f + scale * 0.2f;
-
-                float leftScale = 1 - 0.3f * scale;
-
-                ViewHelper.setScaleX(mMenu, leftScale);
-                ViewHelper.setScaleY(mMenu, leftScale);
-                ViewHelper.setAlpha(mMenu, 0.6f + 0.4f * (1 - scale));
-                ViewHelper.setTranslationX(mContent, mMenu.getMeasuredWidth() * (1 - scale));
-                ViewHelper.setPivotX(mContent, 0);
-                ViewHelper.setPivotY(mContent, mContent.getMeasuredHeight() / 2);
-                mContent.invalidate();
-                ViewHelper.setScaleX(mContent, rightScale);
-                ViewHelper.setScaleY(mContent, rightScale);
-            }
-
-            @Override
-            public void onDrawerOpened(View arg0) {
-            }
-
-            @Override
-            public void onDrawerClosed(View arg0) {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
-            }
-        });
-    }
+//    private void initDrawerLayout() {
+//        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+//        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
+//        DisplayMetrics dm = activity.getResources().getDisplayMetrics();
+//        LayoutParams lp = drawerLayout.getLayoutParams();
+//        lp.height = dm.heightPixels;
+//        drawerLayout.setLayoutParams(lp);//设置高度为全屏高度
+//        drawerLayout.setDrawerListener(new DrawerListener() {
+//
+//            @Override
+//            public void onDrawerStateChanged(int arg0) {
+//            }
+//
+//            @Override
+//            public void onDrawerSlide(View drawerView, float slideOffset) {
+//                View mContent = drawerLayout.getChildAt(0);
+//                View mMenu = drawerView;
+//                float scale = 1 - slideOffset;
+//                float rightScale = 0.8f + scale * 0.2f;
+//
+//                float leftScale = 1 - 0.3f * scale;
+//
+//                ViewHelper.setScaleX(mMenu, leftScale);
+//                ViewHelper.setScaleY(mMenu, leftScale);
+//                ViewHelper.setAlpha(mMenu, 0.6f + 0.4f * (1 - scale));
+//                ViewHelper.setTranslationX(mContent, mMenu.getMeasuredWidth() * (1 - scale));
+//                ViewHelper.setPivotX(mContent, 0);
+//                ViewHelper.setPivotY(mContent, mContent.getMeasuredHeight() / 2);
+//                mContent.invalidate();
+//                ViewHelper.setScaleX(mContent, rightScale);
+//                ViewHelper.setScaleY(mContent, rightScale);
+//            }
+//
+//            @Override
+//            public void onDrawerOpened(View arg0) {
+//            }
+//
+//            @Override
+//            public void onDrawerClosed(View arg0) {
+//                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.RIGHT);
+//            }
+//        });
+//    }
 
     @Override
     public void onHomeclick(View v) {
@@ -227,10 +244,16 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
         switch (v.getId()) {
             case R.id.right_rl:
                 Intent intent = new Intent();
-                intent.setClass(activity, QzScActivity.class);
+                intent.setClass(activity, YlScActivity.class);
                 startActivityForResult(intent, 0);
                 break;
-
+            case R.id.fs_b:
+                String circleId = PaseJson.getMapMsg(plMap, "circleId");
+                String note = plEditText.getText().toString();
+                String parentId = PaseJson.getMapMsg(plMap, "parentId");
+                String parentUserid = PaseJson.getMapMsg(plMap, "parentUserid");
+                NetWork.submit(activity, new HfNetWork(circleId, note, parentId, parentUserid));
+                break;
             default:
                 break;
         }
@@ -248,16 +271,21 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
 
                         @Override
                         public Data getSubmitData() throws Exception {
-                            Data data = new Data("circle/listCircle.json");
+                            Data data = new Data("arttalk/listArttalk.json");
                             data.addData("user_id",
                                 PropertiesUtil.read(activity, PropertiesUtil.USERID));
-                            data.addData("is_friend", "1");
-                            data.addData("is_export", "1");
-                            data.addData("is_fans", "1");
-                            data.addData("is_dv", "1");
-                            data.addData("fbtype_1", "1");
-                            data.addData("fbtype_2", "1");
-                            data.addData("fbtype_3", "1");
+                            data.addData("fans_first", "1");
+                            JSONArray array=new JSONArray();
+                            JSONObject ddJsonObject=new JSONObject();
+                            ddJsonObject.put("dd","1");
+                            JSONObject jxdJsonObject=new JSONObject();
+                            jxdJsonObject.put("jxd","1");
+                            JSONObject gdJsonObject=new JSONObject();
+                            gdJsonObject.put("gd","1");
+                            array.put(ddJsonObject);
+                            array.put(jxdJsonObject);
+                            array.put(gdJsonObject);
+                            data.addData("fbtypes", array.toString());
                             data.addData("page", page);
                             data.addData("limit", C.PAGE_SIZE);
                             return data;
@@ -269,7 +297,7 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
                             Map<String, Object> map = (Map<String, Object>) PaseJson
                                 .paseJsonToObject(result);
                             List<Map<String, Object>> l = (List<Map<String, Object>>) map
-                                .get("circleList");
+                                .get("arttalkList");
                             list.addAll(l);
                             adapter.notifyDataSetChanged();
                             int total = Integer.parseInt(map.get("totalCount").toString());
@@ -317,24 +345,32 @@ public class QzIndexFragment extends BaseFragment implements HomeClickListener, 
 
         @Override
         public Data getSubmitData() throws Exception {
-            Data data = new Data("circomment/disCircle.json");
+            Data data = new Data("artcomment/disArtTalk.json");
             data.addData("user_id", PropertiesUtil.read(activity, PropertiesUtil.USERID));
-            data.addData("circle_id", circleId);
+            data.addData("arttalk_id", circleId);
             data.addData("note", note);
             data.addData("parent_id", parentId);
             data.addData("parent_userid", parentUserid);
             return data;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public void result(String result) throws Exception {
-            JSONObject jsonObject=new JSONObject(result);
+            JSONObject jsonObject = new JSONObject(result);
             KeyboardOperate.hideOrOpenKeyboard(activity);//关闭键盘
             plEditText.setText("");
-            if(jsonObject.getString("code").equals("0")){
+            if (jsonObject.getString("code").equals("0")) {
+                int index=Integer.parseInt(plMap.get("index").toString());
+                Map<String, Object> m=list.get(index);
+                m.put("isShowAllPl", "true");
+                plMap.put("user_name", PropertiesUtil.read(activity, PropertiesUtil.NICKNAME));
+                plMap.put("note",this.note);
+                ((List<Map<String, Object>>)m.get("comment")).add(plMap);
+                adapter.notifyDataSetChanged();
                 toastShow("评论成功");
                 popupWindow.dismiss();
-            }else{
+            } else {
                 toastShow("评论失败");
                 popupWindow.dismiss();
             }

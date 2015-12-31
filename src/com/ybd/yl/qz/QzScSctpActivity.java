@@ -50,7 +50,6 @@ public class QzScSctpActivity extends BaseActivity implements OnClickListener {
      */
     //    @SuppressWarnings("unchecked")
     private void init() {
-        tpGridView = (GridView) findViewById(R.id.tp_gv);
         if(gdState==0){
             //更多按钮
             Map<String, Object> map2 = new HashMap<String, Object>();
@@ -58,6 +57,8 @@ public class QzScSctpActivity extends BaseActivity implements OnClickListener {
             list.add(list.size(), map2);
             gdState=1;//只加载一次，以后就不在加载
         }
+        
+        tpGridView = (GridView) findViewById(R.id.tp_gv);
         tpAdapter = new QzScSctpAdapter(list, activity);
         tpGridView.setAdapter(tpAdapter);
         tpAdapter.notifyDataSetChanged();
@@ -71,6 +72,10 @@ public class QzScSctpActivity extends BaseActivity implements OnClickListener {
     public void onClick(View arg0) {
         switch (arg0.getId()) {
             case R.id.qrsc_b:
+                if(list.size()==0){
+                    toastShow("至少要上传一张图片！");
+                    return;
+                }
                 NetWork.submit(activity, new UploadFile(list.subList(0, list.size()-1), new INetWorkResult() {
                     @Override
                     public void result(Object result) throws Exception {
@@ -84,6 +89,7 @@ public class QzScSctpActivity extends BaseActivity implements OnClickListener {
     }
     
     /**
+     * 确认上传
      */
     class qrscNetWork implements INetWork{
         private String path;

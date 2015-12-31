@@ -1,6 +1,7 @@
 package com.ybd.common.defined;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.ybd.common.L;
 import com.ybd.yl.R;
+import com.ybd.yl.qz.QzIndexActivity;
+import com.ybd.yl.yl.YlIndexActivity;
 
 /**
  * 底部菜单栏
@@ -36,14 +39,17 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
     private LinearLayout pmLinearLayout;
     private LinearLayout grLinearLayout;
     private String selectMenu;//用户选择的
+    Context context;
 
     public BottomMenu(Context context) {
         super(context);
+        this.context=context;
 //        init();
     }
 
     public BottomMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context=context;
         init(attrs,context);
     }
 
@@ -142,6 +148,7 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent=new Intent();
         switch (v.getId()) {
             case R.id.xx_ll:
                 xxImageView.setBackgroundResource(R.drawable.home_xx_hover);
@@ -166,6 +173,7 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
                 pmTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
                 grImageView.setBackgroundResource(R.drawable.home_gr);
                 grTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
+                intent.setClass(context, QzIndexActivity.class);
                 break;
             case R.id.yl_ll:
                 xxImageView.setBackgroundResource(R.drawable.home_xx);
@@ -178,6 +186,7 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
                 pmTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
                 grImageView.setBackgroundResource(R.drawable.home_gr);
                 grTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
+                intent.setClass(context, YlIndexActivity.class);
                 break;
             case R.id.pm_ll:
                 xxImageView.setBackgroundResource(R.drawable.home_xx);
@@ -207,6 +216,7 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
             default:
                 break;
         }
+        context.startActivity(intent);
     }
 
 }

@@ -1,0 +1,255 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <ScrollView
+        style="@style/style_base"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            style="@style/style_base"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/style_base_component2"
+                android:layout_marginTop="17dip"
+                android:text="@string/xzbqhfb"
+                android:textColor="@color/qz_sctp_zd12z"
+                android:textSize="@dimen/qz_sctp_xxxsd" />
+
+            <LinearLayout
+                style="@style/style_base_component"
+                android:layout_height="22dip"
+                android:layout_marginTop="12dip"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/dd_b"
+                    style="@style/style_base"
+                    android:layout_weight="1"
+                    android:background="@drawable/yl_share_button2"
+                    android:text="@string/dd"
+                    android:textColor="@color/unitform_button_red" />
+
+                <Button
+                    android:id="@+id/jxd_b"
+                    style="@style/style_base"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/yl_share_button"
+                    android:text="@string/jxd"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/gd_b"
+                    style="@style/style_base"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/yl_share_button2"
+                    android:text="@string/gd"
+                    android:textColor="@color/unitform_button_red" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/style_base_component2"
+                android:layout_marginTop="15dip"
+                android:text="@string/zd12z"
+                android:textColor="@color/qz_sctp_zd12z"
+                android:textSize="14sp" >
+            </TextView>
+
+            <com.ybd.common.GridViewRun
+                android:id="@+id/tp_gv"
+                style="@style/style_base_component"
+                android:layout_weight="1"
+                android:horizontalSpacing="5dip"
+                android:numColumns="4"
+                android:verticalSpacing="5dip" >
+            </com.ybd.common.GridViewRun>
+
+            <LinearLayout
+                style="@style/style_base_component"
+                android:layout_marginTop="8dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/zz_tv"
+                    style="@style/yl_sc_ms"
+                    android:text="@string/zz" />
+
+                <LinearLayout
+                    style="@style/style_base_component"
+                    android:layout_marginTop="3dip"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/zz_et"
+                        style="@style/yl_sc_nr_input"
+                        android:hint="@string/srzzmc" />
+
+                    <View style="@style/uniform_line" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/bx_b"
+                    style="@style/yl_sc_button_unselect"
+                    android:text="@string/bx" />
+
+                <Button
+                    android:id="@+id/wk_b"
+                    style="@style/yl_sc_button_unselect"
+                    android:text="@string/wk" />
+                 <Button
+                    style="@style/yl_sc_button_unselect"
+                    android:visibility="invisible"
+                    android:text="@string/lb" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/style_base_component"
+                android:layout_marginTop="3dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/zd_tv"
+                    style="@style/yl_sc_ms"
+                    android:text="@string/zd" />
+
+                <LinearLayout
+                    style="@style/style_base_component"
+                    android:layout_marginTop="3dip"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/zd_et"
+                        style="@style/yl_sc_nr_input"
+                        android:hint="@string/srzd" />
+
+                    <View style="@style/uniform_line" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/zb_b"
+                    style="@style/yl_sc_button_unselect"
+                    android:text="@string/zb" />
+
+                <Button
+                    android:id="@+id/jb_b"
+                    style="@style/yl_sc_button_unselect"
+                    android:text="@string/jb" />
+
+                <Button
+                    android:id="@+id/lb_b"
+                    style="@style/yl_sc_button_unselect"
+                    android:text="@string/lb" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/style_base_component"
+                android:layout_marginTop="3dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/yl_sc_ms"
+                    android:layout_marginTop="3dip"
+                    android:text="@string/cc" />
+
+                <LinearLayout
+                    style="@style/style_base_component"
+                    android:layout_marginTop="3dip"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/cd_et"
+                        android:inputType="numberDecimal"
+                        style="@style/yl_sc_nr_input"
+                        android:hint="@string/srcd" />
+
+                    <View style="@style/uniform_line" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/yl_sc_ms"
+                    android:layout_marginLeft="5dip"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="5dip"
+                    android:text="@string/ch" />
+
+                <LinearLayout
+                    style="@style/style_base_component"
+                    android:layout_marginTop="3dip"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/kd_et"
+                        style="@style/yl_sc_nr_input"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/srkd" />
+
+                    <View style="@style/uniform_line" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/yl_sc_ms"
+                    android:layout_marginLeft="5dip"
+                    android:text="@string/cm" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/style_base_component"
+                android:layout_marginTop="3dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/yl_sc_ms"
+                    android:layout_marginTop="3dip"
+                    android:text="@string/xq" />
+
+                <LinearLayout
+                    style="@style/style_base_component"
+                    android:layout_marginTop="3dip"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/xq_et"
+                        android:gravity="top|left"
+                        android:layout_height="30dip"
+                        android:maxLength="200"
+                        android:inputType="textMultiLine"
+                        style="@style/yl_sc_nr_input"
+                        android:hint="@string/srxq" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/zjsp_b"
+                android:layout_height="41dip"
+                android:layout_marginTop="70dip"
+                android:text="@string/zjsp"
+                android:background="@drawable/yl_share_button2"
+                android:textColor="@color/unitform_button_red"
+                style="@style/style_base_component"/>
+
+            <Button
+                android:id="@+id/qrsc_b"
+                android:layout_height="41dip"
+                android:layout_marginBottom="22dip"
+                android:layout_marginTop="13dip"
+                android:background="@drawable/login_share_button2"
+                style="@style/style_base_component"
+                android:text="@string/qrsc"
+                android:textColor="@color/yl_sc_qrsc" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

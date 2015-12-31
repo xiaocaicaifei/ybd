@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.ybd.yl.BaseFragment;
 import com.ybd.yl.R;
-import com.ybd.yl.qz.QzIndexFragment;
 
 /**
  * 首页-圈子
@@ -26,7 +25,7 @@ public class QzFragment extends BaseFragment implements HomeClickListener, OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.home_qz, container, false);
-        toFragmentContent(new QzIndexFragment(),R.id.qz_fragment,null);
+//        toFragmentContent(new QzIndexFragment(),R.id.qz_fragment,null);
         return v;
     }
 

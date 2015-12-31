@@ -42,7 +42,6 @@
                 <TextView
                     android:id="@+id/username_tv"
                     style="@style/style_base_component2"
-                    android:text="请叫我大爷"
                     android:textColor="@color/yl_username_color"
                     android:textSize="16sp" />
 
@@ -62,7 +61,6 @@
                 <TextView
                     android:id="@+id/time_tv"
                     style="@style/style_base_component2"
-                    android:text="15:26"
                     android:textColor="@color/yl_username_msg_gray_color"
                     android:textSize="@dimen/yl_username_msg_size" />
 
@@ -76,7 +74,6 @@
                     android:id="@+id/dd_tv"
                     style="@style/style_base_component2"
                     android:layout_marginLeft="3dip"
-                    android:text="北京"
                     android:textColor="@color/yl_username_msg_gray_color"
                     android:textSize="@dimen/yl_username_msg_size" />
             </LinearLayout>
@@ -93,33 +90,13 @@
 
                     <TextView
                         style="@style/style_base_component2"
-                        android:text="信用:"
-                        android:textColor="@color/yl_username_msg_gray_color"
-                        android:textSize="@dimen/yl_username_msg_size" />
-
-                    <TextView
-                        android:id="@+id/xy_tv"
-                        style="@style/style_base_component2"
-                        android:text="8分"
-                        android:textColor="@color/yl_username_msg_black_color"
-                        android:textSize="@dimen/yl_username_msg_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/style_base_component2"
-                    android:layout_weight="1"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        style="@style/style_base_component2"
-                        android:text="购买:"
+                        android:text="@string/yl_gm"
                         android:textColor="@color/yl_username_msg_gray_color"
                         android:textSize="@dimen/yl_username_msg_size" />
 
                     <TextView
                         android:id="@+id/gm_tv"
                         style="@style/style_base_component2"
-                        android:text="5分"
                         android:textColor="@color/yl_username_msg_black_color"
                         android:textSize="@dimen/yl_username_msg_size" />
                 </LinearLayout>
@@ -131,14 +108,13 @@
 
                     <TextView
                         style="@style/style_base_component2"
-                        android:text="卖出:"
+                        android:text="@string/yl_mc"
                         android:textColor="@color/yl_username_msg_gray_color"
                         android:textSize="@dimen/yl_username_msg_size" />
 
                     <TextView
                         android:id="@+id/mc_tv"
                         style="@style/style_base_component2"
-                        android:text="1000件"
                         android:textColor="@color/yl_username_msg_black_color"
                         android:textSize="@dimen/yl_username_msg_size" />
                 </LinearLayout>
@@ -150,14 +126,31 @@
 
                     <TextView
                         style="@style/style_base_component2"
-                        android:text="粉丝:"
+                        android:text="@string/yl_xy"
+                        android:textColor="@color/yl_username_msg_gray_color"
+                        android:textSize="@dimen/yl_username_msg_size" />
+
+                    <TextView
+                        android:id="@+id/xy_tv"
+                        style="@style/style_base_component2"
+                        android:textColor="@color/yl_username_msg_black_color"
+                        android:textSize="@dimen/yl_username_msg_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_weight="1"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/style_base_component2"
+                        android:text="@string/yl_fs"
                         android:textColor="@color/yl_username_msg_gray_color"
                         android:textSize="@dimen/yl_username_msg_size" />
 
                     <TextView
                         android:id="@+id/fs_tv"
                         style="@style/style_base_component2"
-                        android:text="1万"
                         android:textColor="@color/yl_username_msg_black_color"
                         android:textSize="@dimen/yl_username_msg_size" />
                 </LinearLayout>
@@ -171,167 +164,60 @@
         android:layout_marginRight="11dip"
         android:layout_marginTop="12dip" />
 
-    <LinearLayout
-        style="@style/style_base_component"
-        android:layout_marginLeft="11dip"
-        android:layout_marginRight="11dip"
-        android:layout_marginTop="12dip"
-        android:orientation="horizontal" >
-
-        <LinearLayout
-            style="@style/style_base_component2"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/zz_tv"
-                style="@style/style_base_component"
-                android:text="作者：齐白石"
-                android:textColor="@color/yl_username_msg_black_color"
-                android:textSize="@dimen/yl_desc_msg_size" />
-
-            <TextView
-                android:id="@+id/zd_tv"
-                style="@style/style_base_component"
-                android:layout_marginTop="5dip"
-                android:text="质地：纸本"
-                android:textColor="@color/yl_username_msg_black_color"
-                android:textSize="@dimen/yl_desc_msg_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/style_base_component2"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/cc_tv"
-                style="@style/style_base_component"
-                android:text="尺寸：110.0*110.0cm"
-                android:textColor="@color/yl_username_msg_black_color"
-                android:textSize="@dimen/yl_desc_msg_size" />
-
-            <TextView
-                android:id="@+id/xs_tv"
-                style="@style/style_base_component"
-                android:layout_marginTop="5dip"
-                android:text="形式：立轴"
-                android:textColor="@color/yl_username_msg_black_color"
-                android:textSize="@dimen/yl_desc_msg_size" />
-        </LinearLayout>
-    </LinearLayout>
-
     <TextView
+        android:id="@+id/description_tv"
         style="@style/style_base_component"
         android:layout_marginLeft="11dip"
         android:layout_marginRight="11dip"
         android:layout_marginTop="5dip"
-        android:text="详情：早稻田大学图书馆藏魏青周隋唐早想名额等拓本集【碑帖】。"
         android:textColor="@color/yl_xq_color"
         android:textSize="@dimen/yl_desc_msg_size" />
 
-    <GridView
-        android:id="@+id/zp_gv"
+    <com.ybd.common.GridViewRun
+        android:id="@+id/tp_gv"
         style="@style/style_base_component"
         android:layout_marginLeft="11dip"
         android:layout_marginRight="11dip"
         android:layout_marginTop="12dip"
         android:horizontalSpacing="4dip"
+        android:listSelector="@android:color/transparent"
         android:numColumns="3"
         android:verticalSpacing="4dip" >
-    </GridView>
-
-    <com.ybd.common.ListViewRun
-        android:id="@+id/hf_lv"
-        style="@style/style_base_component"
-        android:layout_marginLeft="11dip"
-        android:layout_marginRight="11dip"
-        android:background="@color/unitform_background_gray"
-        android:divider="@color/unitform_background_gray"
-        android:dividerHeight="6dip"
-        android:scrollbars="none" >
-    </com.ybd.common.ListViewRun>
+    </com.ybd.common.GridViewRun>
 
     <LinearLayout
+        android:id="@+id/pl2_ll"
         style="@style/style_base_component"
+        android:layout_marginBottom="12dip"
         android:layout_marginLeft="11dip"
         android:layout_marginRight="11dip"
         android:layout_marginTop="12dip"
-        android:orientation="horizontal" >
+        android:background="@color/unitform_background_gray"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <com.ybd.common.ListViewRun
+            android:id="@+id/pl_lv"
+            style="@style/style_base_component"
+            android:divider="@color/unitform_background_gray"
+            android:dividerHeight="6dip"
+            android:listSelector="@android:color/transparent"
+            android:paddingBottom="8dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="8dip"
+            android:scrollbars="none" >
+        </com.ybd.common.ListViewRun>
+        <TextView 
+            android:id="@+id/xsqb_tv"
             style="@style/style_base_component2"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+            android:textSize="15sp"
+            android:layout_marginRight="10dip"
+            android:layout_marginBottom="10dip"
+            android:text="@string/xsqb"
+            android:layout_gravity="right|center_vertical"
+            android:drawableRight="@drawable/qz_xsqb"
+            android:drawablePadding="10dip"/>
 
-            <TextView
-                style="@style/style_base_component2"
-                android:layout_gravity="right"
-                android:text="艺论估值:5-6万"
-                android:textColor="@color/yl_username_msg_gray_color"
-                android:textSize="@dimen/yl_username_msg_size"
-                android:visibility="invisible" />
-
-            <Button
-                android:id="@+id/sjtj_b"
-                style="@style/style_base_component"
-                android:layout_height="25dip"
-                android:layout_marginTop="6dip"
-                android:background="@drawable/yl_share_button2"
-                android:text="@string/sjtj"
-                android:textColor="@color/unitform_button_red"
-                android:textSize="@dimen/yl_desc_msg_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/style_base_component2"
-            android:layout_marginLeft="4dip"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/ylgz_tv"
-                style="@style/style_base_component2"
-                android:layout_gravity="right"
-                android:text="艺论估值:5—6万"
-                android:textColor="@color/yl_username_msg_gray_color"
-                android:textSize="@dimen/yl_username_msg_size" />
-
-            <Button
-                android:id="@+id/wygz_b"
-                style="@style/style_base_component"
-                android:layout_height="25dip"
-                android:layout_marginTop="6dip"
-                android:background="@drawable/yl_share_button2"
-                android:text="@string/wygz"
-                android:textColor="@color/unitform_button_red"
-                android:textSize="@dimen/yl_desc_msg_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/style_base_component2"
-            android:layout_marginLeft="4dip"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/ylpf_tv"
-                style="@style/style_base_component2"
-                android:layout_gravity="right"
-                android:text="艺论评分:5分"
-                android:textColor="@color/yl_username_msg_gray_color"
-                android:textSize="@dimen/yl_username_msg_size" />
-
-            <Button
-                android:id="@+id/wypf_b"
-                style="@style/style_base_component"
-                android:layout_height="25dip"
-                android:layout_marginTop="6dip"
-                android:background="@drawable/yl_share_button"
-                android:text="@string/wypf"
-                android:textColor="@color/white"
-                android:textSize="@dimen/yl_desc_msg_size" />
-        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -350,6 +236,7 @@
             android:orientation="horizontal" >
 
             <LinearLayout
+                android:id="@+id/ts_ll"
                 style="@style/style_base_component2"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
@@ -359,7 +246,15 @@
                 <ImageView
                     android:id="@+id/ts_iv"
                     style="@style/style_base_component2"
-                    android:background="@drawable/yl_ts" />
+                    android:background="@drawable/qz_ts" />
+
+                <TextView
+                    android:id="@+id/ts_tv"
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="4dip"
+                    android:text="@string/ts"
+                    android:textColor="@color/yl_username_msg_gray_color"
+                    android:textSize="@dimen/yl_username_msg_size" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -373,15 +268,25 @@
             android:orientation="horizontal" >
 
             <LinearLayout
+                android:id="@+id/zf_ll"
                 style="@style/style_base_component2"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageView
                     android:id="@+id/zf_iv"
                     style="@style/style_base_component2"
-                    android:background="@drawable/yl_ts" />
+                    android:background="@drawable/qz_zf" />
+
+                <TextView
+                    android:id="@+id/zf_tv"
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="4dip"
+                    android:text="@string/zf"
+                    android:textColor="@color/yl_username_msg_gray_color"
+                    android:textSize="@dimen/yl_username_msg_size" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -405,13 +310,44 @@
                 <ImageView
                     android:id="@+id/pl_iv"
                     style="@style/style_base_component2"
-                    android:background="@drawable/yl_pl" />
+                    android:background="@drawable/qz_pl" />
 
                 <TextView
                     android:id="@+id/pl_tv"
                     style="@style/style_base_component2"
                     android:layout_marginLeft="4dip"
-                    android:text="2"
+                    android:textColor="@color/yl_username_msg_gray_color"
+                    android:textSize="@dimen/yl_username_msg_size" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            style="@style/uniform_line2"
+            android:layout_height="12dip" />
+
+        <RelativeLayout
+            style="@style/style_base_component2"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/zan_ll"
+                style="@style/style_base_component2"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/zan_iv"
+                    style="@style/style_base_component2"
+                    android:background="@drawable/qz_zan" />
+
+                <TextView
+                    android:id="@+id/zan_tv"
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="4dip"
+                    android:text="@string/zan"
                     android:textColor="@color/yl_username_msg_gray_color"
                     android:textSize="@dimen/yl_username_msg_size" />
             </LinearLayout>
