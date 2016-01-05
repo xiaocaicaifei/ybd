@@ -8,6 +8,9 @@
 package com.ybd.yl;
 
 public final class R {
+    public static final class array {
+        public static final int gz=0x7f070000;
+    }
     public static final class attr {
     }
     public static final class color {
@@ -284,235 +287,251 @@ public final class R {
         public static final int xx_txl=0x7f020059;
         public static final int yl_dv=0x7f02005a;
         public static final int yl_gb=0x7f02005b;
-        public static final int yl_index_seekbar_black=0x7f02005c;
-        public static final int yl_index_seekbar_kd=0x7f02005d;
-        public static final int yl_index_seekbar_red=0x7f02005e;
-        public static final int yl_index_thumb=0x7f02005f;
-        public static final int yl_pl=0x7f020060;
-        public static final int yl_sc=0x7f020061;
-        public static final int yl_sc_cz_select=0x7f020062;
-        public static final int yl_sc_cz_unselect=0x7f020063;
-        public static final int yl_sc_cz_wx=0x7f020064;
-        public static final int yl_sc_cz_yl=0x7f020065;
-        public static final int yl_sc_cz_zfb=0x7f020066;
-        public static final int yl_sc_czcg=0x7f020067;
-        public static final int yl_sc_qxzjsp=0x7f020068;
-        public static final int yl_share_button=0x7f020069;
-        public static final int yl_share_button2=0x7f02006a;
-        public static final int yl_share_button3=0x7f02006b;
-        public static final int yl_share_button4=0x7f02006c;
-        public static final int yl_share_sjtj_dialog=0x7f02006d;
-        public static final int yl_sz=0x7f02006e;
-        public static final int yl_ts=0x7f02006f;
-        public static final int yl_wz=0x7f020070;
-        public static final int yl_zf=0x7f020071;
-        public static final int yl_zj=0x7f020072;
-        public static final int zq_zan_select=0x7f020073;
+        public static final int yl_gz_gb=0x7f02005c;
+        public static final int yl_index_seekbar_black=0x7f02005d;
+        public static final int yl_index_seekbar_kd=0x7f02005e;
+        public static final int yl_index_seekbar_red=0x7f02005f;
+        public static final int yl_index_thumb=0x7f020060;
+        public static final int yl_pl=0x7f020061;
+        public static final int yl_sc=0x7f020062;
+        public static final int yl_sc_cz_select=0x7f020063;
+        public static final int yl_sc_cz_unselect=0x7f020064;
+        public static final int yl_sc_cz_wx=0x7f020065;
+        public static final int yl_sc_cz_yl=0x7f020066;
+        public static final int yl_sc_cz_zfb=0x7f020067;
+        public static final int yl_sc_czcg=0x7f020068;
+        public static final int yl_sc_qxzjsp=0x7f020069;
+        public static final int yl_share_button=0x7f02006a;
+        public static final int yl_share_button2=0x7f02006b;
+        public static final int yl_share_button3=0x7f02006c;
+        public static final int yl_share_button4=0x7f02006d;
+        public static final int yl_share_sjtj_dialog=0x7f02006e;
+        public static final int yl_sz=0x7f02006f;
+        public static final int yl_ts=0x7f020070;
+        public static final int yl_wz=0x7f020071;
+        public static final int yl_zf=0x7f020072;
+        public static final int yl_zj=0x7f020073;
+        public static final int zq_zan_select=0x7f020074;
     }
     public static final class id {
-        public static final int LLToast=0x7f08008a;
-        public static final int bty_b=0x7f0800c4;
-        public static final int bx_b=0x7f0800a4;
-        public static final int cd_et=0x7f0800ab;
-        public static final int clickbg=0x7f080061;
-        public static final int container=0x7f08000f;
-        public static final int czjb_tv=0x7f0800c1;
-        public static final int dd_b=0x7f080065;
-        public static final int dd_tv=0x7f080049;
-        public static final int description_tv=0x7f08004e;
-        public static final int df_sb=0x7f0800a1;
-        public static final int djkqxzjsp_tv=0x7f0800b2;
-        public static final int dv_iv=0x7f080046;
-        public static final int dzxy_wb=0x7f0800c3;
-        public static final int fen_tv=0x7f0800a0;
-        public static final int four_rb=0x7f080072;
-        public static final int fs_b=0x7f080064;
-        public static final int fs_tv=0x7f08004d;
-        public static final int fs_value_tv=0x7f08001e;
-        public static final int fsxx_b=0x7f08007f;
-        public static final int gd_b=0x7f080067;
-        public static final int gm_tv=0x7f08004a;
-        public static final int gm_value_tv=0x7f08001c;
-        public static final int gr_fragment=0x7f080028;
-        public static final int gr_iv=0x7f08000d;
-        public static final int gr_ll=0x7f08000c;
-        public static final int gr_tv=0x7f08000e;
-        public static final int grzl_cy=0x7f080024;
-        public static final int grzl_ll=0x7f08001f;
-        public static final int grzl_qb=0x7f080022;
-        public static final int grzl_sqrz=0x7f080026;
-        public static final int grzl_sz=0x7f080025;
-        public static final int grzl_xc=0x7f080020;
-        public static final int grzl_zj=0x7f080023;
-        public static final int gz_vp=0x7f080086;
-        public static final int id_city=0x7f080015;
-        public static final int id_province=0x7f080014;
-        public static final int image_view=0x7f08002e;
-        public static final int jb_b=0x7f0800a9;
-        public static final int je_et=0x7f0800ba;
-        public static final int jxd_b=0x7f080066;
-        public static final int kd_et=0x7f0800ac;
-        public static final int lb_b=0x7f0800aa;
-        public static final int lby=0x7f0800b7;
-        public static final int left_iv=0x7f08008d;
-        public static final int left_rl=0x7f08008c;
-        public static final int line=0x7f08002a;
-        public static final int list=0x7f08009f;
-        public static final int list_lv=0x7f080045;
-        public static final int login_dl=0x7f080035;
-        public static final int login_ljzc_tv=0x7f08003e;
-        public static final int login_login_b=0x7f08003d;
-        public static final int login_mm=0x7f08003c;
-        public static final int login_show_image=0x7f080033;
-        public static final int login_wb=0x7f080036;
-        public static final int login_wjmm_tv=0x7f08003f;
-        public static final int login_wx=0x7f080037;
-        public static final int login_xyb_b=0x7f08003a;
-        public static final int login_zc=0x7f080034;
-        public static final int login_zh=0x7f08003b;
-        public static final int mc_tv=0x7f08004b;
-        public static final int mc_value_tv=0x7f08001d;
-        public static final int money_tv=0x7f08001a;
-        public static final int navigationbartest_ui_RollNavigationBar=0x7f08002b;
-        public static final int nc_et=0x7f080082;
-        public static final int negativeButton=0x7f080017;
-        public static final int new_tv=0x7f08002f;
-        public static final int nr_et=0x7f08006b;
-        public static final int nr_tv=0x7f08005f;
-        public static final int one_rb=0x7f08006f;
-        public static final int pb_b=0x7f08007d;
-        public static final int photo_iv=0x7f080087;
-        public static final int pl2_ll=0x7f080050;
-        public static final int pl_ev=0x7f080063;
-        public static final int pl_iv=0x7f08005a;
-        public static final int pl_ll=0x7f080059;
-        public static final int pl_lv=0x7f080051;
-        public static final int pl_rl=0x7f080062;
-        public static final int pl_tv=0x7f08005b;
-        public static final int pm_fragment=0x7f08002c;
-        public static final int pm_iv=0x7f08000a;
-        public static final int pm_ll=0x7f080009;
-        public static final int pm_tv=0x7f08000b;
-        public static final int positiveButton=0x7f080016;
-        public static final int pz_tv=0x7f080068;
-        public static final int qcz_b=0x7f0800c9;
-        public static final int qd_b=0x7f080088;
-        public static final int qm_tv=0x7f080077;
-        public static final int qpj_et=0x7f0800b1;
-        public static final int qrsc2_b=0x7f0800b3;
-        public static final int qrsc_b=0x7f08006c;
-        public static final int qrsc_ll=0x7f0800ae;
-        public static final int qrtj_b=0x7f080073;
-        public static final int qz_fragment=0x7f08002d;
-        public static final int qz_iv=0x7f080004;
-        public static final int qz_ll=0x7f080003;
-        public static final int qz_tv=0x7f080005;
-        public static final int qz_xc=0x7f08007c;
-        public static final int regist_fsyzm_b=0x7f080042;
-        public static final int regist_mm_et=0x7f080038;
-        public static final int regist_qrmm_et=0x7f080039;
-        public static final int regist_sjh_e=0x7f080043;
-        public static final int regist_sjh_et=0x7f080080;
-        public static final int regist_tj_b=0x7f080081;
-        public static final int regist_yzm_et=0x7f080041;
-        public static final int right_iv=0x7f080090;
-        public static final int right_rl=0x7f08008f;
-        public static final int right_tv=0x7f080091;
-        public static final int sby=0x7f0800b8;
-        public static final int search=0x7f08009e;
-        public static final int select_icon_iv=0x7f080089;
-        public static final int sj_ll=0x7f080078;
-        public static final int sj_tv=0x7f080079;
-        public static final int ssy=0x7f0800b4;
-        public static final int swzj_b=0x7f08007e;
-        public static final int three_rb=0x7f080071;
-        public static final int time_tv=0x7f080048;
-        public static final int title=0x7f080013;
-        public static final int title_include=0x7f080044;
-        public static final int title_name_tv=0x7f08008e;
-        public static final int title_tv=0x7f080074;
-        public static final int tp_gv=0x7f08004f;
-        public static final int tp_iv=0x7f080060;
-        public static final int tp_tv=0x7f080069;
-        public static final int tpclose_iv=0x7f08006d;
-        public static final int ts_iv=0x7f080054;
-        public static final int ts_ll=0x7f080053;
-        public static final int ts_rg=0x7f08006e;
-        public static final int ts_tv=0x7f080055;
-        public static final int tv=0x7f080030;
-        public static final int tv_toast=0x7f08008b;
-        public static final int two_rb=0x7f080070;
-        public static final int tx_iv=0x7f080018;
-        public static final int ty_b=0x7f0800c5;
-        public static final int username_tv=0x7f080019;
-        public static final int viewpager=0x7f080011;
-        public static final int wby=0x7f0800b9;
-        public static final int wc_b=0x7f0800c2;
-        public static final int webview=0x7f080012;
-        public static final int wk_b=0x7f0800a5;
-        public static final int wsy=0x7f0800b5;
-        public static final int wxzf_iv=0x7f0800bc;
-        public static final int wxzf_ll=0x7f0800bb;
-        public static final int wz_et=0x7f080085;
-        public static final int wz_tv=0x7f08006a;
-        public static final int wzklyx_tv=0x7f0800ca;
-        public static final int xb_et=0x7f080083;
-        public static final int xb_iv=0x7f080084;
-        public static final int xc_gv=0x7f080021;
-        public static final int xc_iv=0x7f080027;
-        public static final int xgbz_iv=0x7f080075;
-        public static final int xgbz_tv=0x7f080076;
-        public static final int xlistview_footer_content=0x7f080092;
-        public static final int xlistview_footer_hint_textview=0x7f080096;
-        public static final int xlistview_footer_load=0x7f080093;
-        public static final int xlistview_footer_load_text=0x7f080095;
-        public static final int xlistview_footer_progressbar=0x7f080094;
-        public static final int xlistview_header_arrow=0x7f08009c;
-        public static final int xlistview_header_content=0x7f080097;
-        public static final int xlistview_header_hint_textview=0x7f080099;
-        public static final int xlistview_header_last_time=0x7f08009a;
-        public static final int xlistview_header_progressbar=0x7f08009d;
-        public static final int xlistview_header_text=0x7f080098;
-        public static final int xlistview_header_time=0x7f08009b;
-        public static final int xq_et=0x7f0800ad;
-        public static final int xsqb_tv=0x7f080052;
-        public static final int xx_fragment=0x7f080031;
-        public static final int xx_iv=0x7f080001;
-        public static final int xx_ll=0x7f080000;
-        public static final int xx_tv=0x7f080002;
-        public static final int xy_tv=0x7f08004c;
-        public static final int xy_value_tv=0x7f08001b;
-        public static final int yby=0x7f0800b6;
-        public static final int ye_tv=0x7f0800c7;
-        public static final int yets_tv=0x7f0800c8;
-        public static final int yl_data=0x7f080029;
-        public static final int yl_fragment=0x7f080032;
-        public static final int yl_iv=0x7f080007;
-        public static final int yl_ll=0x7f080006;
-        public static final int yl_tv=0x7f080008;
-        public static final int ylzf_iv=0x7f0800c0;
-        public static final int ylzf_ll=0x7f0800bf;
-        public static final int ys_tv=0x7f080010;
-        public static final int yx_ll=0x7f08007a;
-        public static final int yx_tv=0x7f08007b;
-        public static final int yzf_tv=0x7f0800c6;
-        public static final int yzm_promp_tv=0x7f080040;
-        public static final int zan_iv=0x7f08005d;
-        public static final int zan_ll=0x7f08005c;
-        public static final int zan_tv=0x7f08005e;
-        public static final int zb_b=0x7f0800a8;
-        public static final int zd_et=0x7f0800a7;
-        public static final int zd_tv=0x7f0800a6;
-        public static final int zf_iv=0x7f080057;
-        public static final int zf_ll=0x7f080056;
-        public static final int zf_tv=0x7f080058;
-        public static final int zfbzf_iv=0x7f0800be;
-        public static final int zfbzf_ll=0x7f0800bd;
-        public static final int zj_iv=0x7f080047;
-        public static final int zjsp_b=0x7f0800af;
-        public static final int zjsp_ll=0x7f0800b0;
-        public static final int zz_et=0x7f0800a3;
-        public static final int zz_tv=0x7f0800a2;
+        public static final int LLToast=0x7f09008a;
+        public static final int bty_b=0x7f0900d3;
+        public static final int bx_b=0x7f0900b3;
+        public static final int cd_et=0x7f0900ba;
+        public static final int clickbg=0x7f090061;
+        public static final int close_iv=0x7f0900a1;
+        public static final int container=0x7f09000f;
+        public static final int czjb_tv=0x7f0900d0;
+        public static final int dd_b=0x7f090065;
+        public static final int dd_tv=0x7f090049;
+        public static final int description_tv=0x7f09004e;
+        public static final int df_sb=0x7f0900ae;
+        public static final int djkqxzjsp_tv=0x7f0900c1;
+        public static final int dv_iv=0x7f090046;
+        public static final int dzxy_wb=0x7f0900d2;
+        public static final int eightsw_b=0x7f0900a9;
+        public static final int elevensw_b=0x7f0900ac;
+        public static final int fen_tv=0x7f0900ad;
+        public static final int fivesw_b=0x7f0900a6;
+        public static final int four_rb=0x7f090072;
+        public static final int foursw_b=0x7f0900a5;
+        public static final int fs_b=0x7f090064;
+        public static final int fs_tv=0x7f09004d;
+        public static final int fs_value_tv=0x7f09001e;
+        public static final int fsxx_b=0x7f09007f;
+        public static final int gd_b=0x7f090067;
+        public static final int gm_tv=0x7f09004a;
+        public static final int gm_value_tv=0x7f09001c;
+        public static final int gr_fragment=0x7f090028;
+        public static final int gr_iv=0x7f09000d;
+        public static final int gr_ll=0x7f09000c;
+        public static final int gr_tv=0x7f09000e;
+        public static final int grzl_cy=0x7f090024;
+        public static final int grzl_ll=0x7f09001f;
+        public static final int grzl_qb=0x7f090022;
+        public static final int grzl_sqrz=0x7f090026;
+        public static final int grzl_sz=0x7f090025;
+        public static final int grzl_xc=0x7f090020;
+        public static final int grzl_zj=0x7f090023;
+        public static final int gz_rl=0x7f0900a0;
+        public static final int gz_vp=0x7f090086;
+        public static final int id_city=0x7f090015;
+        public static final int id_province=0x7f090014;
+        public static final int image_view=0x7f09002e;
+        public static final int jb_b=0x7f0900b8;
+        public static final int je_et=0x7f0900c9;
+        public static final int jxd_b=0x7f090066;
+        public static final int kd_et=0x7f0900bb;
+        public static final int lb_b=0x7f0900b9;
+        public static final int lby=0x7f0900c6;
+        public static final int left_iv=0x7f09008d;
+        public static final int left_rl=0x7f09008c;
+        public static final int line=0x7f09002a;
+        public static final int list=0x7f09009f;
+        public static final int list_lv=0x7f090045;
+        public static final int login_dl=0x7f090035;
+        public static final int login_ljzc_tv=0x7f09003e;
+        public static final int login_login_b=0x7f09003d;
+        public static final int login_mm=0x7f09003c;
+        public static final int login_show_image=0x7f090033;
+        public static final int login_wb=0x7f090036;
+        public static final int login_wjmm_tv=0x7f09003f;
+        public static final int login_wx=0x7f090037;
+        public static final int login_xyb_b=0x7f09003a;
+        public static final int login_zc=0x7f090034;
+        public static final int login_zh=0x7f09003b;
+        public static final int mc_tv=0x7f09004b;
+        public static final int mc_value_tv=0x7f09001d;
+        public static final int money_tv=0x7f09001a;
+        public static final int navigationbartest_ui_RollNavigationBar=0x7f09002b;
+        public static final int nc_et=0x7f090082;
+        public static final int negativeButton=0x7f090017;
+        public static final int new_tv=0x7f09002f;
+        public static final int ninesw_b=0x7f0900aa;
+        public static final int nr_et=0x7f09006b;
+        public static final int nr_tv=0x7f09005f;
+        public static final int one_rb=0x7f09006f;
+        public static final int onesw_b=0x7f0900a2;
+        public static final int pb_b=0x7f09007d;
+        public static final int photo_iv=0x7f090087;
+        public static final int pl2_ll=0x7f090050;
+        public static final int pl_ev=0x7f090063;
+        public static final int pl_iv=0x7f09005a;
+        public static final int pl_ll=0x7f090059;
+        public static final int pl_lv=0x7f090051;
+        public static final int pl_rl=0x7f090062;
+        public static final int pl_tv=0x7f09005b;
+        public static final int pm_fragment=0x7f09002c;
+        public static final int pm_iv=0x7f09000a;
+        public static final int pm_ll=0x7f090009;
+        public static final int pm_tv=0x7f09000b;
+        public static final int positiveButton=0x7f090016;
+        public static final int pz_tv=0x7f090068;
+        public static final int qcz_b=0x7f0900d8;
+        public static final int qd_b=0x7f090088;
+        public static final int qm_tv=0x7f090077;
+        public static final int qpj_et=0x7f0900c0;
+        public static final int qrsc2_b=0x7f0900c2;
+        public static final int qrsc_b=0x7f09006c;
+        public static final int qrsc_ll=0x7f0900bd;
+        public static final int qrtj_b=0x7f090073;
+        public static final int qz_fragment=0x7f09002d;
+        public static final int qz_iv=0x7f090004;
+        public static final int qz_ll=0x7f090003;
+        public static final int qz_tv=0x7f090005;
+        public static final int qz_xc=0x7f09007c;
+        public static final int regist_fsyzm_b=0x7f090042;
+        public static final int regist_mm_et=0x7f090038;
+        public static final int regist_qrmm_et=0x7f090039;
+        public static final int regist_sjh_e=0x7f090043;
+        public static final int regist_sjh_et=0x7f090080;
+        public static final int regist_tj_b=0x7f090081;
+        public static final int regist_yzm_et=0x7f090041;
+        public static final int right_iv=0x7f090090;
+        public static final int right_rl=0x7f09008f;
+        public static final int right_tv=0x7f090091;
+        public static final int sby=0x7f0900c7;
+        public static final int search=0x7f09009e;
+        public static final int select_icon_iv=0x7f090089;
+        public static final int sevensw_b=0x7f0900a8;
+        public static final int sixsw_b=0x7f0900a7;
+        public static final int sj_ll=0x7f090078;
+        public static final int sj_tv=0x7f090079;
+        public static final int sjtj_b=0x7f0900af;
+        public static final int ssy=0x7f0900c3;
+        public static final int swzj_b=0x7f09007e;
+        public static final int tensw_b=0x7f0900ab;
+        public static final int three_rb=0x7f090071;
+        public static final int threesw_b=0x7f0900a4;
+        public static final int time_tv=0x7f090048;
+        public static final int title=0x7f090013;
+        public static final int title_include=0x7f090044;
+        public static final int title_name_tv=0x7f09008e;
+        public static final int title_tv=0x7f090074;
+        public static final int tp_gv=0x7f09004f;
+        public static final int tp_iv=0x7f090060;
+        public static final int tp_tv=0x7f090069;
+        public static final int tpclose_iv=0x7f09006d;
+        public static final int ts_iv=0x7f090054;
+        public static final int ts_ll=0x7f090053;
+        public static final int ts_rg=0x7f09006e;
+        public static final int ts_tv=0x7f090055;
+        public static final int tv=0x7f090030;
+        public static final int tv_toast=0x7f09008b;
+        public static final int two_rb=0x7f090070;
+        public static final int twosw_b=0x7f0900a3;
+        public static final int tx_iv=0x7f090018;
+        public static final int ty_b=0x7f0900d4;
+        public static final int username_tv=0x7f090019;
+        public static final int viewpager=0x7f090011;
+        public static final int wby=0x7f0900c8;
+        public static final int wc_b=0x7f0900d1;
+        public static final int webview=0x7f090012;
+        public static final int wk_b=0x7f0900b4;
+        public static final int wsy=0x7f0900c4;
+        public static final int wxzf_iv=0x7f0900cb;
+        public static final int wxzf_ll=0x7f0900ca;
+        public static final int wygz_b=0x7f0900b0;
+        public static final int wz_et=0x7f090085;
+        public static final int wz_tv=0x7f09006a;
+        public static final int wzklyx_tv=0x7f0900d9;
+        public static final int xb_et=0x7f090083;
+        public static final int xb_iv=0x7f090084;
+        public static final int xc_gv=0x7f090021;
+        public static final int xc_iv=0x7f090027;
+        public static final int xgbz_iv=0x7f090075;
+        public static final int xgbz_tv=0x7f090076;
+        public static final int xlistview_footer_content=0x7f090092;
+        public static final int xlistview_footer_hint_textview=0x7f090096;
+        public static final int xlistview_footer_load=0x7f090093;
+        public static final int xlistview_footer_load_text=0x7f090095;
+        public static final int xlistview_footer_progressbar=0x7f090094;
+        public static final int xlistview_header_arrow=0x7f09009c;
+        public static final int xlistview_header_content=0x7f090097;
+        public static final int xlistview_header_hint_textview=0x7f090099;
+        public static final int xlistview_header_last_time=0x7f09009a;
+        public static final int xlistview_header_progressbar=0x7f09009d;
+        public static final int xlistview_header_text=0x7f090098;
+        public static final int xlistview_header_time=0x7f09009b;
+        public static final int xq_et=0x7f0900bc;
+        public static final int xsqb_tv=0x7f090052;
+        public static final int xx_fragment=0x7f090031;
+        public static final int xx_iv=0x7f090001;
+        public static final int xx_ll=0x7f090000;
+        public static final int xx_tv=0x7f090002;
+        public static final int xy_tv=0x7f09004c;
+        public static final int xy_value_tv=0x7f09001b;
+        public static final int yby=0x7f0900c5;
+        public static final int ye_tv=0x7f0900d6;
+        public static final int yets_tv=0x7f0900d7;
+        public static final int yl_data=0x7f090029;
+        public static final int yl_fragment=0x7f090032;
+        public static final int yl_iv=0x7f090007;
+        public static final int yl_ll=0x7f090006;
+        public static final int yl_tv=0x7f090008;
+        public static final int ylzf_iv=0x7f0900cf;
+        public static final int ylzf_ll=0x7f0900ce;
+        public static final int ys_tv=0x7f090010;
+        public static final int yx_ll=0x7f09007a;
+        public static final int yx_tv=0x7f09007b;
+        public static final int yzf_tv=0x7f0900d5;
+        public static final int yzm_promp_tv=0x7f090040;
+        public static final int zan_iv=0x7f09005d;
+        public static final int zan_ll=0x7f09005c;
+        public static final int zan_tv=0x7f09005e;
+        public static final int zb_b=0x7f0900b7;
+        public static final int zd_et=0x7f0900b6;
+        public static final int zd_tv=0x7f0900b5;
+        public static final int zf_iv=0x7f090057;
+        public static final int zf_ll=0x7f090056;
+        public static final int zf_tv=0x7f090058;
+        public static final int zfbzf_iv=0x7f0900cd;
+        public static final int zfbzf_ll=0x7f0900cc;
+        public static final int zj_iv=0x7f090047;
+        public static final int zjsp_b=0x7f0900be;
+        public static final int zjsp_ll=0x7f0900bf;
+        public static final int zz_et=0x7f0900b2;
+        public static final int zz_tv=0x7f0900b1;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -559,17 +578,18 @@ public final class R {
         public static final int xlistview_footer=0x7f030029;
         public static final int xlistview_header=0x7f03002a;
         public static final int xx_index=0x7f03002b;
-        public static final int yl_index=0x7f03002c;
-        public static final int yl_index_item=0x7f03002d;
-        public static final int yl_index_pl_item=0x7f03002e;
-        public static final int yl_index_tp_item=0x7f03002f;
-        public static final int yl_sc=0x7f030030;
-        public static final int yl_sc_cz=0x7f030031;
-        public static final int yl_sc_czcg=0x7f030032;
-        public static final int yl_sc_dzxys=0x7f030033;
-        public static final int yl_sc_item=0x7f030034;
-        public static final int yl_sc_zf=0x7f030035;
-        public static final int yl_sc_zfcg=0x7f030036;
+        public static final int yl_gz_popupwindow=0x7f03002c;
+        public static final int yl_index=0x7f03002d;
+        public static final int yl_index_item=0x7f03002e;
+        public static final int yl_index_pl_item=0x7f03002f;
+        public static final int yl_index_tp_item=0x7f030030;
+        public static final int yl_sc=0x7f030031;
+        public static final int yl_sc_cz=0x7f030032;
+        public static final int yl_sc_czcg=0x7f030033;
+        public static final int yl_sc_dzxys=0x7f030034;
+        public static final int yl_sc_item=0x7f030035;
+        public static final int yl_sc_zf=0x7f030036;
+        public static final int yl_sc_zfcg=0x7f030037;
     }
     public static final class string {
         public static final int app_name=0x7f060000;
@@ -765,79 +785,79 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
         /**  地址自定义弹出框 
          */
-        public static final int Dialog=0x7f070009;
+        public static final int Dialog=0x7f080009;
         /**  个人中心-主页面-Linearout的样式 
          */
-        public static final int grzx_layout=0x7f070011;
+        public static final int grzx_layout=0x7f080011;
         /**  按钮的登录 
          */
-        public static final int login_button=0x7f070007;
-        public static final int style_base=0x7f070002;
+        public static final int login_button=0x7f080007;
+        public static final int style_base=0x7f080002;
         /**  用于设置整个页面最外层的样式 
          */
-        public static final int style_base_bg=0x7f070003;
-        public static final int style_base_component=0x7f070004;
-        public static final int style_base_component2=0x7f070005;
+        public static final int style_base_bg=0x7f080003;
+        public static final int style_base_component=0x7f080004;
+        public static final int style_base_component2=0x7f080005;
         /**  Toast樣式 
          */
-        public static final int toast_view=0x7f070008;
+        public static final int toast_view=0x7f080008;
         /**  统一的输入框的样式 
          */
-        public static final int uniform_input=0x7f07000d;
+        public static final int uniform_input=0x7f08000d;
         /**  统一的输入框左边提示字体的样式 
          */
-        public static final int uniform_input_left_prompt=0x7f07000e;
+        public static final int uniform_input_left_prompt=0x7f08000e;
         /**  统一的横线线的样式 
          */
-        public static final int uniform_line=0x7f07000a;
+        public static final int uniform_line=0x7f08000a;
         /**  统一的竖线线的样式 
          */
-        public static final int uniform_line2=0x7f07000b;
+        public static final int uniform_line2=0x7f08000b;
         /**  统一的横线窄线的样式 
          */
-        public static final int uniform_line3=0x7f07000c;
+        public static final int uniform_line3=0x7f08000c;
         /**  统一的Listview的样式 
          */
-        public static final int uniform_listview=0x7f070010;
+        public static final int uniform_listview=0x7f080010;
         /**  统一的搜索框的样式 
          */
-        public static final int uniform_search_input=0x7f07000f;
+        public static final int uniform_search_input=0x7f08000f;
         /**  所有标题头的样式 
          */
-        public static final int uniform_title=0x7f070006;
+        public static final int uniform_title=0x7f080006;
         /**  艺论—主页面-估分条-下面的字体 
          */
-        public static final int yl_index_seekbar_font=0x7f07001a;
+        public static final int yl_index_seekbar_font=0x7f08001a;
         /**  艺论—主页面-估分条-下面的红色刻度 
          */
-        public static final int yl_index_seekbar_kd=0x7f070019;
+        public static final int yl_index_seekbar_kd=0x7f080019;
         /**  艺论-上传-选择按钮的样式 
          */
-        public static final int yl_sc_button_select=0x7f070016;
+        public static final int yl_sc_button_select=0x7f080016;
         /**  艺论-上传-未选择按钮的样式 
          */
-        public static final int yl_sc_button_unselect=0x7f070015;
+        public static final int yl_sc_button_unselect=0x7f080015;
         /**  艺论-上传-充值-选择按钮的样式 
          */
-        public static final int yl_sc_cz_button_select=0x7f070018;
+        public static final int yl_sc_cz_button_select=0x7f080018;
         /**  艺论-上传-充值-未选择按钮的样式 
          */
-        public static final int yl_sc_cz_button_unselect=0x7f070017;
+        public static final int yl_sc_cz_button_unselect=0x7f080017;
         /**  艺论 -上传-描述字体的样式 
          */
-        public static final int yl_sc_ms=0x7f070012;
+        public static final int yl_sc_ms=0x7f080012;
         /**  艺论 -上传-描述字体的样式 
          */
-        public static final int yl_sc_nr=0x7f070013;
+        public static final int yl_sc_nr=0x7f080013;
         /**  艺论-上传-内容输入框的样式 
          */
-        public static final int yl_sc_nr_input=0x7f070014;
+        public static final int yl_sc_nr_input=0x7f080014;
     }
 }

@@ -56,18 +56,21 @@ public class YlIndexActivity extends BaseActivity implements HomeClickListener, 
     private EditText                  plEditText;                                 //评论
     private Button                    fsButton;                                    //发送按钮
     private Map<String, Object>       plMap;                                      //点击评论后，带回来的信息
-                                                                                   //    private LinearLayout plLinearLayout;//评论
+                                                                                   //评论
+    private PopupWindow gzPopupWindow;//估值的弹出框
+    private View gzPopupView;
 
     @Override
     protected void initComponentBase() {
         setContentView(R.layout.yl_index);
         initPublicView("艺论", R.drawable.yl_sz, R.drawable.yl_sc, YlIndexActivity.this,
             YlIndexActivity.this);
+        initPlPopWindow();
+        initGzPopWindow();
         initListView();
         //        initDrawerLayout();
         page = 1;
         NetWork.submit(activity, ylList);
-        initPlPopWindow();
         registBroadcast();
     }
 
@@ -76,7 +79,7 @@ public class YlIndexActivity extends BaseActivity implements HomeClickListener, 
         listView.setPullLoadEnable(true);
         listView.setPullRefreshEnable(true);
         setXListViewListener(listView, ylList, list);
-        adapter = new YlIndexAdapter(list, activity, onClickListener);
+        adapter = new YlIndexAdapter(list, activity, onClickListener,gzPopupWindow);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -112,22 +115,15 @@ public class YlIndexActivity extends BaseActivity implements HomeClickListener, 
                 }
             }
         });
-        //        plEditText.setOnEditorActionListener(new OnEditorActionListener() {
-        //
-        //            @Override
-        //            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        //                if (actionId == EditorInfo.IME_ACTION_SEND
-        //                    || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-        //                    String circleId = PaseJson.getMapMsg(plMap, "circleId");
-        //                    String note = v.getText().toString();
-        //                    String parentId = PaseJson.getMapMsg(plMap, "parentId");
-        //                    String parentUserid = PaseJson.getMapMsg(plMap, "parentUserid");
-        //                    NetWork.submit(activity, new HfNetWork(circleId, note, parentId, parentUserid));
-        //                    return true;
-        //                }
-        //                return false;
-        //            }
-        //        });
+    }
+    /**
+     * 初始化估值弹出框
+     */
+    private void initGzPopWindow() {
+        gzPopupView = inflater.inflate(R.layout.yl_gz_popupwindow, null);
+        gzPopupWindow = createPopupWindwo(gzPopupView, ScreenDisplay.getScreenWidth(activity));
+        
+       
     }
     /**
      * 评论的点击事件
@@ -140,7 +136,6 @@ public class YlIndexActivity extends BaseActivity implements HomeClickListener, 
                                                     plMap = (Map<String, Object>) v.getTag();
                                                     popupWindow.showAsDropDown(
                                                         activity.getCurrentFocus(),
-                                                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,
                                                         0, 0);
                                                     KeyboardOperate.hideOrOpenKeyboard(activity);
                                                 }

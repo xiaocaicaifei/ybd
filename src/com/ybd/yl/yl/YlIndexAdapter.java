@@ -10,16 +10,18 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -28,7 +30,6 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ybd.common.C;
 import com.ybd.common.GridViewRun;
-import com.ybd.common.L;
 import com.ybd.common.ListViewRun;
 import com.ybd.common.MainApplication;
 import com.ybd.common.PropertiesUtil;
@@ -36,7 +37,6 @@ import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
 import com.ybd.common.net.NetWork;
 import com.ybd.common.tools.DateUtil;
-import com.ybd.common.tools.KeyboardOperate;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.common.tools.ScreenDisplay;
 import com.ybd.yl.R;
@@ -55,12 +55,14 @@ public class YlIndexAdapter extends BaseAdapter {
     private Activity                  activity;
     ImageLoader                       imageLoader = ImageLoader.getInstance();
     private OnClickListener           plClickListener;
+    private PopupWindow gzPopupWindow;//估值
 
     public YlIndexAdapter(List<Map<String, Object>> list, Activity activity,
-                          OnClickListener plClickListener) {
+                          OnClickListener plClickListener ,PopupWindow gzPopupWindow) {
         this.list = list;
         this.activity = activity;
         this.plClickListener = plClickListener;
+        this.gzPopupWindow=gzPopupWindow;
     }
 
     @Override
@@ -129,6 +131,8 @@ public class YlIndexAdapter extends BaseAdapter {
             viewHoler.xsqbTextView = (TextView) convertView.findViewById(R.id.xsqb_tv);
             viewHoler.fenTextView = (TextView) convertView.findViewById(R.id.fen_tv);
             viewHoler.dfSeekBar = (SeekBar) convertView.findViewById(R.id.df_sb);
+            viewHoler.wygzButton=(Button) convertView.findViewById(R.id.wygz_b);
+            viewHoler.sjtjButton=(Button) convertView.findViewById(R.id.sjtj_b);
             convertView.setTag(viewHoler);
         } else {
             viewHoler = (ViewHoler) convertView.getTag();
@@ -282,7 +286,8 @@ public class YlIndexAdapter extends BaseAdapter {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 map.put("grade", seekBar.getProgress());
                 notifyDataSetChanged();
-                NetWork.submit(activity, new dfNetWork(PaseJson.getMapMsg(map, "arttalk_id"),seekBar.getProgress()+""));
+                NetWork.submit(activity, new dfNetWork(PaseJson.getMapMsg(map, "arttalk_id"),
+                    seekBar.getProgress() + ""));
             }
 
             @Override
@@ -293,9 +298,25 @@ public class YlIndexAdapter extends BaseAdapter {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             }
         });
-        String progress=PaseJson.getMapMsg(map,"grade").equals("")?"0":PaseJson.getMapMsg(map,"grade");
+        String progress = PaseJson.getMapMsg(map, "grade").equals("") ? "0" : PaseJson.getMapMsg(
+            map, "grade");
         viewHoler.dfSeekBar.setProgress(Integer.parseInt(progress));
         viewHoler.fenTextView.setText(progress);
+        viewHoler.sjtjButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gzPopupWindow.showAsDropDown(
+                    v,
+                    Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL,
+                    0, 0);
+            }
+        });
+        viewHoler.wygzButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
         return convertView;
     }
 
@@ -370,12 +391,14 @@ public class YlIndexAdapter extends BaseAdapter {
         LinearLayout zanLinearLayout;    //赞的层
         GridViewRun  tpGridView;         //图片的列表
         ListViewRun  plListViewRun;      //艺论的评论
-        LinearLayout plLinearLayout2;     //显示全部评论的层
-        TextView     xsqbTextView;        //显示全部的评论
-        TextView     fenTextView;         //选中的分值
-        SeekBar      dfSeekBar;           //打分的滚动条
+        LinearLayout plLinearLayout2;    //显示全部评论的层
+        TextView     xsqbTextView;       //显示全部的评论
+        TextView     fenTextView;        //选中的分值
+        SeekBar      dfSeekBar;          //打分的滚动条
+        Button       wygzButton;          //我要估值
+        Button       sjtjButton;          //数据统计
     }
-    
+
     /**
      * 打分
      * 
@@ -383,12 +406,12 @@ public class YlIndexAdapter extends BaseAdapter {
      * @version $Id: QzIndexFragment.java, v 0.1 2015-12-22 下午5:03:48 cyf Exp $
      */
     class dfNetWork implements INetWork {
-        private String circleId;    //圈子ID
-        private String fz; //分值
+        private String circleId; //圈子ID
+        private String fz;      //分值
 
         public dfNetWork(String circleId, String fz) {
             this.circleId = circleId;
-            this.fz=fz;
+            this.fz = fz;
         }
 
         @Override

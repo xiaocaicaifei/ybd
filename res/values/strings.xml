@@ -139,6 +139,11 @@
     <string name="eight">8</string>
     <string name="nine">9</string>
     <string name="ten">10</string>
+    <string-array name="gz">
+        <item>10-20万</item>
+        <item>22-30万</item>
+        <item>30-40万</item>
+    </string-array>
     
     <!-- 消息 -->
     <string name="ss">搜索</string>

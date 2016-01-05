@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clickbg"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000"
+    >
+    <LinearLayout
+        android:id="@+id/gz_rl"
+        style="@style/style_base_component"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            style="@style/style_base_component"
+            android:layout_height="36dip"
+            android:gravity="center_vertical" >
+
+            <TextView
+                style="@style/style_base_component2"
+                android:layout_centerHorizontal="true"
+                android:text="@string/wygz"
+                android:textColor="@color/yl_username_msg_black_color"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/close_iv"
+                style="@style/style_base_component2"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/yl_gz_gb" />
+        </RelativeLayout>
+
+        <View style="@style/uniform_line" />
+
+        <HorizontalScrollView 
+            style="@style/style_base_component" 
+            >
+
+            <LinearLayout
+                style="@style/style_base_component2"
+                android:layout_height="300dip"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/onesw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+
+                <Button
+                    android:id="@+id/twosw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+
+                <Button
+                    android:id="@+id/threesw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+
+                <Button
+                    android:id="@+id/foursw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+
+                <Button
+                    android:id="@+id/fivesw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+
+                <Button
+                    android:id="@+id/sixsw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+
+                <Button
+                    android:id="@+id/sevensw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+
+                <Button
+                    android:id="@+id/eightsw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+
+                <Button
+                    android:id="@+id/ninesw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+
+                <Button
+                    android:id="@+id/tensw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+
+                <Button
+                    android:id="@+id/elevensw_b"
+                    style="@style/yl_sc_cz_button_unselect"
+                    android:layout_width="150dip"
+                    android:text="10-20万" />
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+</RelativeLayout>

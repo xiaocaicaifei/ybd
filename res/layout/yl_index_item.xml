@@ -405,7 +405,23 @@
             android:progressDrawable="@drawable/seekbar_style"
             android:thumb="@drawable/seekbar_thumb" />
     </RelativeLayout>
-
+	<LinearLayout 
+	    style="@style/style_base_component"
+	    android:layout_marginTop="11dip">
+	    <Button 
+	        android:id="@+id/sjtj_b"
+	        android:text="@string/sjtj"
+	        android:layout_width="fill_parent"
+	        android:layout_weight="1"
+	        style="@style/yl_sc_button_select"/>
+	     <Button 
+	        android:id="@+id/wygz_b"
+	        android:text="@string/wygz"
+	        android:layout_weight="1"
+	        android:layout_height="25dip"
+	        android:layout_marginLeft="11dip"
+	        style="@style/login_button"/>
+	</LinearLayout>
     <View
         style="@style/uniform_line3"
         android:layout_marginTop="12dip" />
