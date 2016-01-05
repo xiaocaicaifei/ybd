@@ -105,10 +105,11 @@
                     android:id="@+id/wk_b"
                     style="@style/yl_sc_button_unselect"
                     android:text="@string/wk" />
-                 <Button
+
+                <Button
                     style="@style/yl_sc_button_unselect"
-                    android:visibility="invisible"
-                    android:text="@string/lb" />
+                    android:text="@string/lb"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -169,17 +170,17 @@
 
                     <EditText
                         android:id="@+id/cd_et"
-                        android:inputType="numberDecimal"
                         style="@style/yl_sc_nr_input"
-                        android:hint="@string/srcd" />
+                        android:hint="@string/srcd"
+                        android:inputType="numberDecimal" />
 
                     <View style="@style/uniform_line" />
                 </LinearLayout>
 
                 <TextView
                     style="@style/yl_sc_ms"
-                    android:layout_marginLeft="5dip"
                     android:layout_gravity="bottom"
+                    android:layout_marginLeft="5dip"
                     android:layout_marginRight="5dip"
                     android:text="@string/ch" />
 
@@ -192,8 +193,8 @@
                     <EditText
                         android:id="@+id/kd_et"
                         style="@style/yl_sc_nr_input"
-                        android:inputType="numberDecimal"
-                        android:hint="@string/srkd" />
+                        android:hint="@string/srkd"
+                        android:inputType="numberDecimal" />
 
                     <View style="@style/uniform_line" />
                 </LinearLayout>
@@ -222,33 +223,95 @@
 
                     <EditText
                         android:id="@+id/xq_et"
-                        android:gravity="top|left"
-                        android:layout_height="30dip"
-                        android:maxLength="200"
-                        android:inputType="textMultiLine"
                         style="@style/yl_sc_nr_input"
-                        android:hint="@string/srxq" />
+                        android:layout_height="wrap_content"
+                        android:gravity="top|left"
+                        android:hint="@string/srxq"
+                        android:inputType="textMultiLine"
+                        android:maxLength="200" />
                 </LinearLayout>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/zjsp_b"
-                android:layout_height="41dip"
-                android:layout_marginTop="70dip"
-                android:text="@string/zjsp"
-                android:background="@drawable/yl_share_button2"
-                android:textColor="@color/unitform_button_red"
-                style="@style/style_base_component"/>
-
-            <Button
-                android:id="@+id/qrsc_b"
-                android:layout_height="41dip"
-                android:layout_marginBottom="22dip"
-                android:layout_marginTop="13dip"
-                android:background="@drawable/login_share_button2"
+            <LinearLayout
+                android:id="@+id/qrsc_ll"
                 style="@style/style_base_component"
-                android:text="@string/qrsc"
-                android:textColor="@color/yl_sc_qrsc" />
+                android:layout_marginTop="70dip"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/zjsp_b"
+                    style="@style/style_base_component"
+                    android:layout_height="41dip"
+                    android:background="@drawable/yl_share_button2"
+                    android:text="@string/zjsp"
+                    android:textColor="@color/unitform_button_red" />
+
+                <Button
+                    android:id="@+id/qrsc_b"
+                    style="@style/style_base_component"
+                    android:layout_height="41dip"
+                    android:layout_marginBottom="22dip"
+                    android:layout_marginTop="13dip"
+                    android:background="@drawable/login_share_button2"
+                    android:text="@string/qrsc"
+                    android:textColor="@color/yl_sc_qrsc" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/zjsp_ll"
+                style="@style/style_base_component2"
+                android:layout_marginTop="70dip" 
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/style_base_component"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/yl_sc_ms"
+                        android:text="@string/qpj" />
+
+                    <LinearLayout
+                        style="@style/style_base_component2"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+
+                        <EditText
+                            android:id="@+id/qpj_et"
+                            android:inputType="number"
+                            style="@style/yl_sc_nr_input" />
+
+                        <View style="@style/uniform_line" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/yl_sc_ms"
+                        android:text="@string/yuan" />
+
+                    <ImageView
+                        style="@style/yl_sc_ms"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dip"
+                        android:background="@drawable/yl_sc_qxzjsp" />
+
+                    <TextView
+                        android:id="@+id/djkqxzjsp_tv"
+                        style="@style/style_base_component2"
+                        android:layout_marginLeft="10dip"
+                        android:text="@string/djkqxzjsp"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/qrsc2_b"
+                    style="@style/style_base_component"
+                    android:layout_height="41dip"
+                    android:layout_marginBottom="22dip"
+                    android:layout_marginTop="13dip"
+                    android:background="@drawable/login_share_button"
+                    android:text="@string/qrsc"
+                    android:textColor="@color/yl_sc_qrsc" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

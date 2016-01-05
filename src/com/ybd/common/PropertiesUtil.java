@@ -31,6 +31,10 @@ public class PropertiesUtil {
     public static final String ACCOUNT="account";
     /** 密码*/
     public static final String PASSWORD="password";
+    /**直接上拍上拍*/
+    public static final String SCSP="scsp";
+    /**起拍价*/
+    public static final String QPJ="qpj";
     
     /**
      * 根据key读取value

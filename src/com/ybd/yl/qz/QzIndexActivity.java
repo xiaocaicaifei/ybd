@@ -13,9 +13,7 @@ import org.json.JSONObject;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
+import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.C;
 import com.ybd.common.PropertiesUtil;
 import com.ybd.common.net.Data;
@@ -51,7 +50,7 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
     private QzIndexAdapter               adapter;
     private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     DrawerLayout                      drawerLayout;
-    private ReceiverBroadCase         receiverBroadCase;
+    private ReceiverBroadCase         receiverBroadCase=new ReceiverBroadCase();
     private View                      cxPopupView;
     private PopupWindow               popupWindow;
     private EditText                  plEditText;                                 //评论
@@ -179,11 +178,12 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
      * 注册广播
      */
     private void registBroad() {
-        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(activity);
-        receiverBroadCase = new ReceiverBroadCase();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("QZSX");
-        broadcastManager.registerReceiver(receiverBroadCase, filter);
+//        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(activity);
+//        receiverBroadCase = new ReceiverBroadCase();
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("QZSX");
+//        broadcastManager.registerReceiver(receiverBroadCase, filter);
+        BroadcaseUtil.registBroadcase(activity, receiverBroadCase,BroadcaseUtil.QZ_SCCG);
     }
 
     /**

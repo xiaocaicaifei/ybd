@@ -33,7 +33,7 @@
         android:textColor="@color/yl_sc_cz_xzczje"
         android:textSize="14sp" />
     <Button 
-        android:id="@+id/qzf_b"
+        android:id="@+id/wc_b"
         style="@style/login_button"
         android:layout_marginTop="55dip"
         android:text="@string/qzf"/>

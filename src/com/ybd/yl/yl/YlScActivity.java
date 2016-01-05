@@ -6,8 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
@@ -19,13 +23,17 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.GridViewRun;
 import com.ybd.common.PropertiesUtil;
 import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
 import com.ybd.common.net.INetWorkResult;
 import com.ybd.common.net.NetWork;
+import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 import com.ybd.yl.common.PreviewImgActivity;
@@ -56,6 +64,12 @@ public class YlScActivity extends BaseActivity implements OnClickListener {
     private Button lbButton;//绫本
     private Button zjspButton;//直接上拍
     private Button qrscButton;//确认上传
+    private LinearLayout qrscLayout;//确认上传层
+    private LinearLayout zjspLayout;//直接上拍层
+    private EditText qpjEditText;//起拍价
+    private TextView djkqxzjspTextView;//点击可取消直接上拍
+    private Button qrsc2Button;//确认上传（直接上拍层中的确认上传）
+    
     
 
     @Override
@@ -64,6 +78,7 @@ public class YlScActivity extends BaseActivity implements OnClickListener {
         initPublicView("上传");
         init();
         initTpGridView();
+        registBroadcast();
     }
 
     /**
@@ -144,7 +159,16 @@ public class YlScActivity extends BaseActivity implements OnClickListener {
         qrscButton=(Button) findViewById(R.id.qrsc_b);
         qrscButton.setOnClickListener(this);
         qrscButton.setEnabled(false);
-                
+        
+        qrscLayout=(LinearLayout) findViewById(R.id.qrsc_ll);
+        qrscLayout.setVisibility(View.VISIBLE);
+        zjspLayout=(LinearLayout) findViewById(R.id.zjsp_ll);
+        zjspLayout.setVisibility(View.GONE);
+        qpjEditText=(EditText) findViewById(R.id.qpj_et);
+        djkqxzjspTextView=(TextView) findViewById(R.id.djkqxzjsp_tv);
+        djkqxzjspTextView.setOnClickListener(this);
+        qrsc2Button=(Button) findViewById(R.id.qrsc2_b);
+        qrsc2Button.setOnClickListener(this);
     }
     /**
      * 初始化图片的GridView
@@ -169,6 +193,19 @@ public class YlScActivity extends BaseActivity implements OnClickListener {
         });
     }
 
+    /**
+     * 注册广播
+     */
+    private void registBroadcast(){
+        //支付成功的广播
+        BroadcaseUtil.registBroadcase(activity, new BroadcastReceiver() {
+            
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                finish();
+            }
+        }, BroadcaseUtil.YL_SCCG);
+    }
     @Override
     public void onClick(View arg0) {
         Intent intent = new Intent();
@@ -233,8 +270,10 @@ public class YlScActivity extends BaseActivity implements OnClickListener {
                 zbButton.setTextAppearance(activity, R.style.yl_sc_button_unselect);
                 break;
             case R.id.zjsp_b:
-                intent.setClass(activity, YlScDzxysActivity.class);
-                startActivity(intent);
+//                intent.setClass(activity, YlScDzxysActivity.class);
+//                startActivity(intent);
+                qrscLayout.setVisibility(View.GONE);
+                zjspLayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.qrsc_b:
                 if(list.size()==1){
@@ -249,6 +288,52 @@ public class YlScActivity extends BaseActivity implements OnClickListener {
                         NetWork.submit(YlScActivity.this, new qrscNetWork(result.toString(),"0"));
                     }
                 }));
+                break;
+            case R.id.djkqxzjsp_tv:
+                zjspLayout.setVisibility(View.GONE);
+                qrscLayout.setVisibility(View.VISIBLE);
+                break;
+            case R.id.qrsc2_b://直接上拍中的确实上传
+                if(list.size()==1){
+                    toastShow("至少要上传一张图片！");
+                    return;
+                }
+                String zz=zzEditText.getText().toString();
+                String zd=zdEditText.getText().toString();
+                String cd=cdEditText.getText().toString();
+                String kd=kdEditText.getText().toString();
+                if(zz.equals("")||zd.equals("")||cd.equals("")||kd.equals("")){
+                    toastShow("作者、质地、尺寸必须填写完整");
+                    return;
+                }
+                if(qpjEditText.getText().toString().equals("")){
+                    toastShow("请填写起拍价！");
+                    return;
+                }
+                
+                try {
+                    JSONObject jsonObject=new JSONObject();
+                    JSONArray jsonArray=new JSONArray();
+                    for(Map<String, Object> m:list.subList(0, list.size()-1)){
+                        JSONObject object=new JSONObject();
+                        object.put("path",PaseJson.getMapMsg(m, "path"));
+                        jsonArray.put(object);
+                    }
+                    jsonObject.put("paths", jsonArray);
+                    jsonObject.put("zz",zzEditText.getText().toString() );
+                    jsonObject.put("zd",zdEditText.getText().toString() );
+                    jsonObject.put("cd",cdEditText.getText().toString() );
+                    jsonObject.put("kd",kdEditText.getText().toString() );
+                    jsonObject.put("xq", xqEditText.getText().toString());
+                    jsonObject.put("qpj",qpjEditText.getText().toString() );
+                    jsonObject.put("fblx", selectNd);
+                    PropertiesUtil.write(activity, PropertiesUtil.SCSP, jsonObject.toString());
+                    PropertiesUtil.write(activity, PropertiesUtil.QPJ, qpjEditText.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                intent.setClass(activity, YlScDzxysActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

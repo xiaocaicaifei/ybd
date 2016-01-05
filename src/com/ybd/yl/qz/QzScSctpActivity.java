@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 
+import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.PropertiesUtil;
 import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
@@ -116,8 +117,9 @@ public class QzScSctpActivity extends BaseActivity implements OnClickListener {
             JSONObject jsonObject=new JSONObject(result);
             if(jsonObject.getString("code").equals("0")){
                 toastShow("发送成功！");
-                Intent intent=new Intent("QZSX");
-                LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
+//                Intent intent=new Intent("QZSX");
+//                LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
+                BroadcaseUtil.sendBroadcase(BroadcaseUtil.QZ_SCCG, activity);
                 list.clear();
                 finish();
             }else{

@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ybd.common.L;
 import com.ybd.yl.R;
 import com.ybd.yl.qz.QzIndexActivity;
 import com.ybd.yl.yl.YlIndexActivity;

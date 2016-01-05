@@ -2,12 +2,15 @@ package com.ybd.yl.yl;
 
 import org.json.JSONObject;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
 
+import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.C;
 import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
@@ -31,6 +34,7 @@ public class YlScDzxysActivity extends BaseActivity implements OnClickListener {
         setContentView(R.layout.yl_sc_dzxys);
         initPublicView("电子协议书");
         init();
+        registBroadcast();
     }
 
     /**
@@ -43,6 +47,20 @@ public class YlScDzxysActivity extends BaseActivity implements OnClickListener {
         tyButton.setOnClickListener(this);
         dzxysWebView = (WebView) findViewById(R.id.dzxy_wb);
         dzxysWebView.loadUrl(C.IP+"static/protocol.html");
+    }
+    
+    /**
+     * 注册广播
+     */
+    private void registBroadcast(){
+        //支付成功的广播
+        BroadcaseUtil.registBroadcase(activity, new BroadcastReceiver() {
+            
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                finish();
+            }
+        }, BroadcaseUtil.YL_SCCG);
     }
 
     @Override

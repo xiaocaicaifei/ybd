@@ -14,9 +14,7 @@ import org.json.JSONObject;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
+import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.C;
 import com.ybd.common.PropertiesUtil;
 import com.ybd.common.net.Data;
@@ -52,7 +51,6 @@ public class YlIndexActivity extends BaseActivity implements HomeClickListener, 
     private YlIndexAdapter               adapter;
     private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     DrawerLayout                      drawerLayout;
-    private ReceiverBroadCase         receiverBroadCase;
     private View                      cxPopupView;
     private PopupWindow               popupWindow;
     private EditText                  plEditText;                                 //评论
@@ -66,24 +64,18 @@ public class YlIndexActivity extends BaseActivity implements HomeClickListener, 
         initPublicView("艺论", R.drawable.yl_sz, R.drawable.yl_sc, YlIndexActivity.this,
             YlIndexActivity.this);
         initListView();
-        registBroad();//注册广播接收
         //        initDrawerLayout();
         page = 1;
-        NetWork.submit(activity, qzList);
+        NetWork.submit(activity, ylList);
         initPlPopWindow();
+        registBroadcast();
     }
 
     private void initListView() {
         listView = (XListView) findViewById(R.id.list_lv);
-        //        int height = ScreenDisplay.getScreenHeight2(activity)
-        //                     - ScreenDisplay.dip2px(activity, R.dimen.uniform_title_height)
-        //                     - ScreenDisplay.dip2px(activity, R.dimen.nav_bar_size)
-        //                     - ScreenDisplay.dip2px(activity, 35);
-        ////        动态设置Listview的高度
-        //        ScreenDisplay.setViewWidthAndHeight(listView, 0, height);
         listView.setPullLoadEnable(true);
         listView.setPullRefreshEnable(true);
-        setXListViewListener(listView, qzList, list);
+        setXListViewListener(listView, ylList, list);
         adapter = new YlIndexAdapter(list, activity, onClickListener);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -137,7 +129,6 @@ public class YlIndexActivity extends BaseActivity implements HomeClickListener, 
         //            }
         //        });
     }
-
     /**
      * 评论的点击事件
      */
@@ -179,12 +170,17 @@ public class YlIndexActivity extends BaseActivity implements HomeClickListener, 
     /**
      * 注册广播
      */
-    private void registBroad() {
-        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(activity);
-        receiverBroadCase = new ReceiverBroadCase();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("QZSX");
-        broadcastManager.registerReceiver(receiverBroadCase, filter);
+    private void registBroadcast(){
+        //支付成功的广播
+        BroadcaseUtil.registBroadcase(activity, new BroadcastReceiver() {
+            
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                page=1;
+                list.clear();
+                NetWork.submit(activity, false, ylList);
+            }
+        }, BroadcaseUtil.YL_SCCG);
     }
 
     /**
@@ -262,7 +258,7 @@ public class YlIndexActivity extends BaseActivity implements HomeClickListener, 
     /**
      * 查询列表的信息
      */
-    INetWork qzList = new INetWork() {
+    INetWork ylList = new INetWork() {
 
                         @Override
                         public boolean validate() {
@@ -315,7 +311,7 @@ public class YlIndexActivity extends BaseActivity implements HomeClickListener, 
         public void onReceive(Context context, Intent intent) {
             page = 1;
             list.clear();
-            NetWork.submit(activity, false, qzList);
+            NetWork.submit(activity, false, ylList);
         }
     }
 

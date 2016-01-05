@@ -181,5 +181,19 @@
         <item name="android:layout_height">38dip</item>
         <item name="android:background">@drawable/yl_share_button4</item>
     </style>
+    
+    <!-- 艺论—主页面-估分条-下面的红色刻度 -->
+    <style name="yl_index_seekbar_kd" parent="@style/style_base_component2">
+        <item name="android:background">@drawable/yl_index_seekbar_kd</item>
+        <item name="android:layout_marginLeft">0dip</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <!-- 艺论—主页面-估分条-下面的字体 -->
+    <style name="yl_index_seekbar_font" parent="@style/style_base_component2">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/yl_index_seekbar_font</item>
+        <item name="android:layout_marginTop">8dip</item>
+         <item name="android:layout_gravity">center</item>
+    </style>
 
 </resources>

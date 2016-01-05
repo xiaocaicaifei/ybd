@@ -41,18 +41,6 @@
     <string name="sz">设置</string>
     <string name="sqrz">申请认证</string>
     
-    <!-- 艺论 -->
-    <string name="yl">艺论</string>
-    <string name="sjtj">数据统计</string>
-    <string name="wygz">我要估值</string>
-    <string name="wypf">我要评分</string>
-    <string name="djlk">大家来看</string>
-    <string name="yl_gm">购买:</string>
-    <string name="yl_mc">卖出:</string>
-    <string name="yl_xy">信用:</string>
-    <string name="yl_fs">粉丝:</string>
-    <string name="yl_hf">回复</string>
-    
     <!-- 圈子 -->
     <string name="zan">赞</string>
     <string name="pl">评论</string>
@@ -84,6 +72,16 @@
     <string name="xsqb">显示全部</string>
     
     <!-- 艺论 -->
+    <string name="yl">艺论</string>
+    <string name="sjtj">数据统计</string>
+    <string name="wygz">我要估值</string>
+    <string name="wypf">我要评分</string>
+    <string name="djlk">大家来看</string>
+    <string name="yl_gm">购买:</string>
+    <string name="yl_mc">卖出:</string>
+    <string name="yl_xy">信用:</string>
+    <string name="yl_fs">粉丝:</string>
+    <string name="yl_hf">回复</string>
     <string name="zjsp">直接上拍</string>
     <string name="zd12z">最多12张...</string>
     <string name="zz">作者：</string>
@@ -121,8 +119,26 @@
     <string name="zfbzf">支付宝支付</string>
     <string name="ylzf">银联支付</string>
     <string name="czcg">充值成功</string>
+    <string name="zfcg">支付成功</string>
     <string name="qwzfymwczf">前往支付页面，完成支付</string>
+    <string name="tgdjylh">通过大家议论后,我们会给您发送推送消息，告知您！</string>
     <string name="qzf">去支付</string>
+    <string name="qpj">起拍价：</string>
+    <string name="yuan">元</string>
+    <string name="djkqxzjsp">点击可取消直接上拍</string>
+    <string name="hddf">滑动打分</string>
+    <string name="fen">分</string>
+    <string name="zelo">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="ten">10</string>
     
     <!-- 消息 -->
     <string name="ss">搜索</string>

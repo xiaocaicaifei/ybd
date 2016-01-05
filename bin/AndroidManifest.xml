@@ -200,6 +200,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+         <!-- 艺论-上传-支付成功 -->
+        <activity
+            android:name="com.ybd.yl.yl.YlScZfcgActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
 
         <!-- 艺论-上传-选择相册图片 -->
         <activity

@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <ImageView
+        style="@style/style_base_component2"
+        android:layout_marginTop="41dip"
+        android:background="@drawable/yl_sc_czcg" />
+
+    <TextView
+        android:id="@+id/czjb_tv"
+        style="@style/style_base_component2"
+        android:layout_marginTop="16dip"
+        android:textColor="@color/unitform_button_red"
+        android:textSize="14sp" />
+
+    <TextView
+        style="@style/style_base_component2"
+        android:layout_marginTop="8dip"
+        android:text="@string/zfcg"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        style="@style/style_base_component2"
+        android:layout_marginTop="14dip"
+        android:text="@string/tgdjylh"
+        android:textColor="@color/yl_sc_cz_xzczje"
+        android:textSize="14sp" />
+    <Button 
+        android:id="@+id/wc_b"
+        style="@style/login_button"
+        android:layout_marginTop="55dip"
+        android:text="@string/wc"/>
+
+</LinearLayout>

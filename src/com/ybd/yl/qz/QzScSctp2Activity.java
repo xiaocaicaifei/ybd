@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
+import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.PropertiesUtil;
 import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
@@ -77,8 +78,9 @@ public class QzScSctp2Activity extends BaseActivity implements OnClickListener {
             JSONObject jsonObject=new JSONObject(result);
             if(jsonObject.getString("code").equals("0")){
                 toastShow("发送成功！");
-                Intent intent=new Intent("QZSX");
-                LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
+//                Intent intent=new Intent("QZSX");
+//                LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
+                BroadcaseUtil.sendBroadcase(BroadcaseUtil.QZ_SCCG, activity);
                 finish();
             }else{
                 toastShow("发送失败！");
