@@ -416,7 +416,7 @@
 	        style="@style/yl_sc_button_select"/>
 	     <Button 
 	        android:id="@+id/wygz_b"
-	        android:text="@string/wygz"
+	        android:text="@string/wlgz"
 	        android:layout_weight="1"
 	        android:layout_height="25dip"
 	        android:layout_marginLeft="11dip"

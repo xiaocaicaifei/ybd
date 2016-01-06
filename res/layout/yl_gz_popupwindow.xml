@@ -3,13 +3,14 @@
     android:id="@+id/clickbg"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#000000"
-    >
+    android:background="#90000000" >
+
     <LinearLayout
         android:id="@+id/gz_rl"
         style="@style/style_base_component"
-        android:background="@color/white"
         android:layout_alignParentBottom="true"
+        android:paddingBottom="18dip"
+        android:background="@color/white"
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -20,7 +21,7 @@
             <TextView
                 style="@style/style_base_component2"
                 android:layout_centerHorizontal="true"
-                android:text="@string/wygz"
+                android:text="@string/wlgz"
                 android:textColor="@color/yl_username_msg_black_color"
                 android:textSize="17sp" />
 
@@ -28,87 +29,225 @@
                 android:id="@+id/close_iv"
                 style="@style/style_base_component2"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="3dip"
+                android:layout_marginRight="20dip"
                 android:background="@drawable/yl_gz_gb" />
         </RelativeLayout>
 
         <View style="@style/uniform_line" />
 
-        <HorizontalScrollView 
-            style="@style/style_base_component" 
-            >
+        <HorizontalScrollView
+            style="@style/style_base_component"
+            android:layout_marginTop="18dip"
+            android:scrollbars="none" >
 
             <LinearLayout
-                style="@style/style_base_component2"
-                android:layout_height="300dip"
-                android:orientation="horizontal" >
+                style="@style/style_base_component"
+                android:orientation="vertical" >
 
-                <Button
-                    android:id="@+id/onesw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:orientation="horizontal" >
 
-                <Button
-                    android:id="@+id/twosw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                    <Button
+                        android:id="@+id/onesw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:layout_marginLeft="0dip"
+                        android:text="@string/onesw" />
 
-                <Button
-                    android:id="@+id/threesw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                    <Button
+                        android:id="@+id/twosw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/twosw" />
 
-                <Button
-                    android:id="@+id/foursw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                    <Button
+                        android:id="@+id/threesw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/threesw" />
 
-                <Button
-                    android:id="@+id/fivesw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                    <Button
+                        android:id="@+id/foursw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/foursw" />
 
-                <Button
-                    android:id="@+id/sixsw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                    <Button
+                        android:id="@+id/fivesw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/fivesw" />
 
-                <Button
-                    android:id="@+id/sevensw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                    <Button
+                        android:id="@+id/sixsw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/sixsw" />
 
-                <Button
-                    android:id="@+id/eightsw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                    <Button
+                        android:id="@+id/sevensw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/sevensw" />
 
-                <Button
-                    android:id="@+id/ninesw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                    <Button
+                        android:id="@+id/eightsw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/eightsw" />
 
-                <Button
-                    android:id="@+id/tensw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                    <Button
+                        android:id="@+id/ninesw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/ninesw" />
 
-                <Button
-                    android:id="@+id/elevensw_b"
-                    style="@style/yl_sc_cz_button_unselect"
-                    android:layout_width="150dip"
-                    android:text="10-20万" />
+                    <Button
+                        android:id="@+id/tenupsw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/tenupsw" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_marginTop="21dip"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/onew_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:layout_marginLeft="0dip"
+                        android:text="@string/onew" />
+
+                    <Button
+                        android:id="@+id/twow_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/twow" />
+
+                    <Button
+                        android:id="@+id/threew_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/threew" />
+
+                    <Button
+                        android:id="@+id/fourw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/fourw" />
+
+                    <Button
+                        android:id="@+id/fivew_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/fivew" />
+
+                    <Button
+                        android:id="@+id/sixw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/sixw" />
+
+                    <Button
+                        android:id="@+id/sevenw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/sevenw" />
+
+                    <Button
+                        android:id="@+id/eightw_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/eightw" />
+
+                    <Button
+                        android:id="@+id/ninew_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/ninew" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_marginTop="21dip"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/onedownq_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:layout_marginLeft="0dip"
+                        android:text="@string/onedownq" />
+
+                    <Button
+                        android:id="@+id/oneq_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/oneq" />
+
+                    <Button
+                        android:id="@+id/twoq_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/twoq" />
+
+                    <Button
+                        android:id="@+id/threeq_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/threeq" />
+
+                    <Button
+                        android:id="@+id/fourq_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/fourq" />
+
+                    <Button
+                        android:id="@+id/fiveq_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/fiveq" />
+
+                    <Button
+                        android:id="@+id/sixq_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/sixq" />
+
+                    <Button
+                        android:id="@+id/sevenq_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/sevenq" />
+
+                    <Button
+                        android:id="@+id/eightq_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/eightq" />
+
+                    <Button
+                        android:id="@+id/nineq_b"
+                        style="@style/yl_index_gz_button_unselect"
+                        android:text="@string/nineq" />
+                </LinearLayout>
             </LinearLayout>
         </HorizontalScrollView>
+        <LinearLayout 
+            style="@style/style_base_component"
+            android:layout_marginTop="24dip"
+            android:orientation="horizontal">
+            <TextView 
+                style="@style/style_base_component2"
+                android:textSize="13sp"
+                android:text="@string/zdy"
+                android:textColor="@color/yl_username_msg_black_color"
+                android:layout_marginLeft="13dip"/>
+            <LinearLayout 
+                style="@style/style_base_component2"
+                android:orientation="vertical">
+                <EditText 
+                    android:id="@+id/srgzje_et"
+                    style="@style/uniform_input"
+                    android:layout_width="180dip"
+                    android:layout_marginRight="10dip"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:hint="@string/srgzje"/>
+                <View style="@style/uniform_line"/>
+            </LinearLayout>
+            <TextView 
+                style="@style/style_base_component2"
+                android:textSize="13sp"
+                android:textColor="@color/yl_username_msg_black_color"
+                android:text="@string/yuan"/>
+        </LinearLayout>
+        <Button 
+            android:id="@+id/tj_b"
+            style="@style/yl_sc_button_select"
+            android:layout_marginTop="16dip"
+            android:layout_width="fill_parent"
+            android:layout_height="41dip"
+            android:layout_marginRight="10dip"
+            android:text="@string/tj"/>
     </LinearLayout>
 
 </RelativeLayout>

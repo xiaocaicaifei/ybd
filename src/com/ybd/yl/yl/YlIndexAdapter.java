@@ -2,13 +2,11 @@ package com.ybd.yl.yl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,7 +19,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -52,17 +49,16 @@ import com.ybd.yl.qz.QzXxzlActivity;
  */
 public class YlIndexAdapter extends BaseAdapter {
     private List<Map<String, Object>> list        = new ArrayList<Map<String, Object>>();
-    private Activity                  activity;
+    private YlIndexActivity                  activity;
     ImageLoader                       imageLoader = ImageLoader.getInstance();
-    private OnClickListener           plClickListener;
-    private PopupWindow gzPopupWindow;//估值
+//    private OnClickListener           plClickListener;
+//    private PopupWindow gzPopupWindow;//估值
 
-    public YlIndexAdapter(List<Map<String, Object>> list, Activity activity,
-                          OnClickListener plClickListener ,PopupWindow gzPopupWindow) {
+    public YlIndexAdapter(List<Map<String, Object>> list, YlIndexActivity activity) {
         this.list = list;
         this.activity = activity;
-        this.plClickListener = plClickListener;
-        this.gzPopupWindow=gzPopupWindow;
+//        this.plClickListener = plClickListener;
+//        this.gzPopupWindow=gzPopupWindow;
     }
 
     @Override
@@ -185,19 +181,19 @@ public class YlIndexAdapter extends BaseAdapter {
             viewHoler.zanTextView.setTextColor(activity.getResources().getColor(
                 R.color.unitform_button_red));
         }
-        viewHoler.plLinearLayout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Map<String, Object> m = new HashMap<String, Object>();
-                m.put("circleId", PaseJson.getMapMsg(map, "circle_id"));
-                m.put("note", "");
-                m.put("parentId", "");
-                m.put("parentUserid", "");
-                m.put("index", position);
-                v.setTag(m);
-                plClickListener.onClick(v);
-            }
-        });
+//        viewHoler.plLinearLayout.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Map<String, Object> m = new HashMap<String, Object>();
+//                m.put("circleId", PaseJson.getMapMsg(map, "circle_id"));
+//                m.put("note", "");
+//                m.put("parentId", "");
+//                m.put("parentUserid", "");
+//                m.put("index", position);
+//                v.setTag(m);
+//                activity.plClickListener.onClick(v);
+//            }
+//        });
         BaseAdapter tpAdapter = new YlIndexTpAdapter(l, activity);
         viewHoler.tpGridView.setAdapter(tpAdapter);
         tpAdapter.notifyDataSetChanged();
@@ -212,21 +208,21 @@ public class YlIndexAdapter extends BaseAdapter {
         });
         final BaseAdapter plAdapter = new YlIndexPlAdapter(l3, activity);
         viewHoler.plListViewRun.setAdapter(plAdapter);
-        viewHoler.plListViewRun.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position2, long id) {
-                Map<String, Object> map2 = l2.get(position2);
-                Map<String, Object> m = new HashMap<String, Object>();
-                m.put("circleId", PaseJson.getMapMsg(map, "arttalk_id"));
-                m.put("note", "");
-                m.put("parentId", PaseJson.getMapMsg(map2, "id"));
-                m.put("parentUserid", PaseJson.getMapMsg(map2, "user_id"));
-                m.put("parent_username", PaseJson.getMapMsg(map2, "user_name"));
-                m.put("index", position);
-                view.setTag(m);
-                plClickListener.onClick(view);
-            }
-        });
+//        viewHoler.plListViewRun.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position2, long id) {
+//                Map<String, Object> map2 = l2.get(position2);
+//                Map<String, Object> m = new HashMap<String, Object>();
+//                m.put("circleId", PaseJson.getMapMsg(map, "arttalk_id"));
+//                m.put("note", "");
+//                m.put("parentId", PaseJson.getMapMsg(map2, "id"));
+//                m.put("parentUserid", PaseJson.getMapMsg(map2, "user_id"));
+//                m.put("parent_username", PaseJson.getMapMsg(map2, "user_name"));
+//                m.put("index", position);
+//                view.setTag(m);
+//                plClickListener.onClick(view);
+//            }
+//        });
         plAdapter.notifyDataSetChanged();
         ScreenDisplay.setListViewHeightBasedOnChildren(viewHoler.plListViewRun);
         if (l2.size() == 0) {
@@ -305,10 +301,11 @@ public class YlIndexAdapter extends BaseAdapter {
         viewHoler.sjtjButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                gzPopupWindow.showAsDropDown(
-                    v,
+                activity.gzPopupWindow.showAsDropDown(
+                    activity.titleView,
                     Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL,
                     0, 0);
+                activity.selectCircleID=PaseJson.getMapMsg(map, "arttalk_id");
             }
         });
         viewHoler.wygzButton.setOnClickListener(new OnClickListener() {

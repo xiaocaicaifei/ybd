@@ -84,6 +84,7 @@ public abstract class BaseActivity extends FragmentActivity implements App {
     private ImageView      leftImageView;       //统一标题头左边按钮
     private ImageView      rightImageView;      //统一标题头右边的按钮
     private TextView       rightTextView;       //统一标题头右边的文字
+    public View titleView;//用于显示弹出框的view，弹出框显示到改视图的下面
 
     /**
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -116,6 +117,7 @@ public abstract class BaseActivity extends FragmentActivity implements App {
      */
     public void initPublicView(String titleName, int leftId, int rightId,
                                OnClickListener leftClickListener, OnClickListener rightClickListener) {
+        titleView=findViewById(R.id.title_v);
         leftRelativeLayout = (RelativeLayout) findViewById(R.id.left_rl);
         rightRelativeLayout = (RelativeLayout) findViewById(R.id.right_rl);
         leftImageView = (ImageView) findViewById(R.id.left_iv);
@@ -155,6 +157,7 @@ public abstract class BaseActivity extends FragmentActivity implements App {
      * @param titleName 标题头显示的文字
      */
     public void initPublicView(String titleName) {
+        titleView=findViewById(R.id.title_v);
         leftRelativeLayout = (RelativeLayout) findViewById(R.id.left_rl);
         rightRelativeLayout = (RelativeLayout) findViewById(R.id.right_rl);
         leftImageView = (ImageView) findViewById(R.id.left_iv);
@@ -182,6 +185,7 @@ public abstract class BaseActivity extends FragmentActivity implements App {
      */
     public void initPublicView(String titleName, int leftId, String rightName,
                                OnClickListener leftClickListener, OnClickListener rightClickListener) {
+        titleView=findViewById(R.id.title_v);
         leftRelativeLayout = (RelativeLayout) findViewById(R.id.left_rl);
         rightRelativeLayout = (RelativeLayout) findViewById(R.id.right_rl);
         leftImageView = (ImageView) findViewById(R.id.left_iv);

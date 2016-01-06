@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/uniform_title"
     android:layout_height="@dimen/uniform_title_height" >
-
+	<View style="@style/style_base_component2" android:id="@+id/title_v" android:layout_height="0dip"/>
     <RelativeLayout
         android:id="@+id/left_rl"
         android:layout_width="50dip"

@@ -3,6 +3,11 @@
     style="@style/uniform_title"
     android:layout_height="@dimen/uniform_title_height" >
 
+    <View
+        android:id="@+id/title_v"
+        style="@style/style_base_component2" 
+        android:layout_height="0dip"/>
+
     <RelativeLayout
         android:id="@+id/left_rl"
         android:layout_width="50dip"
@@ -37,16 +42,15 @@
             style="@style/style_base_component2"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            />
-        -->
+            />        -->
 
         <TextView
             android:id="@+id/right_tv"
             style="@style/style_base_component2"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" 
+            android:layout_centerVertical="true"
             android:textColor="@color/white"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
     </RelativeLayout>
 
 </RelativeLayout>

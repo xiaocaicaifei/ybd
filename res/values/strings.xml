@@ -74,7 +74,7 @@
     <!-- 艺论 -->
     <string name="yl">艺论</string>
     <string name="sjtj">数据统计</string>
-    <string name="wygz">我要估值</string>
+    <string name="wlgz">我来估值</string>
     <string name="wypf">我要评分</string>
     <string name="djlk">大家来看</string>
     <string name="yl_gm">购买:</string>
@@ -139,12 +139,37 @@
     <string name="eight">8</string>
     <string name="nine">9</string>
     <string name="ten">10</string>
-    <string-array name="gz">
-        <item>10-20万</item>
-        <item>22-30万</item>
-        <item>30-40万</item>
-    </string-array>
-    
+    <string name="onesw">10-20万</string>
+    <string name="twosw">20-30万</string>
+    <string name="threesw">30-40万</string>
+    <string name="foursw">40-50万</string>
+    <string name="fivesw">50-60万</string>
+    <string name="sixsw">60-70万</string>
+    <string name="sevensw">70-80万</string>
+    <string name="eightsw">80-90万</string>
+    <string name="ninesw">90-100万</string>
+    <string name="tenupsw">100万以上</string>
+    <string name="onew">1-2万</string>
+    <string name="twow">2-3万</string>
+    <string name="threew">3-4万</string>
+    <string name="fourw">4-5万</string>
+    <string name="fivew">5-6万</string>
+    <string name="sixw">6-7万</string>
+    <string name="sevenw">7-8万</string>
+    <string name="eightw">8-9万</string>
+    <string name="ninew">9-10万</string>
+    <string name="onedownq">1千以下</string>
+     <string name="oneq">1-2千</string>
+    <string name="twoq">2-3千</string>
+    <string name="threeq">3-4千</string>
+    <string name="fourq">4-5千</string>
+    <string name="fiveq">5-6千</string>
+    <string name="sixq">6-7千</string>
+    <string name="sevenq">7-8千</string>
+    <string name="eightq">8-9千</string>
+    <string name="nineq">9千-1万</string>
+    <string name="zdy">自定义：</string>
+    <string name="srgzje">输入估值金额</string>
     <!-- 消息 -->
     <string name="ss">搜索</string>
     
