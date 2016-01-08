@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ybd.yl.R;
 import com.ybd.yl.gr.GrIndexActivity;
+import com.ybd.yl.pm.PmIndexActivity;
 import com.ybd.yl.qz.QzIndexActivity;
 import com.ybd.yl.xx.XxIndexActivity;
 import com.ybd.yl.yl.YlIndexActivity;
@@ -202,6 +203,7 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
                 pmTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_select));
                 grImageView.setBackgroundResource(R.drawable.home_gr);
                 grTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
+                intent.setClass(context, PmIndexActivity.class);
                 break;
             case R.id.gr_ll:
                 xxImageView.setBackgroundResource(R.drawable.home_xx);
@@ -222,5 +224,4 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
         }
         context.startActivity(intent);
     }
-
 }

@@ -1,0 +1,15 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+    <ImageView
+        android:id="@+id/tp_iv" 
+        style="@style/style_base"
+        android:scaleType="fitXY"/>
+    <ImageView 
+        android:id="@+id/tpclose_iv"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        style="@style/style_base_component2"
+        android:background="@drawable/qz_sc_scpt_close"/>
+</RelativeLayout>

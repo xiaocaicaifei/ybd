@@ -178,6 +178,10 @@
     <string name="wf">违法（暴力恐怖、违禁品等）</string>
     <string name="qtwtms">其他问题描述</string>
     
+    <!-- 拍卖 -->
+    <string name="mqj">目前价:￥</string>
+    <string name="jyk">加一口</string>
+    
     <!-- 消息 -->
     <string name="ss">搜索</string>
     

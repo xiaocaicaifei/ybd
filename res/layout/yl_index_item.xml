@@ -164,6 +164,56 @@
         android:layout_marginRight="11dip"
         android:layout_marginTop="12dip" />
 
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_marginTop="12dip"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            style="@style/style_base_component"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/zz_tv"
+                style="@style/style_base_component"
+                android:gravity="left"
+                android:textColor="@color/qz_index_zz"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/zd_tv"
+                style="@style/style_base_component"
+                android:gravity="left"
+                android:layout_marginTop="5dip"
+                android:textColor="@color/qz_index_zz"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/style_base_component"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/cc_tv"
+                style="@style/style_base_component"
+                android:gravity="left"
+                android:textColor="@color/qz_index_zz"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/xs_tv"
+                style="@style/style_base_component"
+                android:gravity="left"
+                android:layout_marginTop="5dip"
+                android:textColor="@color/qz_index_zz"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/description_tv"
         style="@style/style_base_component"
@@ -253,175 +303,179 @@
         android:layout_marginLeft="10dip"
         android:layout_marginTop="5dip" >
 
-
         <LinearLayout
             style="@style/style_base_component"
-            android:layout_marginTop="22dip"
             android:layout_marginLeft="5dip"
             android:layout_marginRight="15dip"
+            android:layout_marginTop="22dip"
             android:orientation="horizontal" >
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/zelo"
-                    />
+                    android:text="@string/zelo" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/one"
-                    />
+                    android:text="@string/one" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/two"
-                    />
+                    android:text="@string/two" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/three"
-                    />
+                    android:text="@string/three" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/four"
-                    />
+                    android:text="@string/four" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/five"
-                    />
+                    android:text="@string/five" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/six"
-                    />
+                    android:text="@string/six" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/seven"
-                    />
+                    android:text="@string/seven" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/eight"
-                    />
+                    android:text="@string/eight" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/nine"
-                    />
+                    android:text="@string/nine" />
             </LinearLayout>
-            <LinearLayout 
+
+            <LinearLayout
                 style="@style/style_base_component2"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <ImageView 
-                    style="@style/yl_index_seekbar_kd"/>
-                <TextView 
+                android:orientation="vertical" >
+
+                <ImageView style="@style/yl_index_seekbar_kd" />
+
+                <TextView
                     style="@style/yl_index_seekbar_font"
-                    android:text="@string/ten"
-                    />
+                    android:text="@string/ten" />
             </LinearLayout>
         </LinearLayout>
+
         <SeekBar
             android:id="@+id/df_sb"
             style="@style/style_base_component"
+            android:layout_marginRight="15dip"
             android:max="10"
             android:maxHeight="2dip"
             android:minHeight="2dip"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
-            android:layout_marginRight="15dip"
             android:progressDrawable="@drawable/seekbar_style"
             android:thumb="@drawable/seekbar_thumb" />
     </RelativeLayout>
-	<LinearLayout 
-	    style="@style/style_base_component"
-	    android:layout_marginTop="11dip">
-	    <Button 
-	        android:id="@+id/sjtj_b"
-	        android:text="@string/sjtj"
-	        android:layout_width="fill_parent"
-	        android:layout_weight="1"
-	        style="@style/yl_sc_button_select"/>
-	     <Button 
-	        android:id="@+id/wygz_b"
-	        android:text="@string/wlgz"
-	        android:layout_weight="1"
-	        android:layout_height="25dip"
-	        android:layout_marginLeft="11dip"
-	        style="@style/login_button"/>
-	</LinearLayout>
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_marginTop="11dip" >
+
+        <Button
+            android:id="@+id/sjtj_b"
+            style="@style/yl_sc_button_select"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/sjtj" />
+
+        <Button
+            android:id="@+id/wygz_b"
+            style="@style/login_button"
+            android:layout_height="25dip"
+            android:layout_marginLeft="11dip"
+            android:layout_weight="1"
+            android:text="@string/wlgz" />
+    </LinearLayout>
+
     <View
         style="@style/uniform_line3"
         android:layout_marginTop="12dip" />

@@ -45,13 +45,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!-- 主页，第一次上传的引导页 -->
+        <activity
+            android:name="com.ybd.yl.MainYdyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
         <!-- 登录注册快捷入口 -->
         <activity
             android:name="com.ybd.yl.login.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+
         <!-- 用户登录界面 -->
         <activity
             android:name="com.ybd.yl.login.LoginLoginActivity"
@@ -193,7 +199,7 @@
             android:name="com.ybd.yl.yl.YlScZfActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
-        </activity>YlScCzcgActivity
+        </activity>
         <!-- 艺论-上传-充值 -->
         <activity
             android:name="com.ybd.yl.yl.YlScCzActivity"
@@ -206,7 +212,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
-         <!-- 艺论-上传-支付成功 -->
+        <!-- 艺论-上传-支付成功 -->
         <activity
             android:name="com.ybd.yl.yl.YlScZfcgActivity"
             android:screenOrientation="portrait"
@@ -226,13 +232,26 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
         
+        <!-- 拍卖主页 -->
+        <activity
+            android:name="com.ybd.yl.pm.PmIndexActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+         <!-- 拍卖-上传 -->
+        <activity
+            android:name="com.ybd.yl.pm.PmScActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+
         <!-- 消息主页 -->
         <activity
             android:name="com.ybd.yl.xx.XxIndexActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
-        
+
         <!-- 个人主页面 -->
         <activity
             android:name="com.ybd.yl.gr.GrIndexActivity"

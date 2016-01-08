@@ -23,9 +23,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,13 +33,11 @@ import android.widget.Toast;
 
 import com.ybd.common.App;
 import com.ybd.common.C;
-import com.ybd.common.L;
 import com.ybd.common.SystemBarTintManager;
 import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
 import com.ybd.common.net.INetWorkResult;
 import com.ybd.common.net.NetWork;
-import com.ybd.common.tools.PaseJson;
 import com.ybd.common.xListView.XListView;
 import com.ybd.common.xListView.XListView.IXListViewListener;
 

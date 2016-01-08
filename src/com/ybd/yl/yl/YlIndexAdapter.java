@@ -102,6 +102,12 @@ public class YlIndexAdapter extends BaseAdapter {
             viewHoler.mcTextView = (TextView) convertView.findViewById(R.id.mc_tv);
             viewHoler.xyTextView = (TextView) convertView.findViewById(R.id.xy_tv);
             viewHoler.fsTextView = (TextView) convertView.findViewById(R.id.fs_tv);
+            
+            viewHoler.zzTextView = (TextView) convertView.findViewById(R.id.zz_tv);
+            viewHoler.ccTextView = (TextView) convertView.findViewById(R.id.cc_tv);
+            viewHoler.zdTextView = (TextView) convertView.findViewById(R.id.zd_tv);
+            viewHoler.xsTextView = (TextView) convertView.findViewById(R.id.xs_tv);
+            
             viewHoler.descriptionTextView = (TextView) convertView
                 .findViewById(R.id.description_tv);
             viewHoler.tsLinearLayout = (LinearLayout) convertView.findViewById(R.id.ts_ll);
@@ -163,7 +169,12 @@ public class YlIndexAdapter extends BaseAdapter {
         viewHoler.mcTextView.setText(PaseJson.getMapMsg(map, "sale_vol") + "件");
         viewHoler.xyTextView.setText(PaseJson.getMapMsg(map, "degree_credit") + "分");
         viewHoler.fsTextView.setText(PaseJson.getMapMsg(map, "followers_count"));
-        viewHoler.descriptionTextView.setText(PaseJson.getMapMsg(map, "description"));
+        viewHoler.zzTextView.setText("作者："+PaseJson.getMapMsg(map, "author"));
+        viewHoler.ccTextView.setText("尺寸："+PaseJson.getMapMsg(map, "mea_len")+"*"+PaseJson.getMapMsg(map, "mea_wide"));
+        viewHoler.zdTextView.setText("质地："+PaseJson.getMapMsg(map, "texture"));
+        viewHoler.xsTextView.setText("形式："+PaseJson.getMapMsg(map, "xs"));
+        
+        viewHoler.descriptionTextView.setText("详情："+PaseJson.getMapMsg(map, "description"));
         viewHoler.plTextView.setText(l2.size() + "");
         viewHoler.plLinearLayout.setOnClickListener(new OnClickListener() {
             @Override
@@ -293,6 +304,10 @@ public class YlIndexAdapter extends BaseAdapter {
         TextView     mcTextView;         //卖出
         TextView     xyTextView;         //信用
         TextView     fsTextView;         //粉丝
+        TextView     zzTextView;          //作者
+        TextView     ccTextView;          //尺寸
+        TextView     zdTextView;          //质地
+        TextView     xsTextView;          //形式
         TextView     descriptionTextView; //描述
         LinearLayout tsLinearLayout;     //投诉
         ImageView    tsImageView;        //投诉

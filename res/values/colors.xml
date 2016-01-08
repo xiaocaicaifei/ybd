@@ -51,6 +51,7 @@
 	<color name="qz_xxzl">#747474</color>
 	<color name="qz_grzl_gray_onpress">#efefef</color><!-- 圈子-个人资料-灰色按钮按下的背景颜色 -->
 	<color name="qz_grzl_red_onpress">#ea2d34</color><!-- 圈子-个人资料-红色按钮按下的背景颜色 -->
+	<color name="qz_index_zz">#1c1c1c</color><!-- 圈子-主页-作者一栏信息的颜色 -->
 	
 	<!-- 艺论 -->
 	<color name="yl_sc_qrsc">#999999</color><!-- 艺论-上传-确认上传颜色 -->
@@ -61,6 +62,9 @@
 	<color name="yl_sc_cz_zdyje">#8c8c8c</color><!-- 艺论-上传-自定义金额 -->
 	<color name="yl_index_seekbar_font">#b6b6b6</color><!-- 艺论主页面下面-滑动条-下面显示的文字的颜色 -->
 	
+	<!-- 拍卖 -->
+	<color name="pm_index_mqj_name">#5e5c5d</color><!-- 拍卖-主界面-目前价名字的颜色 -->
+	<color name="pm_index_mqj_value">#ff7132</color><!-- 拍卖-主界面-目前价值的颜色 -->
 	
 	<!-- 消息 -->
 	<color name="xx_search_hint_color">#8e8e93</color><!-- 消息-搜索框提示字体的颜色 -->

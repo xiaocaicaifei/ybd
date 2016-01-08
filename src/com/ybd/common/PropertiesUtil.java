@@ -36,6 +36,8 @@ public class PropertiesUtil {
     /**起拍价*/
     public static final String QPJ="qpj";
     
+    /** 是否是第一次运行项目*/
+    public static final String ISFIRST="isfirst";
     /**
      * 根据key读取value
      * 

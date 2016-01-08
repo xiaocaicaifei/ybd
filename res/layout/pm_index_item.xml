@@ -1,0 +1,426 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="10dip"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="54dip"
+            android:layout_height="54dip"
+            android:layout_gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/tx_iv"
+                style="@style/style_base_component2"
+                android:background="@drawable/regist_cjgrzl_tx" />
+
+            <ImageView
+                android:id="@+id/dv_iv"
+                style="@style/style_base_component2"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dip"
+                android:background="@drawable/yl_dv" />
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/style_base_component"
+            android:layout_marginLeft="15dip"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                style="@style/style_base_component2"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/username_tv"
+                    style="@style/style_base_component2"
+                    android:textColor="@color/yl_username_color"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/zj_iv"
+                    style="@style/style_base_component2"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dip"
+                    android:background="@drawable/yl_zj" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/style_base_component2"
+                android:layout_marginTop="9dip"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/time_tv"
+                    style="@style/style_base_component2"
+                    android:textColor="@color/yl_username_msg_gray_color"
+                    android:textSize="@dimen/yl_username_msg_size" />
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dip"
+                    android:background="@drawable/yl_wz" />
+
+                <TextView
+                    android:id="@+id/dd_tv"
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="3dip"
+                    android:textColor="@color/yl_username_msg_gray_color"
+                    android:textSize="@dimen/yl_username_msg_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/style_base_component"
+                android:layout_marginTop="9dip"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_weight="1"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/style_base_component2"
+                        android:text="@string/yl_gm"
+                        android:textColor="@color/yl_username_msg_gray_color"
+                        android:textSize="@dimen/yl_username_msg_size" />
+
+                    <TextView
+                        android:id="@+id/gm_tv"
+                        style="@style/style_base_component2"
+                        android:textColor="@color/yl_username_msg_black_color"
+                        android:textSize="@dimen/yl_username_msg_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_weight="1"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/style_base_component2"
+                        android:text="@string/yl_mc"
+                        android:textColor="@color/yl_username_msg_gray_color"
+                        android:textSize="@dimen/yl_username_msg_size" />
+
+                    <TextView
+                        android:id="@+id/mc_tv"
+                        style="@style/style_base_component2"
+                        android:textColor="@color/yl_username_msg_black_color"
+                        android:textSize="@dimen/yl_username_msg_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_weight="1"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/style_base_component2"
+                        android:text="@string/yl_xy"
+                        android:textColor="@color/yl_username_msg_gray_color"
+                        android:textSize="@dimen/yl_username_msg_size" />
+
+                    <TextView
+                        android:id="@+id/xy_tv"
+                        style="@style/style_base_component2"
+                        android:textColor="@color/yl_username_msg_black_color"
+                        android:textSize="@dimen/yl_username_msg_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_weight="1"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/style_base_component2"
+                        android:text="@string/yl_fs"
+                        android:textColor="@color/yl_username_msg_gray_color"
+                        android:textSize="@dimen/yl_username_msg_size" />
+
+                    <TextView
+                        android:id="@+id/fs_tv"
+                        style="@style/style_base_component2"
+                        android:textColor="@color/yl_username_msg_black_color"
+                        android:textSize="@dimen/yl_username_msg_size" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        style="@style/uniform_line3"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="12dip" />
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="12dip"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            style="@style/style_base_component"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/zz_tv"
+                style="@style/style_base_component"
+                android:gravity="left"
+                android:textColor="@color/qz_index_zz"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/zd_tv"
+                style="@style/style_base_component"
+                android:layout_marginTop="5dip"
+                android:gravity="left"
+                android:textColor="@color/qz_index_zz"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/pjf_tv"
+                style="@style/style_base_component"
+                android:layout_marginTop="5dip"
+                android:gravity="left"
+                android:textColor="@color/qz_index_zz"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/style_base_component"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/cc_tv"
+                style="@style/style_base_component"
+                android:gravity="left"
+                android:textColor="@color/qz_index_zz"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/xs_tv"
+                style="@style/style_base_component"
+                android:layout_marginTop="5dip"
+                android:gravity="left"
+                android:textColor="@color/qz_index_zz"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/pjgz_tv"
+                style="@style/style_base_component"
+                android:layout_marginTop="5dip"
+                android:gravity="left"
+                android:textColor="@color/qz_index_zz"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/description_tv"
+        style="@style/style_base_component"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="5dip"
+        android:textColor="@color/yl_xq_color"
+        android:textSize="@dimen/yl_desc_msg_size" />
+
+    <com.ybd.common.GridViewRun
+        android:id="@+id/tp_gv"
+        style="@style/style_base_component"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="12dip"
+        android:horizontalSpacing="4dip"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="3"
+        android:verticalSpacing="4dip" >
+    </com.ybd.common.GridViewRun>
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="14dip"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/style_base_component2"
+            android:text="@string/mqj"
+            android:textColor="@color/pm_index_mqj_name"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/mqj_tv"
+            style="@style/style_base_component2"
+            android:textColor="@color/pm_index_mqj_value"
+            android:textSize="23sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/jyk_b"
+        style="@style/login_button"
+        android:layout_height="34dip"
+        android:layout_marginLeft="13dip"
+        android:layout_marginRight="13dip"
+        android:layout_marginTop="26dip"
+        android:text="@string/jyk" />
+
+    <LinearLayout
+        android:id="@+id/cj_ll"
+        style="@style/style_base_component"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="12dip"
+        android:background="@color/unitform_background_gray"
+        android:orientation="vertical" >
+
+        <com.ybd.common.ListViewRun
+            android:id="@+id/cj_lv"
+            style="@style/style_base_component"
+            android:divider="@color/unitform_background_gray"
+            android:dividerHeight="6dip"
+            android:listSelector="@android:color/transparent"
+            android:paddingBottom="8dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="8dip"
+            android:scrollbars="none" >
+        </com.ybd.common.ListViewRun>
+
+        <TextView
+            android:id="@+id/cj_xsqb_tv"
+            style="@style/style_base_component2"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginBottom="10dip"
+            android:layout_marginRight="10dip"
+            android:drawablePadding="10dip"
+            android:drawableRight="@drawable/qz_xsqb"
+            android:text="@string/xsqb"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <View
+        style="@style/uniform_line3"
+        android:layout_marginTop="12dip" />
+    <LinearLayout
+        android:id="@+id/pl2_ll"
+        style="@style/style_base_component"
+        android:layout_marginBottom="12dip"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="12dip"
+        android:background="@color/unitform_background_gray"
+        android:orientation="vertical" >
+
+        <com.ybd.common.ListViewRun
+            android:id="@+id/pl_lv"
+            style="@style/style_base_component"
+            android:divider="@color/unitform_background_gray"
+            android:dividerHeight="6dip"
+            android:listSelector="@android:color/transparent"
+            android:paddingBottom="8dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="8dip"
+            android:scrollbars="none" >
+        </com.ybd.common.ListViewRun>
+
+        <TextView
+            android:id="@+id/xsqb_tv"
+            style="@style/style_base_component2"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginBottom="10dip"
+            android:layout_marginRight="10dip"
+            android:drawablePadding="10dip"
+            android:drawableRight="@drawable/qz_xsqb"
+            android:text="@string/xsqb"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <View
+        style="@style/uniform_line3"
+        android:layout_marginTop="12dip" />
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_height="36dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            style="@style/style_base_component2"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/zf_ll"
+                style="@style/style_base_component2"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/zf_iv"
+                    style="@style/style_base_component2"
+                    android:background="@drawable/qz_zf" />
+
+                <TextView
+                    android:id="@+id/zf_tv"
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="4dip"
+                    android:text="@string/zf"
+                    android:textColor="@color/yl_username_msg_gray_color"
+                    android:textSize="@dimen/yl_username_msg_size" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            style="@style/uniform_line2"
+            android:layout_height="12dip" />
+
+        <RelativeLayout
+            style="@style/style_base_component2"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/pl_ll"
+                style="@style/style_base_component2"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/pl_iv"
+                    style="@style/style_base_component2"
+                    android:background="@drawable/qz_pl" />
+
+                <TextView
+                    android:id="@+id/pl_tv"
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="4dip"
+                    android:textColor="@color/yl_username_msg_gray_color"
+                    android:textSize="@dimen/yl_username_msg_size" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View style="@style/uniform_line3" />
+
+</LinearLayout>

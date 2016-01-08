@@ -43,9 +43,9 @@ public class MainApplication extends Application {
 
         //设置图片加载的属性
         Builder b = new DisplayImageOptions.Builder();
-                b.showImageForEmptyUri(R.drawable.regist_cjgrzl_tx);
-                b.showImageOnFail(R.drawable.regist_cjgrzl_tx);
-//                b.showImageOnLoading(R.drawable.loading);
+                b.showImageForEmptyUri(R.drawable.tp_jzsb);
+                b.showImageOnFail(R.drawable.tp_jzsb);
+                b.showImageOnLoading(R.drawable.tp_jzsb);
                 b.resetViewBeforeLoading(Boolean.FALSE);
         b.cacheOnDisk(Boolean.FALSE);
         b.cacheInMemory(Boolean.TRUE);

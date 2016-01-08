@@ -1,5 +1,6 @@
 package com.ybd.yl;
 
+import com.ybd.common.PropertiesUtil;
 import com.ybd.yl.login.LoginActivity;
 
 import android.content.Intent;
@@ -22,7 +23,13 @@ public class MainActivity extends BaseActivity {
             @Override
             public void run() {
                 Intent intent=new Intent();
-                intent.setClass(activity, LoginActivity.class);
+//                intent.setClass(activity, LoginActivity.class);
+                if(PropertiesUtil.read(activity, PropertiesUtil.ISFIRST)!=null&&PropertiesUtil.read(activity, PropertiesUtil.ISFIRST).equals("1")){
+                    intent.setClass(activity, LoginActivity.class);
+                }else{
+                    intent.setClass(activity, MainYdyActivity.class);
+                    PropertiesUtil.write(activity, PropertiesUtil.ISFIRST, "1");
+                }
                 startActivity(intent);
                 finish();
             }
