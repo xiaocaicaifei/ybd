@@ -11,6 +11,10 @@
         style="@style/uniform_search_input" />
 	<ListView 
 	    android:id="@+id/list"
+	    android:layout_weight="1"
 	    style="@style/uniform_listview">
 	</ListView>
+	<com.ybd.common.defined.BottomMenu
+            style="@style/style_base_component"
+            Select="xx" />
 </LinearLayout>

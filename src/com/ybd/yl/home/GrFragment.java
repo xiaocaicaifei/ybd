@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.ybd.yl.BaseFragment;
 import com.ybd.yl.R;
-import com.ybd.yl.gr.GrIndexFragment;
+import com.ybd.yl.gr.GrIndexActivity;
 
 /**
  * 首页-个人
@@ -24,7 +24,7 @@ public class GrFragment extends BaseFragment implements HomeClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.gr_index, container, false);
-        toFragmentContent(new GrIndexFragment(),R.id.gr_fragment,null);
+//        toFragmentContent(new GrIndexFragment(),R.id.gr_fragment,null);
         return v;
     }
     @Override

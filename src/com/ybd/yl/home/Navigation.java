@@ -4,7 +4,7 @@
 package com.ybd.yl.home;
 
 import com.ybd.yl.R;
-import com.ybd.yl.gr.GrIndexFragment;
+import com.ybd.yl.gr.GrIndexActivity;
 
 
 /**
@@ -23,7 +23,7 @@ public enum Navigation {
     //拍卖
     PM(3, "拍卖", R.drawable.home_pm, R.drawable.home_pm_hover, QzFragment.class),
     //个人
-    GR(4, "个人", R.drawable.home_gr, R.drawable.home_gr_hover, GrIndexFragment.class), ;
+    GR(4, "个人", R.drawable.home_gr, R.drawable.home_gr_hover, GrIndexActivity.class), ;
 
     /**序号，从0开始*/
     private int      index;

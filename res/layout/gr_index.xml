@@ -1,365 +1,374 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/style_base_bg"
-    android:scrollbars="none" >
+    style="@style/style_base"
+    android:orientation="vertical" >
 
-    <LinearLayout
+    <ScrollView
         style="@style/style_base_bg"
-        android:clickable="true"
-        android:orientation="vertical" >
+        android:layout_weight="1"
+        android:scrollbars="none" >
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="235dip"
-            android:background="@color/unitform_title_red" >
-
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/gr_title_bg_sb" />
+        <LinearLayout
+            style="@style/style_base_bg"
+            android:clickable="true"
+            android:orientation="vertical" >
 
             <RelativeLayout
-                android:id="@+id/title"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip" >
+                android:layout_height="235dip"
+                android:background="@color/unitform_title_red" >
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/gr_title_bg_sb" />
+
+                <RelativeLayout
+                    android:id="@+id/title"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip" >
+
+                    <TextView
+                        style="@style/style_base_component2"
+                        android:layout_marginLeft="17dip"
+                        android:background="@android:color/transparent"
+                        android:text="@string/grzx"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="84dip"
+                        android:layout_centerHorizontal="true" >
+
+                        <ImageView
+                            android:layout_width="84dip"
+                            android:layout_height="84dip"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/gr_tx_bg" />
+
+                        <ImageView
+                            android:id="@+id/tx_iv"
+                            android:layout_width="79dip"
+                            android:layout_height="79dip"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/regist_cjgrzl_tx" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/username_tv"
+                    style="@style/style_base_component2"
+                    android:layout_below="@id/title"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dip"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/money_tv"
+                    style="@style/style_base_component2"
+                    android:layout_below="@id/username_tv"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dip"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    style="@style/style_base_component"
+                    android:layout_below="@id/money_tv"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginTop="5dip"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        style="@style/style_base_component2"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            style="@style/style_base_component2"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/gr_xy" />
+
+                        <TextView
+                            style="@style/style_base_component2"
+                            android:layout_marginTop="4dip"
+                            android:text="@string/xy"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/xy_value_tv"
+                            style="@style/style_base_component2"
+                            android:layout_marginTop="6dip"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/style_base_component2"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            style="@style/style_base_component2"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/gr_gm" />
+
+                        <TextView
+                            style="@style/style_base_component2"
+                            android:layout_marginTop="4dip"
+                            android:text="@string/gm"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/gm_value_tv"
+                            style="@style/style_base_component2"
+                            android:layout_marginTop="6dip"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/style_base_component2"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            style="@style/style_base_component2"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/gr_mc" />
+
+                        <TextView
+                            style="@style/style_base_component2"
+                            android:layout_marginTop="4dip"
+                            android:text="@string/mc"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/mc_value_tv"
+                            style="@style/style_base_component2"
+                            android:layout_marginTop="6dip"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/style_base_component2"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            style="@style/style_base_component2"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/gr_fs" />
+
+                        <TextView
+                            style="@style/style_base_component2"
+                            android:layout_marginTop="4dip"
+                            android:text="@string/fs"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/fs_value_tv"
+                            style="@style/style_base_component2"
+                            android:layout_marginTop="6dip"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/grzl_ll"
+                style="@style/grzx_layout"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/uniform_onpress" >
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_grzl" />
 
                 <TextView
                     style="@style/style_base_component2"
-                    android:layout_marginLeft="17dip"
-                    android:background="@android:color/transparent"
+                    android:layout_marginLeft="13dip"
+                    android:layout_weight="1"
                     android:text="@string/grzx"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
+                    android:textColor="@color/grzx_gray_color"
+                    android:textSize="14sp" />
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="84dip"
-                    android:layout_centerHorizontal="true" >
-
-                    <ImageView
-                        android:layout_width="84dip"
-                        android:layout_height="84dip"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/gr_tx_bg" />
-
-                    <ImageView
-                        android:id="@+id/tx_iv"
-                        android:layout_width="79dip"
-                        android:layout_height="79dip"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/regist_cjgrzl_tx" />
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/username_tv"
-                style="@style/style_base_component2"
-                android:layout_below="@id/title"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dip"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/money_tv"
-                style="@style/style_base_component2"
-                android:layout_below="@id/username_tv"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dip"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-            <LinearLayout
-                style="@style/style_base_component"
-                android:layout_below="@id/money_tv"
-                android:layout_marginBottom="10dip"
-                android:layout_marginTop="5dip"
-                android:orientation="horizontal" >
-
-                <LinearLayout
+                <ImageView
                     style="@style/style_base_component2"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        style="@style/style_base_component2"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/gr_xy" />
-
-                    <TextView
-                        style="@style/style_base_component2"
-                        android:layout_marginTop="4dip"
-                        android:text="@string/xy"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/xy_value_tv"
-                        style="@style/style_base_component2"
-                        android:layout_marginTop="6dip"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/style_base_component2"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        style="@style/style_base_component2"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/gr_gm" />
-
-                    <TextView
-                        style="@style/style_base_component2"
-                        android:layout_marginTop="4dip"
-                        android:text="@string/gm"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/gm_value_tv"
-                        style="@style/style_base_component2"
-                        android:layout_marginTop="6dip"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/style_base_component2"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        style="@style/style_base_component2"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/gr_mc" />
-
-                    <TextView
-                        style="@style/style_base_component2"
-                        android:layout_marginTop="4dip"
-                        android:text="@string/mc"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/mc_value_tv"
-                        style="@style/style_base_component2"
-                        android:layout_marginTop="6dip"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/style_base_component2"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        style="@style/style_base_component2"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/gr_fs" />
-
-                    <TextView
-                        style="@style/style_base_component2"
-                        android:layout_marginTop="4dip"
-                        android:text="@string/fs"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/fs_value_tv"
-                        style="@style/style_base_component2"
-                        android:layout_marginTop="6dip"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                    android:background="@drawable/gr_zk" />
             </LinearLayout>
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/grzl_ll"
-            style="@style/grzx_layout"
-            android:background="@drawable/uniform_onpress"
-            android:layout_marginTop="5dip" >
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_grzl" />
-
-            <TextView
-                style="@style/style_base_component2"
-                android:layout_marginLeft="13dip"
-                android:layout_weight="1"
-                android:text="@string/grzx"
-                android:textColor="@color/grzx_gray_color"
-                android:textSize="14sp" />
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_zk" />
-        </LinearLayout>
-
-        <View
-            style="@style/uniform_line"
-            android:layout_height="0.5dip" />
-
-        <LinearLayout
-            android:id="@+id/grzl_xc"
-            style="@style/grzx_layout"
-            android:layout_height="75dip" >
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_xc" />
-
-            <TextView
-                style="@style/style_base_component2"
-                android:layout_marginLeft="13dip"
-                android:text="@string/xc"
-                android:textColor="@color/grzx_gray_color"
-                android:textSize="14sp" />
-
-            <GridView
-                android:id="@+id/xc_gv"
-                android:layout_width="180dip"
-                android:layout_height="50dip"
-                android:layout_marginLeft="20dip"
-                android:horizontalSpacing="10dip"
-                android:listSelector="@android:color/transparent"
-                android:numColumns="3"
-                android:verticalSpacing="0dip" >
-            </GridView>
 
             <View
-                style="@style/style_base"
-                android:layout_weight="1" />
+                style="@style/uniform_line"
+                android:layout_height="0.5dip" />
 
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_zk" />
+            <LinearLayout
+                android:id="@+id/grzl_xc"
+                style="@style/grzx_layout"
+                android:layout_height="75dip" >
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_xc" />
+
+                <TextView
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="13dip"
+                    android:text="@string/xc"
+                    android:textColor="@color/grzx_gray_color"
+                    android:textSize="14sp" />
+
+                <GridView
+                    android:id="@+id/xc_gv"
+                    android:layout_width="180dip"
+                    android:layout_height="50dip"
+                    android:layout_marginLeft="20dip"
+                    android:horizontalSpacing="10dip"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="3"
+                    android:verticalSpacing="0dip" >
+                </GridView>
+
+                <View
+                    style="@style/style_base"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_zk" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/grzl_qb"
+                style="@style/grzx_layout"
+                android:layout_marginTop="11dip" >
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_qb" />
+
+                <TextView
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="13dip"
+                    android:layout_weight="1"
+                    android:text="@string/qb"
+                    android:textColor="@color/grzx_gray_color"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_zk" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/grzl_zj"
+                style="@style/grzx_layout"
+                android:layout_marginTop="11dip" >
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_zj" />
+
+                <TextView
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="13dip"
+                    android:layout_weight="1"
+                    android:text="@string/zjhmdfs"
+                    android:textColor="@color/grzx_gray_color"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_zk" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/grzl_cy"
+                style="@style/grzx_layout"
+                android:layout_marginTop="11dip" >
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_cy" />
+
+                <TextView
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="13dip"
+                    android:layout_weight="1"
+                    android:text="@string/cy"
+                    android:textColor="@color/grzx_gray_color"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_zk" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/grzl_sz"
+                style="@style/grzx_layout"
+                android:layout_marginTop="11dip" >
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_sz" />
+
+                <TextView
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="13dip"
+                    android:layout_weight="1"
+                    android:text="@string/sz"
+                    android:textColor="@color/grzx_gray_color"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_zk" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/grzl_sqrz"
+                style="@style/grzx_layout"
+                android:layout_marginTop="11dip" >
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_sqrz" />
+
+                <TextView
+                    style="@style/style_base_component2"
+                    android:layout_marginLeft="13dip"
+                    android:layout_weight="1"
+                    android:text="@string/sqrz"
+                    android:textColor="@color/grzx_gray_color"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_zk" />
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-        <LinearLayout
-            android:id="@+id/grzl_qb"
-            style="@style/grzx_layout"
-            android:layout_marginTop="11dip" >
+    <com.ybd.common.defined.BottomMenu
+        style="@style/style_base_component"
+        Select="gr" />
 
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_qb" />
-
-            <TextView
-                style="@style/style_base_component2"
-                android:layout_marginLeft="13dip"
-                android:layout_weight="1"
-                android:text="@string/qb"
-                android:textColor="@color/grzx_gray_color"
-                android:textSize="14sp" />
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_zk" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/grzl_zj"
-            style="@style/grzx_layout"
-            android:layout_marginTop="11dip" >
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_zj" />
-
-            <TextView
-                style="@style/style_base_component2"
-                android:layout_marginLeft="13dip"
-                android:layout_weight="1"
-                android:text="@string/zjhmdfs"
-                android:textColor="@color/grzx_gray_color"
-                android:textSize="14sp" />
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_zk" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/grzl_cy"
-            style="@style/grzx_layout"
-            android:layout_marginTop="11dip" >
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_cy" />
-
-            <TextView
-                style="@style/style_base_component2"
-                android:layout_marginLeft="13dip"
-                android:layout_weight="1"
-                android:text="@string/cy"
-                android:textColor="@color/grzx_gray_color"
-                android:textSize="14sp" />
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_zk" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/grzl_sz"
-            android:layout_marginTop="11dip"
-            style="@style/grzx_layout">
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_sz" />
-
-            <TextView
-                style="@style/style_base_component2"
-                android:layout_marginLeft="13dip"
-                android:layout_weight="1"
-                android:text="@string/sz"
-                android:textColor="@color/grzx_gray_color"
-                android:textSize="14sp" />
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_zk" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/grzl_sqrz"
-           
-            android:layout_marginTop="11dip"
-            style="@style/grzx_layout">
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_sqrz" />
-
-            <TextView
-                style="@style/style_base_component2"
-                android:layout_marginLeft="13dip"
-                android:layout_weight="1"
-                android:text="@string/sqrz"
-                android:textColor="@color/grzx_gray_color"
-                android:textSize="14sp" />
-
-            <ImageView
-                style="@style/style_base_component2"
-                android:background="@drawable/gr_zk" />
-        </LinearLayout>
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

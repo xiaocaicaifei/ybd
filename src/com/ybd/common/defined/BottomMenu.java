@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ybd.yl.R;
+import com.ybd.yl.gr.GrIndexActivity;
 import com.ybd.yl.qz.QzIndexActivity;
+import com.ybd.yl.xx.XxIndexActivity;
 import com.ybd.yl.yl.YlIndexActivity;
 
 /**
@@ -148,6 +150,7 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent=new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         switch (v.getId()) {
             case R.id.xx_ll:
                 xxImageView.setBackgroundResource(R.drawable.home_xx_hover);
@@ -160,6 +163,7 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
                 pmTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
                 grImageView.setBackgroundResource(R.drawable.home_gr);
                 grTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
+                intent.setClass(context, XxIndexActivity.class);
                 break;
             case R.id.qz_ll:
                 xxImageView.setBackgroundResource(R.drawable.home_xx);
@@ -172,7 +176,6 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
                 pmTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
                 grImageView.setBackgroundResource(R.drawable.home_gr);
                 grTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.setClass(context, QzIndexActivity.class);
                 break;
             case R.id.yl_ll:
@@ -186,7 +189,6 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
                 pmTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
                 grImageView.setBackgroundResource(R.drawable.home_gr);
                 grTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.setClass(context, YlIndexActivity.class);
                 break;
             case R.id.pm_ll:
@@ -212,6 +214,7 @@ public class BottomMenu extends LinearLayout implements OnClickListener {
                 pmTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_unselect));
                 grImageView.setBackgroundResource(R.drawable.home_gr_hover);
                 grTextView.setTextColor(this.getResources().getColor(R.color.bottom_menu_text_select));
+                intent.setClass(context, GrIndexActivity.class);
                 break;
 
             default:

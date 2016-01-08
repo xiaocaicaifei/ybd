@@ -23,6 +23,7 @@ import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
 import com.ybd.common.net.NetWork;
 import com.ybd.common.tools.PaseJson;
+import com.ybd.yl.BaseActivity;
 import com.ybd.yl.BaseFragment;
 import com.ybd.yl.R;
 import com.ybd.yl.home.HomeClickListener;
@@ -33,7 +34,7 @@ import com.ybd.yl.home.HomeClickListener;
  * @author cyf
  * @version $Id: HomeFragment.java, v 0.1 2015年1月16日 上午11:16:50cyf  Exp $
  */
-public class GrIndexFragment extends BaseFragment implements HomeClickListener{
+public class GrIndexActivity extends BaseActivity {
    
     private ImageView txImageView;//头像
     private TextView usernameTextView;//用户名
@@ -50,12 +51,9 @@ public class GrIndexFragment extends BaseFragment implements HomeClickListener{
     
     
     @Override
-    public void onHomeclick(View v) {
-        
-    }
-    @Override
     protected void initComponentBase() {
-        view = inflater.inflate(R.layout.gr_index, null, false);
+//        view = inflater.inflate(R.layout.gr_index, null, false);
+        setContentView(R.layout.gr_index);
         init();
         NetWork.submit(activity, init);
     }
@@ -64,14 +62,14 @@ public class GrIndexFragment extends BaseFragment implements HomeClickListener{
      * 初始化控件
      */
     private void init(){
-        txImageView=(ImageView) view.findViewById(R.id.tx_iv);
-        usernameTextView=(TextView) view.findViewById(R.id.username_tv);
-        moneyTextView=(TextView) view.findViewById(R.id.money_tv);
-        xyValueTextView=(TextView) view.findViewById(R.id.xy_value_tv);
-        gmValueTextView=(TextView) view.findViewById(R.id.gm_value_tv);
-        mcValueTextView=(TextView) view.findViewById(R.id.mc_value_tv);
-        fsValueTextView=(TextView) view.findViewById(R.id.fs_value_tv);
-        xcGridView=(GridView) view.findViewById(R.id.xc_gv);
+        txImageView=(ImageView) findViewById(R.id.tx_iv);
+        usernameTextView=(TextView) findViewById(R.id.username_tv);
+        moneyTextView=(TextView) findViewById(R.id.money_tv);
+        xyValueTextView=(TextView) findViewById(R.id.xy_value_tv);
+        gmValueTextView=(TextView) findViewById(R.id.gm_value_tv);
+        mcValueTextView=(TextView) findViewById(R.id.mc_value_tv);
+        fsValueTextView=(TextView) findViewById(R.id.fs_value_tv);
+        xcGridView=(GridView) findViewById(R.id.xc_gv);
         xcAdapter=new GrIndexAdapter(list, activity);
         xcGridView.setAdapter(xcAdapter);
         xcAdapter.notifyDataSetChanged();

@@ -24,6 +24,7 @@ import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
 import com.ybd.common.net.NetWork;
 import com.ybd.common.tools.PaseJson;
+import com.ybd.yl.BaseActivity;
 import com.ybd.yl.BaseFragment;
 import com.ybd.yl.R;
 import com.ybd.yl.home.HomeClickListener;
@@ -34,7 +35,7 @@ import com.ybd.yl.home.HomeClickListener;
  * @author cyf
  * @version $Id: HomeFragment.java, v 0.1 2015年1月16日 上午11:16:50cyf  Exp $
  */
-public class XxIndexFragment extends BaseFragment implements HomeClickListener,OnClickListener{
+public class XxIndexActivity extends BaseActivity implements OnClickListener{
    
     private ImageLoader imageLoader=ImageLoader.getInstance();
     BaseAdapter xcAdapter;
@@ -43,13 +44,10 @@ public class XxIndexFragment extends BaseFragment implements HomeClickListener,O
     
     
     @Override
-    public void onHomeclick(View v) {
-        
-    }
-    @Override
     protected void initComponentBase() {
-        view = inflater.inflate(R.layout.xx_index, null, false);
-        initPublicView("消息列表", R.drawable.xx_txl, 0, XxIndexFragment.this, null);
+//        view = inflater.inflate(R.layout.xx_index, null, false);
+        setContentView(R.layout.xx_index);
+        initPublicView("消息列表", R.drawable.xx_txl, 0, XxIndexActivity.this, null);
         init();
 //        NetWork.submit(activity, init);
     }

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.ybd.yl.BaseFragment;
 import com.ybd.yl.R;
-import com.ybd.yl.xx.XxIndexFragment;
 
 /**
  * 首页-圈子
@@ -26,7 +25,7 @@ public class XxFragment extends BaseFragment implements HomeClickListener, OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.home_xx, container, false);
-        toFragmentContent(new XxIndexFragment(),R.id.xx_fragment,null);
+//        toFragmentContent(new XxIndexFragment(),R.id.xx_fragment,null);
         return v;
     }
 
