@@ -176,6 +176,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+        <!-- 艺论-投诉 -->
+        <activity
+            android:name="com.ybd.yl.yl.YlTsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
         <!-- 艺论-上传 -->
         <activity
             android:name="com.ybd.yl.yl.YlScActivity"

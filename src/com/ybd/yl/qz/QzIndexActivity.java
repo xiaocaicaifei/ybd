@@ -45,7 +45,7 @@ import com.ybd.yl.home.HomeClickListener;
  * @author cyf
  * @version $Id: HomeFragment.java, v 0.1 2015年1月16日 上午11:16:50cyf  Exp $
  */
-public class QzIndexActivity extends BaseActivity implements HomeClickListener, OnClickListener {
+public class QzIndexActivity extends BaseActivity implements OnClickListener {
     private XListView                 listView;
     private QzIndexAdapter               adapter;
     private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -146,7 +146,7 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
                                                 public void onClick(View v) {
                                                     plMap = (Map<String, Object>) v.getTag();
                                                     popupWindow.showAsDropDown(
-                                                        activity.getCurrentFocus(),
+                                                        titleView,
                                                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,
                                                         0, 0);
                                                     KeyboardOperate.hideOrOpenKeyboard(activity);
@@ -233,10 +233,6 @@ public class QzIndexActivity extends BaseActivity implements HomeClickListener, 
 //        });
 //    }
 
-    @Override
-    public void onHomeclick(View v) {
-
-    }
 
     @Override
     public void onClick(View v) {

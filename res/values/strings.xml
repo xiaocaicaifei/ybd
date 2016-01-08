@@ -170,6 +170,14 @@
     <string name="nineq">9千-1万</string>
     <string name="zdy">自定义：</string>
     <string name="srgzje">输入估值金额</string>
+    <string name="ggsr">广告骚扰</string>
+    <string name="zzmg">政治敏感</string>
+    <string name="sqds">色情低俗</string>
+    <string name="lhpb">拉黑屏蔽</string>
+    <string name="qzpq">欺诈骗钱</string>
+    <string name="wf">违法（暴力恐怖、违禁品等）</string>
+    <string name="qtwtms">其他问题描述</string>
+    
     <!-- 消息 -->
     <string name="ss">搜索</string>
     

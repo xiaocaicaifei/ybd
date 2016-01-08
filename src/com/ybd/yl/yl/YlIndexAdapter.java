@@ -34,11 +34,11 @@ import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
 import com.ybd.common.net.NetWork;
 import com.ybd.common.tools.DateUtil;
+import com.ybd.common.tools.KeyboardOperate;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.common.tools.ScreenDisplay;
 import com.ybd.yl.R;
 import com.ybd.yl.common.PreviewImg2Activity;
-import com.ybd.yl.qz.QzTsActivity;
 import com.ybd.yl.qz.QzXxzlActivity;
 
 /**
@@ -49,16 +49,12 @@ import com.ybd.yl.qz.QzXxzlActivity;
  */
 public class YlIndexAdapter extends BaseAdapter {
     private List<Map<String, Object>> list        = new ArrayList<Map<String, Object>>();
-    private YlIndexActivity                  activity;
+    private YlIndexActivity           activity;
     ImageLoader                       imageLoader = ImageLoader.getInstance();
-//    private OnClickListener           plClickListener;
-//    private PopupWindow gzPopupWindow;//估值
 
     public YlIndexAdapter(List<Map<String, Object>> list, YlIndexActivity activity) {
         this.list = list;
         this.activity = activity;
-//        this.plClickListener = plClickListener;
-//        this.gzPopupWindow=gzPopupWindow;
     }
 
     @Override
@@ -118,17 +114,17 @@ public class YlIndexAdapter extends BaseAdapter {
             viewHoler.plLinearLayout = (LinearLayout) convertView.findViewById(R.id.pl_ll);
             viewHoler.plImageView = (ImageView) convertView.findViewById(R.id.pl_iv);
             viewHoler.plTextView = (TextView) convertView.findViewById(R.id.pl_tv);
-            viewHoler.zanLinearLayout = (LinearLayout) convertView.findViewById(R.id.zan_ll);
-            viewHoler.zanTextView = (TextView) convertView.findViewById(R.id.zan_tv);
-            viewHoler.zanImageView = (ImageView) convertView.findViewById(R.id.zan_iv);
+            //            viewHoler.zanLinearLayout = (LinearLayout) convertView.findViewById(R.id.zan_ll);
+            //            viewHoler.zanTextView = (TextView) convertView.findViewById(R.id.zan_tv);
+            //            viewHoler.zanImageView = (ImageView) convertView.findViewById(R.id.zan_iv);
             viewHoler.tpGridView = (GridViewRun) convertView.findViewById(R.id.tp_gv);
             viewHoler.plListViewRun = (ListViewRun) convertView.findViewById(R.id.pl_lv);
             viewHoler.plLinearLayout2 = (LinearLayout) convertView.findViewById(R.id.pl2_ll);
             viewHoler.xsqbTextView = (TextView) convertView.findViewById(R.id.xsqb_tv);
             viewHoler.fenTextView = (TextView) convertView.findViewById(R.id.fen_tv);
             viewHoler.dfSeekBar = (SeekBar) convertView.findViewById(R.id.df_sb);
-            viewHoler.wygzButton=(Button) convertView.findViewById(R.id.wygz_b);
-            viewHoler.sjtjButton=(Button) convertView.findViewById(R.id.sjtj_b);
+            viewHoler.wygzButton = (Button) convertView.findViewById(R.id.wygz_b);
+            viewHoler.sjtjButton = (Button) convertView.findViewById(R.id.sjtj_b);
             convertView.setTag(viewHoler);
         } else {
             viewHoler = (ViewHoler) convertView.getTag();
@@ -169,31 +165,20 @@ public class YlIndexAdapter extends BaseAdapter {
         viewHoler.fsTextView.setText(PaseJson.getMapMsg(map, "followers_count"));
         viewHoler.descriptionTextView.setText(PaseJson.getMapMsg(map, "description"));
         viewHoler.plTextView.setText(l2.size() + "");
-        //        String zanNum=PaseJson.getMapMsg(map, "thum_count").toString();
-        //        viewHoler.zanTextView.setText(zanNum);
-        String isZan = PaseJson.getMapMsg(map, "is_thumb").toString();
-        if (isZan.equals("0")) {
-            viewHoler.zanImageView.setBackgroundResource(R.drawable.qz_zan);
-            viewHoler.zanTextView.setTextColor(activity.getResources().getColor(
-                R.color.yl_username_msg_gray_color));
-        } else {
-            viewHoler.zanImageView.setBackgroundResource(R.drawable.qz_zan_select);
-            viewHoler.zanTextView.setTextColor(activity.getResources().getColor(
-                R.color.unitform_button_red));
-        }
-//        viewHoler.plLinearLayout.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Map<String, Object> m = new HashMap<String, Object>();
-//                m.put("circleId", PaseJson.getMapMsg(map, "circle_id"));
-//                m.put("note", "");
-//                m.put("parentId", "");
-//                m.put("parentUserid", "");
-//                m.put("index", position);
-//                v.setTag(m);
-//                activity.plClickListener.onClick(v);
-//            }
-//        });
+        viewHoler.plLinearLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //                Map<String, Object> m = new HashMap<String, Object>();
+                activity.plMap.put("circleId", PaseJson.getMapMsg(map, "arttalk_id"));
+                activity.plMap.put("note", "");
+                activity.plMap.put("parentId", "");
+                activity.plMap.put("parentUserid", "");
+                activity.plMap.put("parent_username", "");
+                activity.plMap.put("index", position);
+                activity.plPopupWindow.showAsDropDown(activity.titleView, 0, 0);
+                KeyboardOperate.hideOrOpenKeyboard(activity);
+            }
+        });
         BaseAdapter tpAdapter = new YlIndexTpAdapter(l, activity);
         viewHoler.tpGridView.setAdapter(tpAdapter);
         tpAdapter.notifyDataSetChanged();
@@ -204,25 +189,26 @@ public class YlIndexAdapter extends BaseAdapter {
                 intent.putExtra("object", (Serializable) l);
                 intent.setClass(activity, PreviewImg2Activity.class);
                 activity.startActivity(intent);
+                activity.plPopupWindow.showAsDropDown(activity.titleView, 0, 0);
+                KeyboardOperate.hideOrOpenKeyboard(activity);
             }
         });
         final BaseAdapter plAdapter = new YlIndexPlAdapter(l3, activity);
         viewHoler.plListViewRun.setAdapter(plAdapter);
-//        viewHoler.plListViewRun.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position2, long id) {
-//                Map<String, Object> map2 = l2.get(position2);
-//                Map<String, Object> m = new HashMap<String, Object>();
-//                m.put("circleId", PaseJson.getMapMsg(map, "arttalk_id"));
-//                m.put("note", "");
-//                m.put("parentId", PaseJson.getMapMsg(map2, "id"));
-//                m.put("parentUserid", PaseJson.getMapMsg(map2, "user_id"));
-//                m.put("parent_username", PaseJson.getMapMsg(map2, "user_name"));
-//                m.put("index", position);
-//                view.setTag(m);
-//                plClickListener.onClick(view);
-//            }
-//        });
+        viewHoler.plListViewRun.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position2, long id) {
+                Map<String, Object> map2 = l2.get(position2);
+                activity.plMap.put("circleId", PaseJson.getMapMsg(map, "arttalk_id"));
+                activity.plMap.put("note", "");
+                activity.plMap.put("parentId", PaseJson.getMapMsg(map2, "id"));
+                activity.plMap.put("parentUserid", PaseJson.getMapMsg(map2, "user_id"));
+                activity.plMap.put("parent_username", PaseJson.getMapMsg(map2, "user_name"));
+                activity.plMap.put("index", position);
+                activity.plPopupWindow.showAsDropDown(activity.titleView, 0, 0);
+                KeyboardOperate.hideOrOpenKeyboard(activity);
+            }
+        });
         plAdapter.notifyDataSetChanged();
         ScreenDisplay.setListViewHeightBasedOnChildren(viewHoler.plListViewRun);
         if (l2.size() == 0) {
@@ -249,35 +235,16 @@ public class YlIndexAdapter extends BaseAdapter {
             }
         });
 
-        viewHoler.zanLinearLayout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //                String zanNum=PaseJson.getMapMsg(map, "thum_count").toString();
-                if (PaseJson.getMapMsg(map, "is_thumb").toString().equals("0")) {
-                    map.put("is_thumb", "1");
-                    NetWork.submit(activity,
-                        new ZanOperate("0", PaseJson.getMapMsg(map, "circle_id")));
-                } else {
-                    map.put("is_thumb", "0");
-                    NetWork.submit(activity,
-                        new ZanOperate("1", PaseJson.getMapMsg(map, "circle_id")));
-                }
-                notifyDataSetChanged();
-            }
-        });
         viewHoler.tsLinearLayout.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("qzid", PaseJson.getMapMsg(map, "circle_id"));
-                intent.setClass(activity, QzTsActivity.class);
+                intent.putExtra("ylid", PaseJson.getMapMsg(map, "arttalk_id"));
+                intent.setClass(activity, YlTsActivity.class);
                 activity.startActivity(intent);
             }
         });
-
         viewHoler.dfSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 map.put("grade", seekBar.getProgress());
@@ -301,65 +268,18 @@ public class YlIndexAdapter extends BaseAdapter {
         viewHoler.sjtjButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.gzPopupWindow.showAsDropDown(
-                    activity.titleView,
-                    Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL,
-                    0, 0);
-                activity.selectCircleID=PaseJson.getMapMsg(map, "arttalk_id");
+                activity.gzPopupWindow.showAsDropDown(activity.titleView,
+                    Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
+                activity.selectCircleID = PaseJson.getMapMsg(map, "arttalk_id");
             }
         });
         viewHoler.wygzButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
             }
         });
         return convertView;
-    }
-
-    /**
-     * 赞和取消赞
-     * 
-     * @author cyf
-     * @version $Id: QzIndexAdapter.java, v 0.1 2015-12-21 下午2:03:07 cyf Exp $
-     */
-    private class ZanOperate implements INetWork {
-        String isZan;
-        String circleId;
-
-        public ZanOperate(String isZan, String circleId) {
-            this.isZan = isZan;
-            this.circleId = circleId;
-        }
-
-        @Override
-        public boolean validate() {
-            return true;
-        }
-
-        @Override
-        public Data getSubmitData() throws Exception {
-            Data data = new Data("thumb/ThumbUp.json");
-            data.addData("user_id", PropertiesUtil.read(activity, PropertiesUtil.USERID));
-            data.addData("circle_id", circleId);
-            data.addData("is_praise", isZan);
-            return data;
-        }
-
-        @Override
-        public void result(String result) throws Exception {
-            JSONObject jsonObject = new JSONObject(result);
-            if (jsonObject.get("code").toString().equals("0")) {
-                if (isZan.equals("0")) {
-                    Toast.makeText(activity, "已赞", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(activity, "取消赞成功", Toast.LENGTH_LONG).show();
-                }
-            } else {
-                Toast.makeText(activity, "操作失败", Toast.LENGTH_LONG).show();
-            }
-        }
-
     }
 
     class ViewHoler {
@@ -383,17 +303,17 @@ public class YlIndexAdapter extends BaseAdapter {
         LinearLayout plLinearLayout;     //评论的层
         ImageView    plImageView;        //评论
         TextView     plTextView;         //评论的数量
-        TextView     zanTextView;        //赞的数量
-        ImageView    zanImageView;       //赞的图标
-        LinearLayout zanLinearLayout;    //赞的层
+                                          //        TextView     zanTextView;        //赞的数量
+                                          //        ImageView    zanImageView;       //赞的图标
+                                          //        LinearLayout zanLinearLayout;    //赞的层
         GridViewRun  tpGridView;         //图片的列表
         ListViewRun  plListViewRun;      //艺论的评论
         LinearLayout plLinearLayout2;    //显示全部评论的层
         TextView     xsqbTextView;       //显示全部的评论
         TextView     fenTextView;        //选中的分值
         SeekBar      dfSeekBar;          //打分的滚动条
-        Button       wygzButton;          //我要估值
-        Button       sjtjButton;          //数据统计
+        Button       wygzButton;         //我要估值
+        Button       sjtjButton;         //数据统计
     }
 
     /**

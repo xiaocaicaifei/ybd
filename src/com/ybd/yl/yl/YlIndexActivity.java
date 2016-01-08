@@ -5,6 +5,7 @@
 package com.ybd.yl.yl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,14 +52,13 @@ public class YlIndexActivity extends BaseActivity implements  OnClickListener {
     private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     DrawerLayout                      drawerLayout;
     private View                      cxPopupView;
-    private PopupWindow               popupWindow;
+    public PopupWindow               plPopupWindow;
     private EditText                  plEditText;                                 //评论
     private Button                    fsButton;                                    //发送按钮
-    private Map<String, Object>       plMap;                                      //点击评论后，带回来的信息
+    public Map<String, Object>       plMap=new HashMap<String, Object>();                                      //点击评论后，带回来的信息
                                                                                    //评论
     public PopupWindow gzPopupWindow;//估值的弹出框
     private View gzPopupView;
-    public OnClickListener onClickListener;
     private ImageView gzgbImageView;//估值关闭
     private EditText srgzjeEditText;//输入估值金额
     private Button tjButton;//估值的提交
@@ -97,8 +97,8 @@ public class YlIndexActivity extends BaseActivity implements  OnClickListener {
      * 初始化评论弹出框
      */
     private void initPlPopWindow() {
-        cxPopupView = inflater.inflate(R.layout.qz_pl_popupwindow, null);
-        popupWindow = createPopupWindwo(cxPopupView, ScreenDisplay.getScreenWidth(activity));
+        cxPopupView = inflater.inflate(R.layout.yl_pl_popupwindow, null);
+        plPopupWindow = createPopupWindwo(cxPopupView, ScreenDisplay.getScreenWidth(activity));
         fsButton = (Button) cxPopupView.findViewById(R.id.fs_b);
         fsButton.setOnClickListener(this);
         plEditText = (EditText) cxPopupView.findViewById(R.id.pl_ev);
@@ -214,21 +214,6 @@ public class YlIndexActivity extends BaseActivity implements  OnClickListener {
         nineqButton=(Button) gzPopupView.findViewById(R.id.nineq_b);
         nineqButton.setOnClickListener(this);
     }
-    /**
-     * 评论的点击事件
-     */
-//    public OnClickListener onClickListener = new OnClickListener() {
-//
-//                                                @SuppressWarnings("unchecked")
-//                                                @Override
-//                                                public void onClick(View v) {
-//                                                    plMap = (Map<String, Object>) v.getTag();
-//                                                    popupWindow.showAsDropDown(
-//                                                        activity.getCurrentFocus(),
-//                                                        0, 0);
-//                                                    KeyboardOperate.hideOrOpenKeyboard(activity);
-//                                                }
-//                                            };
 
     /**
      * 创建popupview弹出框
@@ -793,18 +778,18 @@ public class YlIndexActivity extends BaseActivity implements  OnClickListener {
                         }
                     };
 
-    private class ReceiverBroadCase extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            page = 1;
-            list.clear();
-            NetWork.submit(activity, false, ylList);
-        }
-    }
+//    private class ReceiverBroadCase extends BroadcastReceiver {
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            page = 1;
+//            list.clear();
+//            NetWork.submit(activity, false, ylList);
+//        }
+//    }
 
     /**
-     * 回复
+     * 评论
      * 
      * @author cyf
      * @version $Id: QzIndexFragment.java, v 0.1 2015-12-22 下午5:03:48 cyf Exp $
@@ -848,15 +833,21 @@ public class YlIndexActivity extends BaseActivity implements  OnClickListener {
                 int index=Integer.parseInt(plMap.get("index").toString());
                 Map<String, Object> m=list.get(index);
                 m.put("isShowAllPl", "true");
-                plMap.put("user_name", PropertiesUtil.read(activity, PropertiesUtil.NICKNAME));
-                plMap.put("note",this.note);
-                ((List<Map<String, Object>>)m.get("comment")).add(plMap);
+                
+                Map<String, Object> map=new HashMap<String, Object>();
+                map.put("circleId", PaseJson.getMapMsg(plMap, "arttalk_id"));
+                map.put("parentId", PaseJson.getMapMsg(plMap, "parentId"));
+                map.put("parentUserid", PaseJson.getMapMsg(plMap, "parentUserid"));
+                map.put("parent_username", PaseJson.getMapMsg(plMap, "parent_username"));
+                map.put("user_name", PropertiesUtil.read(activity, PropertiesUtil.NICKNAME));
+                map.put("note",this.note);
+                ((List<Map<String, Object>>)m.get("comment")).add(map);
                 adapter.notifyDataSetChanged();
                 toastShow("评论成功");
-                popupWindow.dismiss();
+                plPopupWindow.dismiss();
             } else {
                 toastShow("评论失败");
-                popupWindow.dismiss();
+                plPopupWindow.dismiss();
             }
         }
 

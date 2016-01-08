@@ -1,4 +1,4 @@
-package com.ybd.yl.qz;
+package com.ybd.yl.yl;
 
 import org.json.JSONObject;
 
@@ -23,12 +23,12 @@ import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 
 /**
- * 圈子-投诉
+ * 艺论-投诉
  * 
  * @author cyf
  * @version $Id: YlSjtjActivity.java, v 0.1 2015-12-1 上午10:45:51 cyf Exp $
  */
-public class QzTsActivity extends BaseActivity implements OnClickListener {
+public class YlTsActivity extends BaseActivity implements OnClickListener {
 
     private String tslx="1";//1,2,3,4,5,6,7顺序对应上下顺序，最后一个是其他，
     private String tsContent="";//用户不选择，填写投诉的内容
@@ -54,7 +54,7 @@ public class QzTsActivity extends BaseActivity implements OnClickListener {
 
     @Override
     protected void initComponentBase() {
-        setContentView(R.layout.qz_ts);
+        setContentView(R.layout.yl_ts);
         initPublicView("用户投诉", R.drawable.login_fh, "发送",null, this);
         init();
     }
@@ -203,8 +203,8 @@ public class QzTsActivity extends BaseActivity implements OnClickListener {
         public Data getSubmitData() throws Exception {
             Data data=new Data("complain/complain.json");
             data.addData("user_id", PropertiesUtil.read(activity, PropertiesUtil.USERID));
-            data.addData("circle_id", activity.getIntent().getExtras().getString("qzid"));
-            data.addData("arttalk_id", "");
+            data.addData("circle_id", "");
+            data.addData("arttalk_id", activity.getIntent().getExtras().getString("ylid"));
             data.addData("tstype", tslx);
             data.addData("content", tsContent);
             return data;
