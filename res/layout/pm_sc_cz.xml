@@ -1,0 +1,226 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip" >
+
+        <TextView
+            style="@style/style_base_component2"
+            android:layout_marginTop="12dip"
+            android:text="@string/xzczje"
+            android:textColor="@color/yl_sc_cz_xzczje"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            style="@style/style_base_component"
+            android:layout_marginTop="14dip"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/ssy"
+                style="@style/yl_sc_cz_button_unselect"
+                android:layout_weight="1"
+                android:text="@string/ssy" />
+
+            <Button
+                android:id="@+id/wsy"
+                style="@style/yl_sc_cz_button_unselect"
+                android:layout_marginLeft="14dip"
+                android:layout_weight="1"
+                android:text="@string/wsy" />
+
+            <Button
+                android:id="@+id/yby"
+                style="@style/yl_sc_cz_button_unselect"
+                android:layout_marginLeft="14dip"
+                android:layout_weight="1"
+                android:text="@string/yby" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/style_base_component"
+            android:layout_marginTop="12dip"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/lby"
+                style="@style/yl_sc_cz_button_unselect"
+                android:layout_weight="1"
+                android:text="@string/lby" />
+
+            <Button
+                android:id="@+id/sby"
+                style="@style/yl_sc_cz_button_unselect"
+                android:layout_marginLeft="14dip"
+                android:layout_weight="1"
+                android:text="@string/sby" />
+
+            <Button
+                android:id="@+id/wby"
+                style="@style/yl_sc_cz_button_unselect"
+                android:layout_marginLeft="14dip"
+                android:layout_weight="1"
+                android:text="@string/wby" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/style_base_component"
+            android:layout_marginBottom="12dip"
+            android:layout_marginTop="12dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/style_base_component2"
+                android:text="@string/zdyje"
+                android:textColor="@color/yl_sc_cz_zdyje"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                style="@style/style_base_component2"
+                android:layout_width="200dip"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/je_et"
+                    style="@style/style_base_component"
+                    android:background="@null"
+                    android:hint="@string/srje"
+                    android:inputType="number"
+                    android:textColor="@color/yl_sc_cz_xzczje"
+                    android:textColorHint="@color/yl_sc_cz_zdyje"
+                    android:textSize="13sp" />
+
+                <View style="@style/uniform_line" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+    <View
+        style="@style/uniform_line"
+        android:layout_marginTop="12dip" />
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_height="35dip"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/style_base_component2"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="11dip"
+            android:text="@string/xzzffs"
+            android:textColor="@color/yl_sc_cz_zdyje"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+    <LinearLayout
+        android:id="@+id/wxzf_ll"
+        style="@style/style_base_component"
+        android:layout_height="46dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="11dip"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            style="@style/style_base_component2"
+            android:layout_marginRight="11dip"
+            android:background="@drawable/yl_sc_cz_wx" />
+
+        <TextView
+            style="@style/style_base_component2"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="1"
+            android:text="@string/wxzf"
+            android:textColor="@color/yl_sc_cz_xzczje"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/wxzf_iv"
+            style="@style/style_base_component2"
+            android:background="@drawable/yl_sc_cz_unselect" />
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+    <LinearLayout
+        android:id="@+id/zfbzf_ll"
+        style="@style/style_base_component"
+        android:layout_height="46dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="11dip"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            style="@style/style_base_component2"
+            android:layout_marginRight="11dip"
+            android:background="@drawable/yl_sc_cz_zfb" />
+
+        <TextView
+            style="@style/style_base_component2"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="1"
+            android:text="@string/zfbzf"
+            android:textColor="@color/yl_sc_cz_xzczje"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/zfbzf_iv"
+            style="@style/style_base_component2"
+            android:background="@drawable/yl_sc_cz_unselect" />
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+    <LinearLayout
+        android:id="@+id/ylzf_ll"
+        style="@style/style_base_component"
+        android:layout_height="46dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="11dip"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            style="@style/style_base_component2"
+            android:layout_marginRight="11dip"
+            android:background="@drawable/yl_sc_cz_yl" />
+
+        <TextView
+            style="@style/style_base_component2"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="1"
+            android:text="@string/ylzf"
+            android:textColor="@color/yl_sc_cz_xzczje"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/ylzf_iv"
+            style="@style/style_base_component2"
+            android:background="@drawable/yl_sc_cz_unselect" />
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+</LinearLayout>

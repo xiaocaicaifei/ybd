@@ -244,6 +244,36 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+        <!-- 拍卖-上传-充值 -->
+        <activity
+            android:name="com.ybd.yl.pm.PmScCzActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <!-- 拍卖-上传 -充值成功-->
+        <activity
+            android:name="com.ybd.yl.pm.PmScCzcgActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <!-- 拍卖-上传-电子协议书 -->
+        <activity
+            android:name="com.ybd.yl.pm.PmScDzxysActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <!-- 拍卖-上传-支付 -->
+        <activity
+            android:name="com.ybd.yl.pm.PmJykActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <!-- 拍卖-上传-支付成功 -->
+        <activity
+            android:name="com.ybd.yl.pm.PmScZfcgActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
 
         <!-- 消息主页 -->
         <activity

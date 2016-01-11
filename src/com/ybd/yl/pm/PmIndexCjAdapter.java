@@ -5,16 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.ybd.common.L;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.R;
 
@@ -55,23 +52,16 @@ public class PmIndexCjAdapter extends BaseAdapter {
         ViewHoler viewHoler = null;
         if (convertView == null) {
             viewHoler = new ViewHoler();
-            convertView = LayoutInflater.from(activity).inflate(R.layout.pm_index_pl_item, null);// 这个过程相当耗时间
+            convertView = LayoutInflater.from(activity).inflate(R.layout.pm_index_cj_item, null);// 这个过程相当耗时间
             viewHoler.nrTextView = (TextView) convertView.findViewById(R.id.nr_tv);
             convertView.setTag(viewHoler);
         } else {
             viewHoler = (ViewHoler) convertView.getTag();
         }
-        String str = "";
-        str += "<font color='#28609e' onclick='javascript:plr();'>"
-               + PaseJson.getMapMsg(map, "user_name") + "</font>";//评论人
-        if (!PaseJson.getMapMsg(map, "parent_username").equals("")) {
-            str += " 回复  ";//回复
-            str += "<font color='#28609e'>" + PaseJson.getMapMsg(map, "parent_username")
-                   + "</font>";//被评论人
-        }
-        str += "：";//单独加上一个冒号
-        str+=PaseJson.getMapMsg(map, "note");
-        viewHoler.nrTextView.setText(Html.fromHtml(str));
+        String str = PaseJson.getMapMsg(map, "remark")+"：出价";
+        str+=PaseJson.getMapMsg(map, "endprice");
+        str+="元";
+        viewHoler.nrTextView.setText(str);
         return convertView;
     }
 
@@ -79,8 +69,4 @@ public class PmIndexCjAdapter extends BaseAdapter {
         TextView nrTextView; //内容
     }
 
-    @JavascriptInterface
-    public void plr() {
-        L.v("ddddddddddddddd");
-    }
 }

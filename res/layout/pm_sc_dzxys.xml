@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+    
+    <WebView 
+        android:id="@+id/dzxy_wb"
+        style="@style/style_base_component"
+        android:background="@color/white"
+        android:layout_marginLeft="11dip"
+        android:layout_marginTop="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginBottom="11dip"
+        android:layout_weight="1"/>
+	<LinearLayout 
+	    style="@style/style_base_component"
+	    android:layout_marginBottom="18dip"
+	    android:orientation="horizontal"
+	    >
+	    <Button 
+	        android:id="@+id/bty_b"
+	        style="@style/yl_sc_button_select"
+	        android:layout_width="fill_parent"
+	        android:textSize="14sp"
+	        android:layout_weight="1"
+	        android:text="@string/bwbty"
+	        />
+	    <Button 
+	        android:id="@+id/ty_b"
+	        style="@style/login_button"
+	        android:layout_weight="1"
+	        android:textSize="14sp"
+	        android:layout_height="25dip"
+	        android:text="@string/swyjydbqr"
+	        />
+	</LinearLayout>
+</LinearLayout>

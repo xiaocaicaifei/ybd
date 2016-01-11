@@ -36,7 +36,7 @@ import com.ybd.yl.common.PreviewImgActivity;
 import com.ybd.yl.yl.YlScDzxysActivity;
 
 /**
- * 圈子-上传
+ * 拍卖-上传
  * 
  * @author cyf
  * @version $Id: YlSjtjActivity.java, v 0.1 2015-12-1 上午10:45:51 cyf Exp $
@@ -299,7 +299,7 @@ public class PmScActivity extends BaseActivity implements OnClickListener {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                intent.setClass(activity, YlScDzxysActivity.class);
+                intent.setClass(activity, PmScDzxysActivity.class);
                 startActivity(intent);
                 break;
             default:

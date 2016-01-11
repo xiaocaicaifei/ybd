@@ -28,7 +28,6 @@ import com.ybd.common.MainApplication;
 import com.ybd.common.PropertiesUtil;
 import com.ybd.common.net.Data;
 import com.ybd.common.net.INetWork;
-import com.ybd.common.net.NetWork;
 import com.ybd.common.tools.DateUtil;
 import com.ybd.common.tools.KeyboardOperate;
 import com.ybd.common.tools.PaseJson;
@@ -235,6 +234,11 @@ public class PmIndexAdapter extends BaseAdapter {
             }
         });
         plAdapter.notifyDataSetChanged();
+        //出价记录
+        final BaseAdapter cjAdapter=new PmIndexCjAdapter(l6, activity);
+        viewHoler.cjListViewRun.setAdapter(cjAdapter);
+        cjAdapter.notifyDataSetChanged();
+        
         ScreenDisplay.setListViewHeightBasedOnChildren(viewHoler.plListViewRun);
         if (l2.size() == 0) {
             viewHoler.plLinearLayout2.setVisibility(View.GONE);
@@ -245,6 +249,17 @@ public class PmIndexAdapter extends BaseAdapter {
             viewHoler.xsqbTextView.setVisibility(View.GONE);
         } else {
             viewHoler.xsqbTextView.setVisibility(View.VISIBLE);
+        }
+        
+        if(l5.size()==0){
+            viewHoler.cjLinearLayout.setVisibility(View.GONE);
+        }else{
+            viewHoler.cjLinearLayout.setVisibility(View.VISIBLE);
+        }
+        if(l7.size()==0){
+            viewHoler.cjXsqbTextView.setVisibility(View.GONE);
+        }else{
+            viewHoler.cjXsqbTextView.setVisibility(View.VISIBLE);
         }
         if (!PaseJson.getMapMsg(map, "isShowAllPl").equals("")
             && PaseJson.getMapMsg(map, "isShowAllPl").equals("true")) {//展开全部的情况
@@ -259,11 +274,24 @@ public class PmIndexAdapter extends BaseAdapter {
                 v.setVisibility(View.GONE);
             }
         });
+        viewHoler.cjXsqbTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                l6.addAll(l7);
+                cjAdapter.notifyDataSetChanged();
+                v.setVisibility(View.GONE);
+            }
+        });
 
         viewHoler.jykButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetWork.submit(activity, new JykNetWork(PaseJson.getMapMsg(map, "arttalk_id")));
+//                NetWork.submit(activity, new JykNetWork(PaseJson.getMapMsg(map, "arttalk_id")));
+                activity.selectPosition=position;
+                Intent intent=new Intent();
+                intent.setClass(activity, PmJykActivity.class);
+                intent.putExtra("ylid", PaseJson.getMapMsg(map, "arttalk_id"));
+                activity.startActivity(intent);
             }
         });
         return convertView;

@@ -22,6 +22,8 @@ public class BroadcaseUtil {
     public static final String QZ_SCCG="qz_sccg";
     /** 议论-上传成功*/
     public static final String YL_SCCG="yl_sccg";
+    /** 加一口成功 */
+    public static final String PM_JYK_SUCCESS="pm_jyk_success";
     
     /**
      * 根据不同的名字发送广播

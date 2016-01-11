@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+    
+    <TextView 
+        style="@style/style_base_component2"
+        android:layout_marginTop="27dip"
+        android:textSize="16sp"
+        android:text="@string/bcxzf"
+        android:textColor="@color/black"/>
+    <TextView 
+        android:id="@+id/yzf_tv"
+        style="@style/style_base_component2"
+        android:layout_marginTop="17dip"
+        android:textSize="14sp"
+        android:textColor="@color/unitform_button_red"/>
+    <View 
+        style="@style/uniform_line"
+        android:layout_marginTop="20dip"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"/>
+    <TextView 
+        android:id="@+id/ye_tv"
+        style="@style/style_base_component2"
+        android:textSize="16sp"
+        android:layout_marginTop="14dip"
+        android:textColor="@color/yl_sc_qrsc"/>
+    <TextView 
+        android:id="@+id/yets_tv"
+        style="@style/style_base_component2"
+        android:textSize="14sp"
+        android:layout_marginTop="6dip"
+        android:textColor="@color/yl_sc_qrsc"/>
+    <Button 
+        android:id="@+id/qcz_b"
+        style="@style/login_button"
+        android:layout_marginTop="45dip"
+        android:text="@string/qcz"/>
+    <TextView 
+        android:id="@+id/wzklyx_tv"
+        style="@style/style_base_component2"
+        android:textSize="14sp"
+        android:layout_marginTop="6dip"
+        android:layout_gravity="right"
+        android:text="@string/wzklyx"
+        android:layout_marginRight="13dip"
+        android:textColor="@color/unitform_button_red"/>
+    
+</LinearLayout>

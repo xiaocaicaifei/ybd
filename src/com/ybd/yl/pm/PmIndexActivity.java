@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.BroadcastReceiver;
@@ -37,7 +38,6 @@ import com.ybd.common.tools.ScreenDisplay;
 import com.ybd.common.xListView.XListView;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
-import com.ybd.yl.yl.YlScActivity;
 
 /**
  * 拍卖-主页
@@ -61,6 +61,7 @@ public class PmIndexActivity extends BaseActivity implements  OnClickListener {
     private String gzValue;//估值的选择的数值
     private String gzAverage;//估值的平均值
     public static String selectCircleID;//选择的议论的ID
+    public int selectPosition;//选择的议论的List的位置
     @Override
     protected void initComponentBase() {
         setContentView(R.layout.pm_index);
@@ -153,6 +154,16 @@ public class PmIndexActivity extends BaseActivity implements  OnClickListener {
                 NetWork.submit(activity, false, pmList);
             }
         }, BroadcaseUtil.YL_SCCG);
+        
+      //加一口成功的广播（加价成功后，刷新加价记录）
+        BroadcaseUtil.registBroadcase(activity, new BroadcastReceiver() {
+            
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String circleid=list.get(selectPosition).get("arttalk_id").toString();
+                NetWork.submit(activity, new JjjlNetWork(circleid));
+            }
+        }, BroadcaseUtil.PM_JYK_SUCCESS);
     }
 
  
@@ -346,6 +357,48 @@ public class PmIndexActivity extends BaseActivity implements  OnClickListener {
             } else {
                 toastShow("估值失败");
                 gzPopupWindow.dismiss();
+            }
+        }
+
+    };
+    /**
+     * 获取加价记录
+     * 
+     * @author cyf
+     * @version $Id: QzIndexFragment.java, v 0.1 2015-12-22 下午5:03:48 cyf Exp $
+     */
+    class JjjlNetWork implements INetWork {
+        private String circleid;
+        public JjjlNetWork(String circleid) {
+            this.circleid=circleid;
+        }
+        @Override
+        public boolean validate() {
+            return true;
+        }
+
+        @Override
+        public Data getSubmitData() throws Exception {
+            Data data = new Data("addpricerecord/listAddPriceRecord.json");
+            data.addData("user_id", PropertiesUtil.read(activity, PropertiesUtil.USERID));
+            JSONArray array=new JSONArray();
+            array.put(circleid);
+            data.addData("artIds", array.toString());
+            return data;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public void result(String result) throws Exception {
+            Map<String, Object> m=(Map<String,Object>)PaseJson.paseJsonToObject(result);
+            List<Map<String,Object>> l=(List<Map<String, Object>>) m.get("data");
+            if (PaseJson.getMapMsg(m, "code").equals("0")) {
+                toastShow("加价成功");
+               ((List<Map<String,Object>>)list.get(selectPosition).get("priceRecord")).clear();
+               ((List<Map<String,Object>>)list.get(selectPosition).get("priceRecord")).addAll(l);
+               adapter.notifyDataSetChanged();
+            } else {
+                toastShow("加价失败");
             }
         }
 
