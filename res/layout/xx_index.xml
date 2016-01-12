@@ -9,12 +9,12 @@
     <EditText 
         android:id="@+id/search"
         style="@style/uniform_search_input" />
-	<ListView 
-	    android:id="@+id/list"
+	<com.ybd.common.delListView.ListViewCompat
+	    android:id="@+id/xx_dslv"
 	    android:layout_weight="1"
 	    style="@style/uniform_listview">
-	</ListView>
+	</com.ybd.common.delListView.ListViewCompat>
 	<com.ybd.common.defined.BottomMenu
             style="@style/style_base_component"
-            Select="xx" />
+            Select="xx"/>
 </LinearLayout>

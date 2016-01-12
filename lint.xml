@@ -3,6 +3,9 @@
     <issue id="ButtonStyle">
         <ignore path="res/layout/login.xml" />
     </issue>
+    <issue id="ClickableViewAccessibility">
+        <ignore path="src/com/ybd/common/delListView/ListViewCompat.java" />
+    </issue>
     <issue id="ContentDescription" severity="ignore" />
     <issue id="DisableBaselineAlignment" severity="ignore">
         <ignore path="res/layout/gr_index.xml" />

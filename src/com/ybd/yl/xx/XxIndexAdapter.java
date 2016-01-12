@@ -4,34 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.ybd.common.C;
 import com.ybd.common.L;
-import com.ybd.common.MainApplication;
 import com.ybd.yl.R;
 
 /**
- * 显示相册的适配器
+ * 消息列表的适配器
  * 
  * @author cyf
  * @version $Id: GrIndexAdapter.java, v 0.1 2015-11-30 下午2:47:35 cyf Exp $
  */
 public class XxIndexAdapter extends BaseAdapter {
     private List<Map<String, Object>> list        = new ArrayList<Map<String, Object>>();
-    private Activity                  activity;
+    private XxIndexActivity                  activity;
     private ImageLoader               imageLoader = ImageLoader.getInstance();
 
-    public XxIndexAdapter(List<Map<String, Object>> list, Activity activity) {
+    public XxIndexAdapter(List<Map<String, Object>> list, XxIndexActivity activity) {
         this.list = list;
         this.activity = activity;
     }
@@ -52,25 +49,48 @@ public class XxIndexAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         Map<String, Object> map = list.get(position);
         ViewHoler viewHoler = null;
-        if (convertView == null) {
-            convertView = LayoutInflater.from(activity).inflate(R.layout.gr_index_item, null);// 这个过程相当耗时间
+        XxIndexSlideView slideView = (XxIndexSlideView) convertView;
+        if (slideView == null) {
+            View itemView = LayoutInflater.from(activity).inflate(R.layout.xx_index_item, null);
+
+            slideView = new XxIndexSlideView(activity);
+            slideView.setContentView(itemView);
+
             viewHoler = new ViewHoler();
-            viewHoler.xcImageView = (ImageView) convertView.findViewById(R.id.xc_iv);
-            convertView.setTag(viewHoler);
+            viewHoler.delRelativeLayout=(RelativeLayout) slideView.findViewById(R.id.holder_rl);
+            viewHoler.delRelativeLayout.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    list.remove(position);
+                    notifyDataSetChanged();
+                }
+            });
+            slideView.setOnSlideListener(activity);
+            slideView.setTag(viewHoler);
         } else {
-            viewHoler = (ViewHoler) convertView.getTag();
+            viewHoler = (ViewHoler) slideView.getTag();
         }
-        if (!map.get("thumb_url").toString().equals("")) {
-            imageLoader.displayImage(C.IP+map.get("thumb_url").toString(), viewHoler.xcImageView,
-                MainApplication.getRoundOffOptions());
-        }
-        return convertView;
+        map.put("slideView", slideView);
+        slideView.shrink();
+        return slideView;
     }
 
     class ViewHoler {
         ImageView xcImageView;
+        RelativeLayout delRelativeLayout;
     }
+    
+    /**
+     * 滑动删除穿的对象
+     * 
+     * @author cyf
+     * @version $Id: XxIndexAdapter.java, v 0.1 2016-1-12 上午10:41:18 cyf Exp $
+     */
+    public class MessageItem {
+        public XxIndexSlideView slideView;
+    }
+    
 }

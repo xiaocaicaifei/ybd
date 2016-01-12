@@ -36,6 +36,7 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
+    
     <!-- 所有标题头的样式 -->
     <style name="uniform_title" parent="@style/style_base_component">
         <item name="android:layout_height">100dip</item>

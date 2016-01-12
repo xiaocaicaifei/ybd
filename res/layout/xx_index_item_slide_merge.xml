@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/view_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/holder_rl"
+        android:layout_width="90dip"
+        android:layout_height="match_parent"
+        android:background="@drawable/xx_index_slide_bg"
+        android:clickable="true"
+        >
+        <ImageView 
+            android:id="@+id/del_iv"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            style="@style/style_base_component2"
+            android:background="@drawable/xx_index_del"/>
+    </RelativeLayout>
+
+</merge>
