@@ -69,6 +69,9 @@
 	<!-- 消息 -->
 	<color name="xx_search_hint_color">#8e8e93</color><!-- 消息-搜索框提示字体的颜色 -->
 	<color name="xx_list_title_color">#333333</color><!-- 消息-列表的标题的颜色 -->
+	<color name="xx_txl_xdpy_color">#333333</color><!-- 消息-通讯录-新的朋友的颜色 -->
+	<color name="xx_txl_jjxpy_color">#999999</color><!-- 消息-通讯录-结交新朋友的颜色 -->
+	<color name="xx_txl_txl_title_color">#666666</color><!-- 消息-通讯录-通讯录好友的标题的颜色 -->
     
     <!-- 下边导航条的颜色 -->
     <color name="nav_bg">#f8f8f8</color>

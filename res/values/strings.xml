@@ -184,6 +184,9 @@
     
     <!-- 消息 -->
     <string name="ss">搜索</string>
+    <string name="xdpy">新的朋友</string>
+    <string name="jjxpy">结交新朋友</string>
+    <string name="tjdv">推荐大V</string>
     
     <!-- 选择位置弹出框 -->
     <string name="xzwz">选择位置</string>

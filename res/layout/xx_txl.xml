@@ -1,0 +1,102 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:clickable="true"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <EditText
+        android:id="@+id/search"
+        style="@style/uniform_search_input" />
+
+    <View style="@style/uniform_line" />
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_height="67dip"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            style="@style/style_base_component2"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <ImageView
+                style="@style/style_base_component2"
+                android:background="@drawable/xx_txl_xdpy" />
+
+            <LinearLayout
+                style="@style/style_base_component2"
+                android:layout_marginLeft="11dip"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/style_base_component2"
+                    android:text="@string/xdpy"
+                    android:textColor="@color/xx_txl_xdpy_color"
+                    android:textSize="15sp" />
+
+                <TextView
+                    style="@style/style_base_component2"
+                    android:layout_marginTop="4dip"
+                    android:text="@string/jjxpy"
+                    android:textColor="@color/xx_txl_jjxpy_color"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/uniform_line2" />
+
+        <LinearLayout
+            style="@style/style_base_component2"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <ImageView
+                style="@style/style_base_component2"
+                android:background="@drawable/xx_txl_tjdv" />
+
+            <LinearLayout
+                style="@style/style_base_component2"
+                android:layout_marginLeft="11dip"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/style_base_component2"
+                    android:text="@string/tjdv"
+                    android:textColor="@color/xx_txl_xdpy_color"
+                    android:textSize="15sp" />
+
+                <TextView
+                    style="@style/style_base_component2"
+                    android:layout_marginTop="4dip"
+                    android:text="@string/tjdv"
+                    android:textColor="@color/xx_txl_jjxpy_color"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/uniform_line" />
+
+    <FrameLayout style="@style/style_base_component" >
+
+        <ListView
+            android:id="@+id/txl_lv"
+            style="@style/uniform_listview" >
+        </ListView>
+
+        <com.ybd.common.SideBar
+            android:id="@+id/zm_sb"
+            android:layout_width="30dip"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right|center_vertical"
+            />
+    </FrameLayout>
+
+</LinearLayout>

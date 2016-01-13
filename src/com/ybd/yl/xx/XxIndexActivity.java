@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
@@ -19,7 +20,7 @@ import com.ybd.yl.R;
 import com.ybd.yl.xx.XxIndexSlideView.OnSlideListener;
 
 /**
- * 信息-主页
+ * 消息-主页
  * 
  * @author cyf
  * @version $Id: HomeFragment.java, v 0.1 2015年1月16日 上午11:16:50cyf  Exp $
@@ -78,6 +79,16 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.left_rl:
+                Intent intent=new Intent();
+                intent.setClass(activity, XxTxlActivity.class);
+                startActivity(intent);
+                break;
+
+            default:
+                break;
+        }
     }
 
     @Override
