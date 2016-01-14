@@ -210,5 +210,15 @@
         <item name="android:layout_width">100dip</item>
         <item name="android:layout_marginLeft">11dip</item>
     </style>
-
+	
+    <!-- 消息-通讯录-推荐大V（描述的字体） -->
+    <style name="xx_txl_tjdv_ms" parent="@style/style_base_component2">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#929292</item>
+    </style>
+    <!-- 消息-通讯录-推荐大V（估值的字体） -->
+    <style name="xx_txl_tjdv_value" parent="@style/style_base_component2">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#1c1c1c</item>
+    </style>
 </resources>

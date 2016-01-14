@@ -187,6 +187,10 @@
     <string name="xdpy">新的朋友</string>
     <string name="jjxpy">结交新朋友</string>
     <string name="tjdv">推荐大V</string>
+    <string name="xx_gm">购买:</string>
+    <string name="xx_mc">卖出:</string>
+    <string name="xx_xy">信用:</string>
+    <string name="xx_fs">粉丝:</string>
     
     <!-- 选择位置弹出框 -->
     <string name="xzwz">选择位置</string>

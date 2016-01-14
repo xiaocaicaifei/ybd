@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title2" />
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="11dip"
+        android:paddingRight="11dip" >
+
+        <ImageView
+            android:id="@+id/tx_iv"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dip" />
+
+        <LinearLayout
+            style="@style/style_base_component"
+            android:layout_height="50dip"
+            android:layout_marginLeft="11dip"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/nc_tv"
+                style="@style/style_base_component2"
+                android:textColor="#333333"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                style="@style/style_base_component"
+                android:layout_marginTop="5dip"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        style="@style/xx_txl_tjdv_ms"
+                        android:text="@string/xx_gm" />
+
+                    <TextView
+                        android:id="@+id/gm_tv"
+                        style="@style/xx_txl_tjdv_value" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        style="@style/xx_txl_tjdv_ms"
+                        android:layout_marginLeft="10dip"
+                        android:text="@string/xx_mc" />
+
+                    <TextView
+                        android:id="@+id/mc_tv"
+                        style="@style/xx_txl_tjdv_value" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        style="@style/xx_txl_tjdv_ms"
+                        android:layout_marginLeft="10dip"
+                        android:text="@string/xx_xy" />
+
+                    <TextView
+                        android:id="@+id/xy_tv"
+                        style="@style/xx_txl_tjdv_value" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        style="@style/xx_txl_tjdv_ms"
+                        android:layout_marginLeft="10dip"
+                        android:text="@string/xx_fs" />
+
+                    <TextView
+                        android:id="@+id/fs_tv"
+                        style="@style/xx_txl_tjdv_value" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+	<View style="@style/uniform_line"/>
+	<LinearLayout 
+	    style="@style/style_base_component"
+	    android:layout_height="90dip"
+	    android:background="@color/white">
+	    <EditText 
+	        android:id="@+id/tjhysm_et"
+	        style="@style/style_base_component"
+	        android:inputType="textMultiLine"
+	        android:minLines="3"
+	        android:maxLines="4"
+	        android:gravity="left|top"
+	        android:paddingBottom="5dip"
+	        android:paddingLeft="10dip"
+	        android:paddingRight="10dip"
+	        android:maxLength="200"
+	        android:background="@null"
+	        />
+	</LinearLayout>
+	<View style="@style/uniform_line"/>
+</LinearLayout>
