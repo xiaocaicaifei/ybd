@@ -191,6 +191,14 @@
     <string name="xx_mc">卖出:</string>
     <string name="xx_xy">信用:</string>
     <string name="xx_fs">粉丝:</string>
+    <string name="ylpy">艺论朋友</string>
+    <string name="rsylyh">认识艺论用户</string>
+    <string name="txlhy">通讯录好友</string>
+    <string name="yqtxlhy">要求通讯录好友</string>
+    <string name="mjph">卖家排行</string>
+    <string name="mjph2">买家排行</string>
+    <string name="pjph">评价排行</string>
+    <string name="fsph">粉丝排行</string>
     
     <!-- 选择位置弹出框 -->
     <string name="xzwz">选择位置</string>

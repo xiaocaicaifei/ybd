@@ -20,7 +20,7 @@ import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.R;
 
 /**
- * 消息列表的适配器
+ * 通讯录的适配器
  * 
  * @author cyf
  * @version $Id: GrIndexAdapter.java, v 0.1 2015-11-30 下午2:47:35 cyf Exp $

@@ -221,4 +221,18 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#1c1c1c</item>
     </style>
+    
+    <!-- 消息-通讯录-新的朋友-上边导航栏的字体 -->
+    <style name="xx_txl_xdpy_title" parent="@style/style_base_component2">
+       <item name="android:textSize">13sp</item>
+       <item name="android:textColor">#333333</item>
+    </style>
+    <!-- 消息-通讯录-新的朋友-上边导航栏的字体下面的红色选中条 -->
+    <style name="xx_txl_xdpy_title_under_line" parent="@style/uniform_line">
+       <item name="android:layout_height">2.5dip</item>
+       <item name="android:background">@color/white</item>
+       <item name="android:layout_marginLeft">11dip</item>
+       <item name="android:layout_marginRight">11dip</item>
+       <item name="android:layout_marginTop">5dip</item>
+    </style>
 </resources>

@@ -26,9 +26,9 @@ import com.ybd.yl.R;
  * @author cyf
  * @version $Id: GrIndexAdapter.java, v 0.1 2015-11-30 下午2:47:35 cyf Exp $
  */
-public class XxTxlTjdvAdapter extends BaseAdapter{
+public class XxTxlTjdvAdapter extends BaseAdapter {
     private List<Map<String, Object>> list        = new ArrayList<Map<String, Object>>();
-    private XxTxlTjdvActivity             activity;
+    private XxTxlTjdvActivity         activity;
     private ImageLoader               imageLoader = ImageLoader.getInstance();
 
     public XxTxlTjdvAdapter(List<Map<String, Object>> list, XxTxlTjdvActivity activity) {
@@ -64,35 +64,36 @@ public class XxTxlTjdvAdapter extends BaseAdapter{
             viewHoler.mcTextView = (TextView) convertView.findViewById(R.id.mc_tv);
             viewHoler.fsTextView = (TextView) convertView.findViewById(R.id.fs_tv);
             viewHoler.xyTextView = (TextView) convertView.findViewById(R.id.xy_tv);
-            viewHoler.jhyImageView=(ImageView) convertView.findViewById(R.id.jhy_iv);
-            viewHoler.zjImageView=(ImageView) convertView.findViewById(R.id.zj_iv);
+            viewHoler.jhyImageView = (ImageView) convertView.findViewById(R.id.jhy_iv);
+            viewHoler.zjImageView = (ImageView) convertView.findViewById(R.id.zj_iv);
             convertView.setTag(viewHoler);
         } else {
             viewHoler = (ViewHoler) convertView.getTag();
         }
-        imageLoader.displayImage(C.IP+PaseJson.getMapMsg(map, "icon_url"), viewHoler.txImageView,MainApplication.getRoundOffOptions());
+        imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "icon_url"), viewHoler.txImageView,
+            MainApplication.getRoundOffOptions());
         viewHoler.ncTextView.setText(PaseJson.getMapMsg(map, "nick_name"));
-        viewHoler.gmTextView.setText(PaseJson.getMapMsg(map, "buy_vol")+"分");
-        viewHoler.mcTextView.setText(PaseJson.getMapMsg(map, "sale_vol")+"件");
-        viewHoler.xyTextView.setText(PaseJson.getMapMsg(map, "degree_credit")+"分");
+        viewHoler.gmTextView.setText(PaseJson.getMapMsg(map, "buy_vol") + "分");
+        viewHoler.mcTextView.setText(PaseJson.getMapMsg(map, "sale_vol") + "件");
+        viewHoler.xyTextView.setText(PaseJson.getMapMsg(map, "degree_credit") + "分");
         viewHoler.fsTextView.setText(PaseJson.getMapMsg(map, "followers_count"));
-        if(PaseJson.getMapMsg(map, "is_myfriend").equals("0")){
+        if (PaseJson.getMapMsg(map, "is_myfriend").equals("0")) {
             viewHoler.jhyImageView.setBackgroundResource(R.drawable.xx_txl_jhy_sel);
             viewHoler.jhyImageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent();
-                    intent.putExtra("hyObject", (Serializable)map);
+                    Intent intent = new Intent();
+                    intent.putExtra("hyObject", (Serializable) map);
                     intent.setClass(activity, XxTxlTjdvHyyzActivity.class);
                     activity.startActivity(intent);
                 }
             });
-        }else{
+        } else {
             viewHoler.jhyImageView.setBackgroundResource(R.drawable.xx_txl_jhy_unsel);
         }
-        if(PaseJson.getMapMsg(map, "is_export").equals("0")){
+        if (PaseJson.getMapMsg(map, "is_export").equals("0")) {
             viewHoler.zjImageView.setBackgroundResource(R.drawable.xx_txl_zj_sel);
-        }else{
+        } else {
             viewHoler.zjImageView.setBackgroundResource(R.drawable.xx_txl_zj_unsel);
         }
 
@@ -102,13 +103,12 @@ public class XxTxlTjdvAdapter extends BaseAdapter{
     class ViewHoler {
         ImageView txImageView; //头像
         TextView  ncTextView;  //昵称
-        TextView gmTextView;//购买
-        TextView mcTextView;//卖出
-        TextView xyTextView;//信用
-        TextView fsTextView;//粉丝
-        ImageView jhyImageView;//加好友
-        ImageView zjImageView;//设专家
+        TextView  gmTextView;   //购买
+        TextView  mcTextView;   //卖出
+        TextView  xyTextView;   //信用
+        TextView  fsTextView;   //粉丝
+        ImageView jhyImageView; //加好友
+        ImageView zjImageView;  //设专家
     }
-    
 
 }

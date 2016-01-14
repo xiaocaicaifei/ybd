@@ -1,0 +1,414 @@
+package com.ybd.yl.service;
+
+import java.util.List;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.ybd.common.C;
+import com.ybd.common.L;
+import com.yuntongxun.ecsdk.ECChatManager;
+import com.yuntongxun.ecsdk.ECDevice;
+import com.yuntongxun.ecsdk.ECError;
+import com.yuntongxun.ecsdk.ECInitParams;
+import com.yuntongxun.ecsdk.ECMessage;
+import com.yuntongxun.ecsdk.ECVoIPCallManager;
+import com.yuntongxun.ecsdk.ECVoIPCallManager.CallType;
+import com.yuntongxun.ecsdk.OnChatReceiveListener;
+import com.yuntongxun.ecsdk.OnMeetingListener;
+import com.yuntongxun.ecsdk.SdkErrorCode;
+import com.yuntongxun.ecsdk.VideoRatio;
+import com.yuntongxun.ecsdk.im.ECFileMessageBody;
+import com.yuntongxun.ecsdk.im.ECImageMessageBody;
+import com.yuntongxun.ecsdk.im.ECTextMessageBody;
+import com.yuntongxun.ecsdk.im.ECVoiceMessageBody;
+import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;
+import com.yuntongxun.ecsdk.meeting.intercom.ECInterPhoneMeetingMsg;
+import com.yuntongxun.ecsdk.meeting.video.ECVideoMeetingMsg;
+import com.yuntongxun.ecsdk.meeting.voice.ECVoiceMeetingMsg;
+
+/**
+ * 接收和发送容联云发送过来的信息
+ * 
+ * @author cyf
+ * @version $Id: ReceiverService.java, v 0.1 2016-1-14 下午4:31:31 cyf Exp $
+ */
+public class ReceiverService extends Service {
+    private static String loginZh="";
+    private static boolean connectSuccess=false;
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        loginZh=intent.getExtras().getString("loginZh");
+     // 判断SDK是否已经初始化，如果已经初始化则可以直接调用登陆接口
+        // 没有初始化则先进行初始化SDK，然后调用登录接口注册SDK
+        if (!ECDevice.isInitialized()) {
+            ECDevice.initial(ReceiverService.this, new ECDevice.InitListener() {
+                @Override
+                public void onInitialized() {
+                    // SDK已经初始化成功
+                    ytxLogin();//登录容联云
+                }
+
+                @Override
+                public void onError(Exception exception) {
+                    // SDK 初始化失败,可能有如下原因造成
+                    // 1、可能SDK已经处于初始化状态
+                    // 2、SDK所声明必要的权限未在清单文件（AndroidManifest.xml）里配置、
+                    //    或者未配置服务属性android:exported="false";
+                    // 3、当前手机设备系统版本低于ECSDK所支持的最低版本（当前ECSDK支持
+                    //    Android Build.VERSION.SDK_INT 以及以上版本）
+                    Toast
+                        .makeText(ReceiverService.this, "初始化容联云通讯失败！请检测网络是否可用！", Toast.LENGTH_LONG)
+                        .show();
+                }
+            });
+        } else {
+
+        }
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    /**
+     * sdk初始化成功之后
+     * 登录的容联云通讯
+     */
+    private void ytxLogin() {
+        //        第二步：设置注册参数、设置通知回调监听
+        // 构建注册所需要的参数信息
+        //5.0.3的SDK初始参数的方法：ECInitParams params = new ECInitParams();5.1.*以上版本如下：
+        ECInitParams params = ECInitParams.createParams();
+        //自定义登录方式：
+        //测试阶段Userid可以填写手机
+        params.setUserid(loginZh);
+        L.v(loginZh);
+        //        params.setPwd(mm);
+        params.setAppKey(C.YTX_APPKEY);
+        params.setToken(C.YTX_TOKEN);
+        // 设置登陆验证模式（是否验证密码）NORMAL_AUTH-自定义方式
+        params.setAuthType(ECInitParams.LoginAuthType.NORMAL_AUTH);
+        // 1代表用户名+密码登陆（可以强制上线，踢掉已经在线的设备）
+        // 2代表自动重连注册（如果账号已经在其他设备登录则会提示异地登陆）
+        // 3 LoginMode（强制上线：FORCE_LOGIN  默认登录：AUTO）
+        params.setMode(ECInitParams.LoginMode.FORCE_LOGIN);
+        //        //voip账号+voip密码方式：
+        //        params.setUserid("voip账号");
+        //        params.setPwd("voip密码");
+        //        params.setAppKey("应用ID");
+        //        params.setToken("应用Token");
+        //        // 设置登陆验证模式（是否验证密码）PASSWORD_AUTH-密码登录方式
+        //        params.setAuthType(ECInitParams.LoginAuthType.PASSWORD_AUTH);
+        //        // 1代表用户名+密码登陆（可以强制上线，踢掉已经在线的设备）
+        //        // 2代表自动重连注册（如果账号已经在其他设备登录则会提示异地登陆）
+        //        // 3 LoginMode（强制上线：FORCE_LOGIN  默认登录：AUTO）
+        //        params.setMode(ECInitParams.LoginMode.FORCE_LOGIN);
+
+        // 设置登陆状态回调
+        params.setOnDeviceConnectListener(new ECDevice.OnECDeviceConnectListener() {
+            public void onConnect() {
+                // 兼容4.0，5.0可不必处理
+            }
+
+            @Override
+            public void onDisconnect(ECError error) {
+                // 兼容4.0，5.0可不必处理
+            }
+
+            @Override
+            public void onConnectState(ECDevice.ECConnectState state, ECError error) {
+                if (state == ECDevice.ECConnectState.CONNECT_FAILED) {
+                    if (error.errorCode == SdkErrorCode.SDK_KICKED_OFF) {
+                        //账号异地登陆
+                    } else {
+                        //连接状态失败
+                        Log.v("dddd", ":3");
+                    }
+                    return;
+                } else if (state == ECDevice.ECConnectState.CONNECT_SUCCESS) {
+                                            Toast.makeText(ReceiverService.this, "登录成功", Toast.LENGTH_LONG).show();
+//                    sendMsg();
+                    connectSuccess=true;
+                }
+            }
+        });
+
+        // 设置SDK接收消息回调
+        params.setOnChatReceiveListener(new OnChatReceiveListener() {
+            @Override
+            public void OnReceivedMessage(ECMessage msg) {
+                // 收到新消息
+                Log.v("dddd", ":4");
+                getMsg(msg);
+            }
+
+            @Override
+            public void OnReceiveGroupNoticeMessage(ECGroupNoticeMessage notice) {
+                // 收到群组通知消息（有人加入、退出...）
+                // 可以根据ECGroupNoticeMessage.ECGroupMessageType类型区分不同消息类型
+                Log.v("dddd", ":5");
+            }
+
+            @Override
+            public void onOfflineMessageCount(int count) {
+                // 登陆成功之后SDK回调该接口通知账号离线消息数
+//                Log.v("dddd", ":6");
+            }
+
+            @Override
+            public void onReceiveOfflineMessageCompletion() {
+                // SDK通知应用离线消息拉取完成
+//                Log.v("dddd", ":7");
+            }
+
+            @Override
+            public void onServicePersonVersion(int version) {
+                // SDK通知应用当前账号的个人信息版本号
+//                Log.v("dddd", ":8");
+            }
+
+            @Override
+            public int onGetOfflineMessage() {
+                return 0;
+            }
+
+            @Override
+            public void onReceiveDeskMessage(ECMessage arg0) {
+                Log.v("dddd", ":9");
+            }
+
+            @Override
+            public void onReceiveOfflineMessage(List<ECMessage> arg0) {
+                Log.v("dddd", ":10");
+            }
+
+            @Override
+            public void onSoftVersion(String arg0, int arg1) {
+                Log.v("dddd", ":11");
+            }
+        });
+
+        // 获得SDKVoIP呼叫接口
+        // 注册VoIP呼叫事件回调监听
+        ECVoIPCallManager callInterface = ECDevice.getECVoIPCallManager();
+        if (callInterface != null) {
+            callInterface.setOnVoIPCallListener(new ECVoIPCallManager.OnVoIPListener() {
+                @Override
+                public void onCallEvents(ECVoIPCallManager.VoIPCall voipCall) {
+                    // 处理呼叫事件回调
+                    if (voipCall == null) {
+                        Log.e("SDKCoreHelper", "handle call event error , voipCall null");
+                        return;
+                    }
+                    // 根据不同的事件通知类型来处理不同的业务
+                    ECVoIPCallManager.ECCallState callState = voipCall.callState;
+                    switch (callState) {
+                        case ECCALL_PROCEEDING:
+                            // 正在连接服务器处理呼叫请求
+                            break;
+                        case ECCALL_ALERTING:
+                            // 呼叫到达对方客户端，对方正在振铃
+                            break;
+                        case ECCALL_ANSWERED:
+                            // 对方接听本次呼叫
+                            break;
+                        case ECCALL_FAILED:
+                            // 本次呼叫失败，根据失败原因播放提示音
+                            break;
+                        case ECCALL_RELEASED:
+                            // 通话释放[完成一次呼叫]
+                            break;
+                        default:
+                            Log.e("SDKCoreHelper", "handle call event error , callState "
+                                                   + callState);
+                            break;
+                    }
+                }
+
+                @Override
+                public void onSwitchCallMediaTypeRequest(String arg0, CallType arg1) {
+                }
+
+                @Override
+                public void onSwitchCallMediaTypeResponse(String arg0, CallType arg1) {
+                }
+
+                @Override
+                public void onVideoRatioChanged(VideoRatio arg0) {
+                }
+
+                @Override
+                public void onDtmfReceived(String arg0, char arg1) {
+                }
+            });
+        }
+
+        // 注册会议消息处理监听 
+        if (ECDevice.getECMeetingManager() != null) {
+            ECDevice.getECMeetingManager().setOnMeetingListener(new OnMeetingListener() {
+                @Override
+                public void onReceiveInterPhoneMeetingMsg(ECInterPhoneMeetingMsg msg) {
+                    // 处理实时对讲消息Push
+                }
+
+                @Override
+                public void onReceiveVoiceMeetingMsg(ECVoiceMeetingMsg msg) {
+                    // 处理语音会议消息push
+                }
+
+                @Override
+                public void onReceiveVideoMeetingMsg(ECVideoMeetingMsg msg) {
+                    // 处理视频会议消息Push（暂未提供）
+                }
+
+                @Override
+                public void onVideoRatioChanged(VideoRatio arg0) {
+                }
+            });
+        }
+
+        //第三步：验证参数是否正确，注册SDK
+        if (params.validate()) {
+            // 判断注册参数是否正确
+            ECDevice.login(params);
+        }
+    }
+
+    /**
+     * 发送消息
+     */
+    public static void sendMsg(String jszZh) {
+        if(connectSuccess){
+           L.v("用户没有登录，直接发送信息了");
+           return;
+        }
+        try {
+            // 组建一个待发送的ECMessage
+            ECMessage msg = ECMessage.createECMessage(ECMessage.Type.TXT);
+            //设置消息的属性：发出者，接受者，发送时间等
+            msg.setForm(loginZh);
+            msg.setMsgTime(System.currentTimeMillis());
+
+            // 设置消息接收者
+            msg.setTo(jszZh);
+            msg.setSessionId(jszZh);
+            // 设置消息发送类型（发送或者接收）
+            msg.setDirection(ECMessage.Direction.SEND);
+
+            // 创建一个文本消息体，并添加到消息对象中
+            ECTextMessageBody msgBody = new ECTextMessageBody("我是小菜11111111111111111");
+
+            // 或者创建一个图片消息体 并且设置附件包体（其实图片也是相当于附件）
+            // 比如我们发送SD卡里面的一张Tony_2015.jpg图片
+            //            ECImageMessageBody msgBody  = new ECImageMessageBody();
+            //            // 设置附件名
+            //            msgBody.setFileName("Tony_2015.jpg");
+            //            // 设置附件扩展名
+            //            msgBody.setFileExt("jpg");
+            //            // 设置附件本地路径
+            //            msgBody.setLocalUrl("../Tony_2015.jpg");
+
+            // 或者创建一个创建附件消息体
+            // 比如我们发送SD卡里面的一个Tony_2015.zip文件
+            //            ECFileMessageBody msgBody  = new ECFileMessageBody();
+            //            // 设置附件名
+            //            msgBody.setFileName("Tony_2015.zip");
+            //            // 设置附件扩展名
+            //            msgBody.setFileExt(zip);
+            //            // 设置附件本地路径
+            //            msgBody.setLocalUrl("../Tony_2015.zip");
+            //            // 设置附件长度
+            //            msgBody.setLength("$Tony_2015.zip文件大小");
+
+            // 将消息体存放到ECMessage中
+            msg.setBody(msgBody);
+            // 调用SDK发送接口发送消息到服务器
+            ECChatManager manager = ECDevice.getECChatManager();
+            manager.sendMessage(msg, new ECChatManager.OnSendMessageListener() {
+                @Override
+                public void onSendMessageComplete(ECError error, ECMessage message) {
+                    // 处理消息发送结果
+                    if (message == null) {
+                        return;
+                    }
+                    Log.v("dddd", message.getMsgStatus().name());
+                    // 将发送的消息更新到本地数据库并刷新UI
+                }
+
+                @Override
+                public void onProgress(String msgId, int totalByte, int progressByte) {
+                    // 处理文件发送上传进度（尽上传文件、图片时候SDK回调该方法）
+                }
+
+            });
+        } catch (Exception e) {
+            // 处理发送异常
+            Log.e("ECSDK_Demo", "send message fail , e=" + e.getMessage());
+            Log.v("dddd", "发送异常");
+        }
+    }
+
+    /**
+     * 接收消息
+     * 
+     * @param msg
+     */
+    public void getMsg(ECMessage msg) {
+        if (msg == null) {
+            return;
+        }
+        // 接收到的IM消息，根据IM消息类型做不同的处理(IM消息类型：ECMessage.Type)
+        ECMessage.Type type = msg.getType();
+        if (type == ECMessage.Type.TXT) {
+            // 在这里处理文本消息
+            ECTextMessageBody textMessageBody = (ECTextMessageBody) msg.getBody();
+
+//            Log.v("dddd", textMessageBody.getMessage() + "::::");
+            Toast.makeText(ReceiverService.this, textMessageBody.getMessage(), Toast.LENGTH_LONG).show();
+        } else {
+
+            String thumbnailFileUrl = null;
+            String remoteUrl = null;
+            if (type == ECMessage.Type.FILE) {
+                // 在这里处理附件消息
+                ECFileMessageBody fileMsgBody = (ECFileMessageBody) msg.getBody();
+                // 获得下载地址
+                remoteUrl = fileMsgBody.getRemoteUrl();
+            } else if (type == ECMessage.Type.IMAGE) {
+                // 在这里处理图片消息
+                ECImageMessageBody imageMsgBody = (ECImageMessageBody) msg.getBody();
+                // 获得缩略图地址
+                thumbnailFileUrl = imageMsgBody.getThumbnailFileUrl();
+                // 获得原图地址
+                remoteUrl = imageMsgBody.getRemoteUrl();
+            } else if (type == ECMessage.Type.VOICE) {
+                // 在这里处理语音消息
+                ECVoiceMessageBody voiceMsgBody = (ECVoiceMessageBody) msg.getBody();
+                // 获得下载地址
+                remoteUrl = voiceMsgBody.getRemoteUrl();
+            } else {
+                Log.e("ECSDK_Demo", "Can't handle msgType=" + type.name() + " , then ignore.");
+                // 后续还会支持（地址位置、视频以及自定义等消息类型）
+            }
+
+            if (TextUtils.isEmpty(remoteUrl)) {
+                return;
+            }
+            if (!TextUtils.isEmpty(thumbnailFileUrl)) {
+                // 先下载缩略图
+            } else {
+                // 下载附件
+            }
+        }
+        // 根据不同类型处理完消息之后，将消息序列化到本地存储（sqlite）
+        // 通知UI有新消息到达
+
+    }
+}

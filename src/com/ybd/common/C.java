@@ -17,10 +17,15 @@ public class C {
     public static String  CHARSET   = "utf-8";
     /** 分页的大小 */
     public static int     PAGE_SIZE = 5;
+    /** 分页的大小（查询用户的时候每页的大小） */
+    public static int     PAGE_SIZE_USER = 10;
     /** ListViewRun设置的最大高度，一般不用修改 **/
     public static int     LISTVIEWH = 2000;
     
     public static final String APP_ID = "wxd930ea5d5a258f4f";//测试例子的appID
+    
+    public static final String YTX_APPKEY="8a48b55150e162370150e9f58f1e35d7";//容联云的appkey
+    public static final String YTX_TOKEN="49c09bbdac011000b2f343c587337850";//容联云的token
     
 //    public static final String WX_APP_SECRET = "wxd930ea5d5a258f4f";
 

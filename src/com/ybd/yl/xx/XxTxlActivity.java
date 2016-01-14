@@ -102,7 +102,8 @@ public class XxTxlActivity extends BaseActivity implements OnClickListener {
         Intent intent=new Intent();
         switch (v.getId()) {
             case R.id.xdpy_ll://新的朋友
-                
+                intent.setClass(activity, XxTxlXdpyActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tjdv_ll://推荐大V
                 intent.setClass(activity, XxTxlTjdvActivity.class);

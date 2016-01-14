@@ -21,6 +21,7 @@ import com.ybd.common.tools.StringUtil;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 import com.ybd.yl.qz.QzIndexActivity;
+import com.ybd.yl.service.ReceiverService;
 
 /**
  * 用户登录
@@ -123,6 +124,10 @@ public class LoginLoginActivity extends BaseActivity implements OnClickListener 
                 PropertiesUtil.write(activity, PropertiesUtil.PASSWORD, mmEditText.getText().toString());
                 PropertiesUtil.write(activity, PropertiesUtil.NICKNAME,
                     PaseJson.getMapMsg(data, "nick_name"));
+                Intent service=new Intent();
+                service.putExtra("loginZh", PaseJson.getMapMsg(data, "voipAccount"));
+                service.setClass(activity, ReceiverService.class);
+                startService(service);
 //                PropertiesUtil.write(activity, PropertiesUtil.HEADIMGURL,
 //                    PaseJson.getMapMsg(data, "icon_url"));
 
