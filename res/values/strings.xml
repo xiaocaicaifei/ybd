@@ -199,6 +199,9 @@
     <string name="mjph2">买家排行</string>
     <string name="pjph">评价排行</string>
     <string name="fsph">粉丝排行</string>
+    <string name="hl">忽略</string>
+    <string name="jrhmd">加入黑名单</string>
+    <string name="tgyz">通过验证</string>
     
     <!-- 选择位置弹出框 -->
     <string name="xzwz">选择位置</string>
