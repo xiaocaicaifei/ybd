@@ -111,6 +111,8 @@ public class XxTxlTjdvHyyzActivity extends BaseActivity implements OnClickListen
             JSONObject jsonObject=new JSONObject(result);
             if(jsonObject.getString("code").equals("0")){
                 toastShow("操作成功！");
+            }else if(jsonObject.getString("code").equals("1")){
+                toastShow("不能重复添加好友！");
             }else{
                 toastShow("操作失败！");
             }

@@ -4,16 +4,17 @@
  */
 package com.ybd.yl.xx;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -25,7 +26,6 @@ import com.ybd.common.net.NetWork;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
-import com.ybd.yl.xx.XxIndexSlideView.OnSlideListener;
 
 /**
  * 消息-通讯录
@@ -60,15 +60,20 @@ public class XxTxlActivity extends BaseActivity implements OnClickListener {
         tjdvLayout.setOnClickListener(this);
         
         txlListView = (ListView) findViewById(R.id.txl_lv);
-        for (int i = 0; i < 5; i++) {
-            Map<String, Object> m = new HashMap<String, Object>();
-            list.add(m);
-        }
         zmSideBar = (SideBar) findViewById(R.id.zm_sb);
         zmSideBar.setListView(txlListView);
         txlAdapter = new XxTxlAdapter(list, this);
         txlListView.setAdapter(txlAdapter);
         txlAdapter.notifyDataSetChanged();
+        txlListView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent();
+                intent.putExtra("hyObject", (Serializable)list.get(position));
+                intent.setClass(activity, XxTxlLtActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     INetWork init = new INetWork() {
@@ -92,7 +97,20 @@ public class XxTxlActivity extends BaseActivity implements OnClickListener {
                           Map<String, Object> map = (Map<String, Object>) PaseJson
                               .paseJsonToObject(result);
                           list.clear();
-                          list.addAll((List<Map<String, Object>>) map.get("data"));
+                          List<Map<String, Object>> l=(List<Map<String, Object>>) map.get("data");
+                          String upS="";
+                          for(Map<String, Object> m:l){
+                              String szm=PaseJson.getMapMsg(m, "first_letter");
+                              String s= szm.length()>0?szm.subSequence(0, 1).toString():"";
+                              m.put("first_letter", s);
+                              if(upS.equals(s)){
+                                  m.put("isSame", "1");
+                              }else{
+                                  m.put("isSame", "0");
+                              }
+                              upS=s;
+                          }
+                          list.addAll(l);
                           txlAdapter.notifyDataSetChanged();
                       }
                   };

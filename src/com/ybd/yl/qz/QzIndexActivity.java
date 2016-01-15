@@ -7,6 +7,8 @@ package com.ybd.yl.qz;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.json.JSONObject;
 
@@ -18,12 +20,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.C;
@@ -56,7 +60,8 @@ public class QzIndexActivity extends BaseActivity implements OnClickListener {
     private EditText                  plEditText;                                 //评论
     private Button                    fsButton;                                    //发送按钮
     private Map<String, Object>       plMap;                                      //点击评论后，带回来的信息
-                                                                                   //    private LinearLayout plLinearLayout;//评论
+    /** 双击退出函数 */
+    private static Boolean         isExit     = false;                                                                  //    private LinearLayout plLinearLayout;//评论
 
     @Override
     protected void initComponentBase() {
@@ -367,4 +372,33 @@ public class QzIndexActivity extends BaseActivity implements OnClickListener {
         }
 
     };
+    /**
+     * @see com.common.BaseActivity#onKeyDown(int, android.view.KeyEvent)
+     */
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                Timer tExit = null;
+                if (isExit == false) {
+                    isExit = true; // 准备退出  
+                    Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                    tExit = new Timer();
+                    tExit.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            isExit = false; // 取消退出  
+                        }
+                    }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务  
+
+                } else {
+//                    Intent intent = new Intent(Intent.ACTION_MAIN);
+//                    intent.addCategory(Intent.CATEGORY_HOME);
+//                    this.startActivity(intent);
+                    finishAll();
+                    return Boolean.TRUE;
+                }
+
+        }
+        return Boolean.FALSE;
+    }
 }

@@ -27,6 +27,7 @@
     <issue id="UseSparseArrays">
         <ignore path="src/com/ybd/yl/home/NavigationActivity.java" />
     </issue>
+    <issue id="UselessLeaf" severity="ignore" />
     <issue id="UselessParent" severity="ignore" />
     <issue id="ViewHolder" severity="ignore" />
 </lint>

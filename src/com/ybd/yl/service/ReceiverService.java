@@ -1,16 +1,31 @@
 package com.ybd.yl.service;
 
-import java.util.List;
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
 
+import java.util.List;
+import java.util.Map;
+
+import android.app.ActivityManager;
+import android.app.KeyguardManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.C;
 import com.ybd.common.L;
+import com.ybd.common.tools.PaseJson;
+import com.ybd.yl.R;
+import com.ybd.yl.xx.XxIndexActivity;
 import com.yuntongxun.ecsdk.ECChatManager;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
@@ -40,6 +55,16 @@ import com.yuntongxun.ecsdk.meeting.voice.ECVoiceMeetingMsg;
 public class ReceiverService extends Service {
     private static String loginZh="";
     private static boolean connectSuccess=false;
+    
+  //声明通知（消息）管理器   
+    NotificationManager m_NotificationManager;   
+    Intent              m_Intent;   
+    PendingIntent       m_PendingIntent;   
+    //声明Notification对象   
+    Notification        m_Notification;
+    
+    private SoundPool sp;//声明一个SoundPool
+    private int music;//定义一个整型用load（）；来设置suondID
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -48,6 +73,7 @@ public class ReceiverService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         loginZh=intent.getExtras().getString("loginZh");
+        initNotify();
      // 判断SDK是否已经初始化，如果已经初始化则可以直接调用登陆接口
         // 没有初始化则先进行初始化SDK，然后调用登录接口注册SDK
         if (!ECDevice.isInitialized()) {
@@ -75,6 +101,15 @@ public class ReceiverService extends Service {
 
         }
         return super.onStartCommand(intent, flags, startId);
+    }
+    /**
+     * 初始化状态栏
+     */
+    private  void initNotify(){
+        sp= new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);//第一个参数为同时播放数据流的最大个数，第二数据流类型，第三为声音质量
+        music = sp.load(this, R.raw.music, 1); //把你的声音素材放到res/raw里，第2个参数即为资源文件，第3个为音乐的优先级
+      //构造Notification对象   
+        m_Notification = new Notification(); 
     }
 
     /**
@@ -284,18 +319,18 @@ public class ReceiverService extends Service {
     /**
      * 发送消息
      */
-    public static void sendMsg(String jszZh) {
-        if(connectSuccess){
-           L.v("用户没有登录，直接发送信息了");
-           return;
-        }
+    public static void sendMsg(String jszZh,String nr) {
+//        if(connectSuccess){
+//           L.v("用户没有登录，不能直接发送信息了");
+//           return;
+//        }
         try {
             // 组建一个待发送的ECMessage
             ECMessage msg = ECMessage.createECMessage(ECMessage.Type.TXT);
             //设置消息的属性：发出者，接受者，发送时间等
             msg.setForm(loginZh);
             msg.setMsgTime(System.currentTimeMillis());
-
+            L.v("发送者："+loginZh+" 接受者："+jszZh);
             // 设置消息接收者
             msg.setTo(jszZh);
             msg.setSessionId(jszZh);
@@ -303,7 +338,7 @@ public class ReceiverService extends Service {
             msg.setDirection(ECMessage.Direction.SEND);
 
             // 创建一个文本消息体，并添加到消息对象中
-            ECTextMessageBody msgBody = new ECTextMessageBody("我是小菜11111111111111111");
+            ECTextMessageBody msgBody = new ECTextMessageBody(nr);
 
             // 或者创建一个图片消息体 并且设置附件包体（其实图片也是相当于附件）
             // 比如我们发送SD卡里面的一张Tony_2015.jpg图片
@@ -369,9 +404,21 @@ public class ReceiverService extends Service {
         if (type == ECMessage.Type.TXT) {
             // 在这里处理文本消息
             ECTextMessageBody textMessageBody = (ECTextMessageBody) msg.getBody();
-
-//            Log.v("dddd", textMessageBody.getMessage() + "::::");
-            Toast.makeText(ReceiverService.this, textMessageBody.getMessage(), Toast.LENGTH_LONG).show();
+            if(isBackgroundRunning()){
+                //状态栏显示信息
+                showNotification(textMessageBody.getMessage());
+//              MyApplication.getInstance().exit();
+            }else{
+                //提示音
+                sp.play(music, 1, 1, 0, 0, 1);
+            }
+            @SuppressWarnings("unchecked")
+            Map<String, Object> map=(Map<String, Object>) PaseJson.paseJsonToObject(textMessageBody.getMessage());
+            String XxType=PaseJson.getMapMsg(map, "type");
+            if(XxType.equals("1")){//代表是聊天消息
+                BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT, this.getApplicationContext(),textMessageBody.getMessage());
+            }
+            Toast.makeText(ReceiverService.this, textMessageBody.getMessage()+":::"+msg.getForm()+":"+msg.getMsgStatus(), Toast.LENGTH_LONG).show();
         } else {
 
             String thumbnailFileUrl = null;
@@ -409,6 +456,54 @@ public class ReceiverService extends Service {
         }
         // 根据不同类型处理完消息之后，将消息序列化到本地存储（sqlite）
         // 通知UI有新消息到达
-
     }
+  //显示状态栏的通知
+    private void showNotification(String title){   
+        //初始化NotificationManager对象   
+        m_NotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);   
+           
+        //点击通知时转移内容   
+        m_Intent = new Intent(ReceiverService.this, XxIndexActivity.class);   
+        m_Intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);//如果这个Activity已经被打开了，那就不重新加载
+        //主要是设置点击通知时显示内容的类   
+        m_PendingIntent = PendingIntent.getActivity(ReceiverService.this, 0, m_Intent, 0); //如果轉移內容則用m_Intent();   
+//        //构造Notification对象   
+        m_Notification = new Notification(); 
+        //设置通知在状态栏显示的图标   
+        m_Notification.icon = R.drawable.ic_launcher;   
+        //当我们点击通知时显示的内容   
+        m_Notification.tickerText = "SmarterWork消息通知";   
+        //通知时发出默认的声音   
+        m_Notification.defaults = Notification.DEFAULT_SOUND;   
+        //设置通知显示的参数   
+        m_Notification.setLatestEventInfo(ReceiverService.this, "SmarterWork", title, m_PendingIntent); 
+        m_Notification.flags = Notification.FLAG_AUTO_CANCEL;
+
+        //可以理解为执行这个通知   
+        m_NotificationManager.notify(0, m_Notification);
+//        startForeground(0x111, m_Notification);
+    }   
+    /**
+     * 判断应用是否在后台运行
+     * @return
+     */
+    private boolean isBackgroundRunning() {
+        String processName = "com.sw.activity";
+
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+
+        if (activityManager == null) return false;
+        // get running application processes
+        List<ActivityManager.RunningAppProcessInfo> processList = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo process : processList) {
+        if (process.processName.startsWith(processName)) {
+        boolean isBackground = process.importance != IMPORTANCE_FOREGROUND && process.importance != IMPORTANCE_VISIBLE;
+        boolean isLockedState = keyguardManager.inKeyguardRestrictedInputMode();
+        if (isBackground || isLockedState) return true;
+        else return false;
+        }
+        }
+        return false;
+        }
 }

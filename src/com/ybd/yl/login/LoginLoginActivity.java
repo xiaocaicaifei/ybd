@@ -58,8 +58,8 @@ public class LoginLoginActivity extends BaseActivity implements OnClickListener 
         zhEditText.setText(PropertiesUtil.read(activity, PropertiesUtil.ACCOUNT));
         mmEditText.setText(PropertiesUtil.read(activity, PropertiesUtil.PASSWORD));
         
-        zhEditText.setText("18339966923");
-        mmEditText.setText("abc123456");
+//        zhEditText.setText("18339966923");
+//        mmEditText.setText("abc123456");
     }
 
     @Override

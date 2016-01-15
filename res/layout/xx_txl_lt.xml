@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <ListView
+        android:id="@+id/lt_lv"
+        style="@style/uniform_listview"
+        android:layout_marginTop="11dip"
+        android:scrollbars="none"
+        android:layout_weight="1"
+        android:divider="@color/unitform_background_gray" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/pl_rl"
+        style="@style/style_base_component"
+        android:layout_marginTop="5dip"
+        android:background="@color/unitform_background_gray"
+        android:orientation="vertical" >
+
+        <View style="@style/uniform_line" />
+
+        <LinearLayout
+            style="@style/style_base_component"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:orientation="horizontal"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip" >
+
+            <EditText
+                android:id="@+id/xx_ev"
+                style="@style/style_base_component"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="left|top"
+                android:inputType="textMultiLine"
+                android:maxLines="4"
+                android:minLines="2"
+                android:paddingBottom="5dip"
+                android:singleLine="false"
+                android:textColor="#484848"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/fs_b"
+                style="@style/style_base_component2"
+                android:layout_marginLeft="0dip"
+                android:background="@drawable/qz_grzl_button2_onpress"
+                android:paddingBottom="5dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:paddingTop="5dip"
+                android:text="@string/fs2"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <View
+            style="@style/uniform_line"
+            android:layout_height="1.5dip"
+            android:background="@color/unitform_button_red"
+            android:layout_marginLeft="12dip"
+            android:layout_marginRight="12dip" />
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="5dip" >
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

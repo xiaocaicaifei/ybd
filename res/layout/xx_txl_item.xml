@@ -6,6 +6,7 @@
     android:gravity="center_vertical"
     android:orientation="vertical" >
 	<LinearLayout 
+	    android:id="@+id/zm_ll"
 	    style="@style/style_base_component"
 	    android:background="@color/unitform_background_gray"
 	    android:layout_height="18dip"

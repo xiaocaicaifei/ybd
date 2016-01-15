@@ -9,12 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 
+import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.delListView.ListViewCompat;
+import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 import com.ybd.yl.xx.XxIndexSlideView.OnSlideListener;
@@ -38,6 +42,7 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
         setContentView(R.layout.xx_index);
         initPublicView("消息列表", R.drawable.xx_title_left, 0, XxIndexActivity.this, null);
         init();
+        initBroadcast();
         //        NetWork.submit(activity, init);
     }
 
@@ -46,13 +51,28 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
      */
     private void init() {
         listView = (ListViewCompat) findViewById(R.id.xx_dslv);
-        for(int i=0;i<5;i++){
-            Map<String, Object> m=new HashMap<String, Object>();
-            list.add(m);
-        }
+//        for(int i=0;i<5;i++){
+//            Map<String, Object> m=new HashMap<String, Object>();
+//            list.add(m);
+//        }
         xxAdapter=new XxIndexAdapter(list, this);
         listView.setAdapter(xxAdapter);
         xxAdapter.notifyDataSetChanged();
+    }
+    
+    /**
+     * 初始化广播
+     */
+    private void initBroadcast(){
+        BroadcaseUtil.registBroadcase(activity, new BroadcastReceiver() {
+            @SuppressWarnings("unchecked")
+            @Override
+            public void onReceive(Context context, Intent intent) {
+               Map<String, Object> map=(Map<String, Object>) PaseJson.paseJsonToObject(intent.getExtras().getString("content"));
+               list.add(map);
+               xxAdapter.notifyDataSetChanged();
+            }
+        }, BroadcaseUtil.XX_LT);
     }
 
     //    INetWork init=new INetWork() {

@@ -7,9 +7,9 @@ import java.util.Map;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
@@ -60,12 +60,18 @@ public class XxTxlAdapter extends BaseAdapter implements SectionIndexer {
             viewHoler.zmTextView=(TextView) convertView.findViewById(R.id.zm_tv);
             viewHoler.txImageView = (ImageView) convertView.findViewById(R.id.tx_iv);
             viewHoler.ncTextView = (TextView) convertView.findViewById(R.id.nc_tv);
+            viewHoler.zmLayout=(LinearLayout) convertView.findViewById(R.id.zm_ll);
             convertView.setTag(viewHoler);
         } else {
             viewHoler = (ViewHoler) convertView.getTag();
         }
         String szm=PaseJson.getMapMsg(map, "first_letter");
-        viewHoler.zmTextView.setText(szm.length()>0?szm.subSequence(0, 1):"");
+        viewHoler.zmTextView.setText(szm);
+        if(PaseJson.getMapMsg(map,"isSame").equals("1")){
+            viewHoler.zmLayout.setVisibility(View.GONE);
+        }else{
+            viewHoler.zmLayout.setVisibility(View.VISIBLE);
+        }
         viewHoler.ncTextView.setText(PaseJson.getMapMsg(map, "nick_name"));
         imageLoader.displayImage(C.IP+PaseJson.getMapMsg(map, "icon_url"), viewHoler.txImageView,MainApplication.getRoundOffOptions());
 
@@ -76,6 +82,7 @@ public class XxTxlAdapter extends BaseAdapter implements SectionIndexer {
         TextView  zmTextView;  //字母
         ImageView txImageView; //头像
         TextView  ncTextView;  //昵称
+        LinearLayout zmLayout;//字母的层
     }
 
     @Override

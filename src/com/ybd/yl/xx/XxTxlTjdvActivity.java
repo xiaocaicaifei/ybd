@@ -77,7 +77,7 @@ public class XxTxlTjdvActivity extends BaseActivity implements OnClickListener {
                           data.addData("user_id",
                               PropertiesUtil.read(activity, PropertiesUtil.USERID));
                           data.addData("page", page);
-                          data.addData("limit", C.PAGE_SIZE);
+                          data.addData("limit", C.PAGE_SIZE_USER);
                           return data;
                       }
 
@@ -89,6 +89,13 @@ public class XxTxlTjdvActivity extends BaseActivity implements OnClickListener {
                           list.clear();
                           list.addAll((List<Map<String, Object>>) map.get("data"));
                           tjdvAdapter.notifyDataSetChanged();
+                          
+                          int total = Integer.parseInt(map.get("totalCount").toString());
+                          if (list.size() + (page - 1) * C.PAGE_SIZE_USER >= total) {
+                              tjdvListView.setPullLoadMorEnable(false);
+                          } else {
+                              tjdvListView.setPullLoadMorEnable(true);
+                          }
                       }
                   };
 
