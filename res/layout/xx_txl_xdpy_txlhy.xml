@@ -1,0 +1,12 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:clickable="true"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title2" />
+    <ListView 
+        android:id="@+id/txl_lv"
+        style="@style/uniform_listview">
+    </ListView>
+</LinearLayout>

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
@@ -346,6 +347,11 @@ public class XxTxlXdpyActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.fsph_tv://粉丝排行
                 ylhyViewPager.setCurrentItem(3);
+                break;
+            case R.id.txlhy_ll://通讯录好友
+                Intent intent=new Intent();
+                intent.setClass(activity, XxTxlXdpyTxlhyActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

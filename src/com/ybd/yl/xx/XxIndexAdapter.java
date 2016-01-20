@@ -53,7 +53,7 @@ public class XxIndexAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        Map<String, Object> map = list.get(position);
+        final Map<String, Object> map = list.get(position);
         ViewHoler viewHoler = null;
         XxIndexSlideView slideView = (XxIndexSlideView) convertView;
         if (slideView == null) {
@@ -74,6 +74,7 @@ public class XxIndexAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     list.remove(position);
                     notifyDataSetChanged();
+                    activity.delXxList(PaseJson.getMapMsg(map, "sender_id"));
                 }
             });
             slideView.setOnSlideListener(activity);

@@ -354,6 +354,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+        
+         <!-- 消息-通讯录-新的朋友-通讯录好友-->
+        <activity
+            android:name="com.ybd.yl.xx.XxTxlXdpyTxlhyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
 
         <!-- 个人主页面 -->
         <activity

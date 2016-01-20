@@ -162,5 +162,9 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
             mLastSlideViewWithStatusOn = (XxIndexSlideView) view;
         }
     }
+    
+    public void delXxList(String userid){
+        xxLtDao.delete(userid);
+    }
 
 }
