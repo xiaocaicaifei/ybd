@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/style_base_component"
     android:background="@color/white"
+    android:orientation="horizontal"
     android:paddingLeft="11dip"
-    android:paddingRight="13dip"
-    android:orientation="horizontal" >
+    android:paddingRight="13dip" >
 
     <LinearLayout
         style="@style/style_base_component"
@@ -17,7 +17,6 @@
             android:id="@+id/tx_iv"
             android:layout_width="45dip"
             android:layout_height="45dip"
-            android:background="@drawable/yl_index_ylsp"
             android:scaleType="centerCrop" />
 
         <LinearLayout
@@ -31,7 +30,6 @@
                 style="@style/style_base_component2"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="议论视频"
                 android:textColor="@color/xx_list_title_color"
                 android:textSize="16sp" />
 
@@ -41,7 +39,6 @@
                 android:layout_marginTop="10dip"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="议论视频，可以直接观看视频"
                 android:textColor="@color/xx_search_hint_color"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -55,21 +52,31 @@
             <TextView
                 android:id="@+id/time_tv"
                 style="@style/style_base_component2"
-                android:text="20:14"
                 android:textColor="@color/xx_search_hint_color"
                 android:textSize="12sp" />
 
+            <!-- <RelativeLayout
+                android:layout_width="19dip"
+                android:layout_height="19dip"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/xx_ts_yuandian" >
+
+                <TextView
+                    android:id="@+id/num_b"
+                    style="@style/style_base_component2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </RelativeLayout> -->
+
             <Button
                 android:id="@+id/num_b"
+               	android:background="@drawable/xx_ts_yuandian"
                 style="@style/style_base_component2"
-                android:layout_marginTop="5dip"
-                android:background="@drawable/xx_ts_yuandian"
-                android:paddingBottom="3dip"
-                android:paddingLeft="5dip"
-                android:paddingRight="5dip"
-                android:paddingTop="3dip"
-                android:text="99"
                 android:textColor="@color/white"
+                android:focusable="false"
+                android:enabled="false"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>

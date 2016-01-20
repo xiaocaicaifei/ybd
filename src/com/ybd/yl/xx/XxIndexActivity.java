@@ -4,7 +4,9 @@
  */
 package com.ybd.yl.xx;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 
 import com.ybd.common.BroadcaseUtil;
@@ -21,6 +25,7 @@ import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 import com.ybd.yl.xx.XxIndexSlideView.OnSlideListener;
+import com.ybd.yl.xx.dao.XxLtDao;
 
 /**
  * 消息-主页
@@ -34,15 +39,16 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     ListViewCompat          listView;
     private XxIndexSlideView mLastSlideViewWithStatusOn;
+    XxLtDao xxLtDao;//聊天的数据库操作类
 
     @Override
     protected void initComponentBase() {
-        //        view = inflater.inflate(R.layout.xx_index, null, false);
         setContentView(R.layout.xx_index);
         initPublicView("消息列表", R.drawable.xx_title_left, 0, XxIndexActivity.this, null);
+        xxLtDao=new XxLtDao(activity);
         init();
         initBroadcast();
-        //        NetWork.submit(activity, init);
+        findDbMsg();
     }
 
     /**
@@ -50,28 +56,64 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
      */
     private void init() {
         listView = (ListViewCompat) findViewById(R.id.xx_dslv);
-//        for(int i=0;i<5;i++){
-//            Map<String, Object> m=new HashMap<String, Object>();
-//            list.add(m);
-//        }
         xxAdapter=new XxIndexAdapter(list, this);
         listView.setAdapter(xxAdapter);
         xxAdapter.notifyDataSetChanged();
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent();
+                Map<String, Object> map=list.get(position);//一直存在报序列化问题,所以下面又新建了一个Map
+                Map<String, Object> m=new HashMap<String, Object>();
+                m.put("nick_name", PaseJson.getMapMsg(map,"sender_name"));
+                m.put("buser_id", PaseJson.getMapMsg(map,"sender_id"));
+                m.put("icon_url", PaseJson.getMapMsg(map,"icon_url"));
+                m.put("voipAccount", PaseJson.getMapMsg(map,"voip_account"));
+                intent.putExtra("xxObject", (Serializable)m);
+                intent.setClass(activity, XxTxlLtActivity.class);
+                startActivity(intent);
+                xxLtDao.updateTalkUser(0, PaseJson.getMapMsg(map,"sender_id"));//修改数据库未读消息数量
+//                findDbMsg();
+                ((Map<String, Object>)list.get(position)).put("unread_num", "0");
+                xxAdapter.notifyDataSetChanged();
+                
+            }
+        });
     }
     
     /**
-     * 初始化广播
+     * 查询本地数据库中的聊天记录信息
+     */
+    private void findDbMsg(){
+        list.clear();
+        list.addAll(xxLtDao.findAllLt());
+        xxAdapter.notifyDataSetChanged();
+        listView.setSelection(listView.getBottom());
+    }
+    
+    /**
+     * 初始化广播()
      */
     private void initBroadcast(){
+        //接收聊天消息的广播
         BroadcaseUtil.registBroadcase(activity, new BroadcastReceiver() {
-            @SuppressWarnings("unchecked")
+//            @SuppressWarnings("unchecked")
             @Override
             public void onReceive(Context context, Intent intent) {
-               Map<String, Object> map=(Map<String, Object>) PaseJson.paseJsonToObject(intent.getExtras().getString("content"));
-               list.add(map);
-               xxAdapter.notifyDataSetChanged();
+//               Map<String, Object> map=(Map<String, Object>) PaseJson.paseJsonToObject(intent.getExtras().getString("content"));
+//               list.add(map);
+//               xxAdapter.notifyDataSetChanged();
+                findDbMsg();//重新查询数据库更新（这样可能会出现刷新不动的情况，如果出现后面再做调整）
             }
         }, BroadcaseUtil.XX_LT);
+        
+        //接收到当前聊天窗口已经接收到信息的广播
+        BroadcaseUtil.registBroadcase(activity, new BroadcastReceiver() {
+          @Override
+          public void onReceive(Context context, Intent intent) {
+              findDbMsg();//重新查询数据库更新（这样可能会出现刷新不动的情况，如果出现后面再做调整）
+          }
+      }, BroadcaseUtil.XX_LT_RECEIVED);
     }
 
     //    INetWork init=new INetWork() {

@@ -9,10 +9,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.ybd.common.C;
+import com.ybd.common.MainApplication;
+import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.R;
 
 /**
@@ -59,6 +64,11 @@ public class XxIndexAdapter extends BaseAdapter {
 
             viewHoler = new ViewHoler();
             viewHoler.delRelativeLayout=(RelativeLayout) slideView.findViewById(R.id.holder_rl);
+            viewHoler.txImageView=(ImageView) slideView.findViewById(R.id.tx_iv);
+            viewHoler.titleTextView=(TextView) slideView.findViewById(R.id.title_tv);
+            viewHoler.nrTextView=(TextView) slideView.findViewById(R.id.nr_tv);
+            viewHoler.timeTextView=(TextView) slideView.findViewById(R.id.time_tv);
+            viewHoler.numButton=(Button) slideView.findViewById(R.id.num_b);
             viewHoler.delRelativeLayout.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -68,17 +78,33 @@ public class XxIndexAdapter extends BaseAdapter {
             });
             slideView.setOnSlideListener(activity);
             slideView.setTag(viewHoler);
+            
         } else {
             viewHoler = (ViewHoler) slideView.getTag();
         }
         map.put("slideView", slideView);
         slideView.shrink();
+        imageLoader.displayImage(C.IP+PaseJson.getMapMsg(map, "sender_icon_url"),viewHoler.txImageView,MainApplication.getRoundOffOptions());
+        viewHoler.titleTextView.setText(PaseJson.getMapMsg(map, "sender_name"));
+        viewHoler.nrTextView.setText(PaseJson.getMapMsg(map, "send_content"));
+        viewHoler.timeTextView.setText(PaseJson.getMapMsg(map, "send_time"));
+        if(PaseJson.getMapMsg(map, "unread_num").equals("0")){
+            viewHoler.numButton.setVisibility(View.GONE);
+        }else{
+            viewHoler.numButton.setVisibility(View.VISIBLE);
+            viewHoler.numButton.setText(PaseJson.getMapMsg(map, "unread_num"));
+        }
         return slideView;
     }
 
     class ViewHoler {
-        ImageView xcImageView;
+        ImageView txImageView;
         RelativeLayout delRelativeLayout;
+        TextView titleTextView;//标题头
+        TextView nrTextView;//内容
+        TextView timeTextView;//时间
+//        TextView numTextView;//消息的数量
+        Button numButton;//消息数量
     }
     
     /**

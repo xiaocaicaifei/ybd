@@ -27,6 +27,8 @@ public class BroadcaseUtil {
     public static final String PM_JYK_SUCCESS="pm_jyk_success";
     /**接收聊天消息的广播*/
     public static final String XX_LT="xx_lt";
+    /**当前聊天窗口，已经接收信息的广播，之后广播到消息列表界面，修改未读信息为0*/
+    public static final String XX_LT_RECEIVED="xx_lt_received";
     /**
      * 根据不同的名字发送广播
      */
@@ -47,10 +49,10 @@ public class BroadcaseUtil {
      * 注册广播
      */
     public static void registBroadcase(Activity activity,BroadcastReceiver receiver,String name) {
-        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(activity);
+//        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(activity);
         IntentFilter filter = new IntentFilter();
         filter.addAction(name);
-        broadcastManager.registerReceiver(receiver, filter);
+        activity.registerReceiver(receiver, filter);
     }
 
 }

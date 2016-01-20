@@ -26,6 +26,7 @@ import com.ybd.common.L;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.R;
 import com.ybd.yl.xx.XxIndexActivity;
+import com.ybd.yl.xx.dao.XxLtDao;
 import com.yuntongxun.ecsdk.ECChatManager;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
@@ -54,7 +55,7 @@ import com.yuntongxun.ecsdk.meeting.voice.ECVoiceMeetingMsg;
  */
 public class ReceiverService extends Service {
     private static String loginZh="";
-    private static boolean connectSuccess=false;
+//    private static boolean connectSuccess=false;
     
   //声明通知（消息）管理器   
     NotificationManager m_NotificationManager;   
@@ -170,7 +171,7 @@ public class ReceiverService extends Service {
                 } else if (state == ECDevice.ECConnectState.CONNECT_SUCCESS) {
                                             Toast.makeText(ReceiverService.this, "登录成功", Toast.LENGTH_LONG).show();
 //                    sendMsg();
-                    connectSuccess=true;
+//                    connectSuccess=true;
                 }
             }
         });
@@ -417,6 +418,8 @@ public class ReceiverService extends Service {
             String XxType=PaseJson.getMapMsg(map, "type");
             if(XxType.equals("1")){//代表是聊天消息
                 BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT, this.getApplicationContext(),textMessageBody.getMessage());
+                XxLtDao ltDao= new XxLtDao(ReceiverService.this);
+                ltDao.add(map);//保存信息到数据库中
             }
             Toast.makeText(ReceiverService.this, textMessageBody.getMessage()+":::"+msg.getForm()+":"+msg.getMsgStatus(), Toast.LENGTH_LONG).show();
         } else {
@@ -458,6 +461,7 @@ public class ReceiverService extends Service {
         // 通知UI有新消息到达
     }
   //显示状态栏的通知
+    @SuppressWarnings("deprecation")
     private void showNotification(String title){   
         //初始化NotificationManager对象   
         m_NotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);   
@@ -488,7 +492,7 @@ public class ReceiverService extends Service {
      * @return
      */
     private boolean isBackgroundRunning() {
-        String processName = "com.sw.activity";
+        String processName = "com.ybd.yl";
 
         ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
