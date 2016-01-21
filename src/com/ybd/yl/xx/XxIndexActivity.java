@@ -62,21 +62,26 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent();
                 Map<String, Object> map=list.get(position);//一直存在报序列化问题,所以下面又新建了一个Map
-                Map<String, Object> m=new HashMap<String, Object>();
-                m.put("nick_name", PaseJson.getMapMsg(map,"sender_name"));
-                m.put("buser_id", PaseJson.getMapMsg(map,"sender_id"));
-                m.put("icon_url", PaseJson.getMapMsg(map,"icon_url"));
-                m.put("voipAccount", PaseJson.getMapMsg(map,"voip_account"));
-                intent.putExtra("xxObject", (Serializable)m);
-                intent.setClass(activity, XxTxlLtActivity.class);
-                startActivity(intent);
-                xxLtDao.updateTalkUser(0, PaseJson.getMapMsg(map,"sender_id"));//修改数据库未读消息数量
-//                findDbMsg();
-                ((Map<String, Object>)list.get(position)).put("unread_num", "0");
-                xxAdapter.notifyDataSetChanged();
-                
+                if(PaseJson.getMapMsg(map,"type").equals("1")){//如果是1说明是对话类型
+                    Intent intent=new Intent();
+                    Map<String, Object> m=new HashMap<String, Object>();
+                    m.put("nick_name", PaseJson.getMapMsg(map,"sender_name"));
+                    m.put("buser_id", PaseJson.getMapMsg(map,"sender_id"));
+                    m.put("icon_url", PaseJson.getMapMsg(map,"icon_url"));
+                    m.put("voipAccount", PaseJson.getMapMsg(map,"voip_account"));
+                    intent.putExtra("xxObject", (Serializable)m);
+                    intent.setClass(activity, XxTxlLtActivity.class);
+                    startActivity(intent);
+                    xxLtDao.updateTalkUser(0, PaseJson.getMapMsg(map,"sender_id"));//修改数据库未读消息数量
+//                    findDbMsg();
+                    ((Map<String, Object>)list.get(position)).put("unread_num", "0");
+                    xxAdapter.notifyDataSetChanged();
+                }else if(PaseJson.getMapMsg(map,"type").equals("4")){//艺论群组
+                    Intent intent=new Intent();
+                    intent.setClass(activity, XxQzActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -87,6 +92,15 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
     private void findDbMsg(){
         list.clear();
         list.addAll(xxLtDao.findAllLt());
+        //添加艺论一下，在列表的最上面
+        Map<String, Object> map=new HashMap<String, Object>();
+        map.put("sender_icon_url", "assets://xx_index_qz.png");
+        map.put("sender_name", "艺论一下");
+        map.put("send_content", "畅玩艺论群组，分享拍卖乐趣");
+        map.put("send_time", "");
+        map.put("unread_num", "0");
+        map.put("type", "4");
+        list.add(0,map);
         xxAdapter.notifyDataSetChanged();
         listView.setSelection(listView.getBottom());
     }

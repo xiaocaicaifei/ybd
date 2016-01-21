@@ -105,7 +105,7 @@ public class XxTxlLtActivity extends BaseActivity implements OnClickListener {
                    
                    //发送广播，当前人已经显示信息，在列表页面就不需要再显示未读数量，也就是说这个人的未读数量是0
                    ltDao.updateTalkUser(0, PaseJson.getMapMsg(map,"buser_id"));
-                   BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT_RECEIVED, activity);
+//                   BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT_RECEIVED, activity);
                }
             }
         };

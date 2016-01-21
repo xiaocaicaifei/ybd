@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.ybd.common.C;
 import com.ybd.common.L;
 import com.ybd.common.tools.PaseJson;
 
@@ -44,14 +45,15 @@ public class XxLtDao {
                 updateTalkUser(map);
             } else {
                 db.execSQL(
-                    "insert into tb_talk_user (userid,username,usericon,unreadnum,lasttalktime,lasttalkmsg,voipaccount) values (?,?,?,?,?,?,?)",
+                    "insert into tb_talk_user (userid,username,usericon,unreadnum,lasttalktime,lasttalkmsg,voipaccount,msgtype) values (?,?,?,?,?,?,?,?)",
                     new Object[] { PaseJson.getMapMsg(map, "sender_id"),
                             PaseJson.getMapMsg(map, "sender_name"),
                             PaseJson.getMapMsg(map, "sender_icon_url"), 1,
                             PaseJson.getMapMsg(map, "send_time"),
                             PaseJson.getMapMsg(map, "send_content"),
-                            PaseJson.getMapMsg(map, "voip_account") });
-                L.v(PaseJson.getMapMsg(map, "voip_account") + ":::::dao");
+                            PaseJson.getMapMsg(map, "voip_account"),
+                            PaseJson.getMapMsg(map, "type") });
+//                L.v(PaseJson.getMapMsg(map, "voip_account") + ":::::dao");
             }
             addTalk(map);
         } catch (Exception e) {
@@ -165,17 +167,18 @@ public class XxLtDao {
             list = new ArrayList<Map<String, Object>>();
             cursor = db
                 .rawQuery(
-                    "select userid,username,usericon,unreadnum,lasttalktime,lasttalkmsg,voipaccount from tb_talk_user ",
+                    "select userid,username,usericon,unreadnum,lasttalktime,lasttalkmsg,voipaccount,msgtype from tb_talk_user ",
                     new String[] {});
             while (cursor.moveToNext()) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("sender_id", cursor.getString(cursor.getColumnIndex("userid")));
                 map.put("sender_name", cursor.getString(cursor.getColumnIndex("username")));
-                map.put("sender_icon_url", cursor.getString(cursor.getColumnIndex("usericon")));
+                map.put("sender_icon_url", C.IP+cursor.getString(cursor.getColumnIndex("usericon")));
                 map.put("unread_num", cursor.getInt(cursor.getColumnIndex("unreadnum")));
                 map.put("send_content", cursor.getString(cursor.getColumnIndex("lasttalkmsg")));
                 map.put("send_time", cursor.getString(cursor.getColumnIndex("lasttalktime")));
                 map.put("voip_account", cursor.getString(cursor.getColumnIndex("voipaccount")));
+                map.put("type", cursor.getString(cursor.getColumnIndex("msgtype")));
                 list.add(map);
             }
             cursor.close();

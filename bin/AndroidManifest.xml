@@ -361,6 +361,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+          <!-- 消息-却组-->
+        <activity
+            android:name="com.ybd.yl.xx.XxQzActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
 
         <!-- 个人主页面 -->
         <activity

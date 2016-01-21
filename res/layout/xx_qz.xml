@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:clickable="true"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <com.ybd.common.xListView.XListView
+        android:id="@+id/qz_lv"
+        style="@style/uniform_listview">
+    </com.ybd.common.xListView.XListView>
+
+</LinearLayout>

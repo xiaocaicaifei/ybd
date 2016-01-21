@@ -85,7 +85,7 @@ public class XxIndexAdapter extends BaseAdapter {
         }
         map.put("slideView", slideView);
         slideView.shrink();
-        imageLoader.displayImage(C.IP+PaseJson.getMapMsg(map, "sender_icon_url"),viewHoler.txImageView,MainApplication.getRoundOffOptions());
+        imageLoader.displayImage(PaseJson.getMapMsg(map, "sender_icon_url"),viewHoler.txImageView,MainApplication.getRoundOffOptions());
         viewHoler.titleTextView.setText(PaseJson.getMapMsg(map, "sender_name"));
         viewHoler.nrTextView.setText(PaseJson.getMapMsg(map, "send_content"));
         viewHoler.timeTextView.setText(PaseJson.getMapMsg(map, "send_time"));
