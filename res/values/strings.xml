@@ -202,6 +202,9 @@
     <string name="hl">忽略</string>
     <string name="jrhmd">加入黑名单</string>
     <string name="tgyz">通过验证</string>
+    <string name="lt_tp">图片</string>
+    <string name="lt_zz">转账</string>
+    <string name="lt_wz">位置</string>
     
     <!-- 选择位置弹出框 -->
     <string name="xzwz">选择位置</string>

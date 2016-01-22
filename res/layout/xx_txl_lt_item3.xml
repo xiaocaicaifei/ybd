@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_component"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/style_base_component2"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/xx_lt_time_bg" >
+
+        <TextView
+            android:id="@+id/time_tv"
+            style="@style/style_base_component2"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="57dip"
+        android:layout_marginTop="11dip"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/tx_iv"
+            android:layout_width="46dip"
+            android:layout_height="46dip" />
+
+        <ImageView
+            android:id="@+id/nr_iv"
+            style="@style/style_base_component2"
+            android:layout_width="150dip"
+            android:layout_height="150dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
+</LinearLayout>

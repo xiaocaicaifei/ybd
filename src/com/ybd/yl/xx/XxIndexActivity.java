@@ -20,6 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 
 import com.ybd.common.BroadcaseUtil;
+import com.ybd.common.L;
 import com.ybd.common.delListView.ListViewCompat;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.BaseActivity;

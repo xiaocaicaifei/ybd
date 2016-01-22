@@ -1,3 +1,4 @@
+<!-- 他人发的文字信息 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/style_base_component"

@@ -49,10 +49,10 @@ public class BroadcaseUtil {
      * 注册广播
      */
     public static void registBroadcase(Activity activity,BroadcastReceiver receiver,String name) {
-//        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(activity);
+        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(activity);
         IntentFilter filter = new IntentFilter();
         filter.addAction(name);
-        activity.registerReceiver(receiver, filter);
+        broadcastManager.registerReceiver(receiver, filter);
     }
 
 }

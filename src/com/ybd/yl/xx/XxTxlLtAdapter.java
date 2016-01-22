@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ybd.common.C;
+import com.ybd.common.L;
 import com.ybd.common.MainApplication;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.R;
@@ -50,16 +51,21 @@ public class XxTxlLtAdapter extends BaseAdapter {
     
     @Override
     public int getViewTypeCount() {
-        return 2;
+        return 4;
     }
     @Override
     public int getItemViewType(int position) {
         Map<String, Object> map=list.get(position);
         if(PaseJson.getMapMsg(map, "sender_type").equals("1")){
-            return 1;//别人
-        }else{
-            return 0;//自己
+            return 1;//别人发的文字
+        }else if(PaseJson.getMapMsg(map, "sender_type").equals("0")){
+            return 0;//自己发的文字
+        }else if(PaseJson.getMapMsg(map, "sender_type").equals("2")){
+            return 2;//自己发的图片
+        }else if(PaseJson.getMapMsg(map, "sender_type").equals("3")){
+            return 3;//自己发的图片
         }
+        return 0;
     }
 
     @Override
@@ -67,6 +73,8 @@ public class XxTxlLtAdapter extends BaseAdapter {
         final Map<String, Object> map = list.get(position);
         ViewHoler viewHoler = null;
         ViewHoler viewHoler2 = null;
+        ViewHoler2 viewHoler3=null;
+        ViewHoler2 viewHoler4=null;
         int type=getItemViewType(position);
         
         if(type==0){
@@ -99,7 +107,43 @@ public class XxTxlLtAdapter extends BaseAdapter {
             viewHoler2.nrTextView.setText(PaseJson.getMapMsg(map, "send_content"));
             imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "sender_icon_url"), viewHoler2.txImageView,
                 MainApplication.getRoundOffOptions());
+        }else if(type==2){
+            if (convertView == null) {
+                viewHoler3 = new ViewHoler2();
+                convertView = LayoutInflater.from(activity).inflate(R.layout.xx_txl_lt_item3, null);// 这个过程相当耗时间
+                viewHoler3.timeTextView=(TextView) convertView.findViewById(R.id.time_tv);
+                viewHoler3.txImageView = (ImageView) convertView.findViewById(R.id.tx_iv);
+                viewHoler3.nrImageView=(ImageView) convertView.findViewById(R.id.nr_iv);
+                convertView.setTag(viewHoler3);
+            } else {
+                viewHoler3 = (ViewHoler2) convertView.getTag();
+            }
+            viewHoler3.timeTextView.setText(PaseJson.getMapMsg(map, "send_time"));
+//            viewHoler2.nrTextView.setText(PaseJson.getMapMsg(map, "send_content"));
+            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "sender_icon_url"), viewHoler3.txImageView,
+                MainApplication.getRoundOffOptions());
+            L.v(PaseJson.getMapMsg(map, "send_content")+"ad 3");
+            imageLoader.displayImage(PaseJson.getMapMsg(map, "send_content"), viewHoler3.nrImageView,
+                MainApplication.getRoundOffOptions());
+        }else if(type==3){
+            if (convertView == null) {
+                viewHoler4= new ViewHoler2();
+                convertView = LayoutInflater.from(activity).inflate(R.layout.xx_txl_lt_item4, null);// 这个过程相当耗时间
+                viewHoler4.timeTextView=(TextView) convertView.findViewById(R.id.time_tv);
+                viewHoler4.txImageView = (ImageView) convertView.findViewById(R.id.tx_iv);
+                viewHoler4.nrImageView=(ImageView) convertView.findViewById(R.id.nr_iv);
+                convertView.setTag(viewHoler2);
+            } else {
+                viewHoler4 = (ViewHoler2) convertView.getTag();
+            }
+            viewHoler4.timeTextView.setText(PaseJson.getMapMsg(map, "send_time"));
+//            viewHoler2.nrTextView.setText(PaseJson.getMapMsg(map, "send_content"));
+            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "sender_icon_url"), viewHoler4.txImageView,
+                MainApplication.getRoundOffOptions());
+            imageLoader.displayImage(PaseJson.getMapMsg(map, "send_content"), viewHoler4.nrImageView,
+                MainApplication.getRoundOffOptions());
         }
+        
 
         return convertView;
     }
@@ -108,6 +152,12 @@ public class XxTxlLtAdapter extends BaseAdapter {
         TextView timeTextView;//时间
         ImageView txImageView; //头像
         TextView  nrTextView;  //内容
+      
+    }
+    class ViewHoler2 {
+        TextView timeTextView;//时间
+        ImageView txImageView; //头像
+        ImageView  nrImageView;  //发送的图片
       
     }
 

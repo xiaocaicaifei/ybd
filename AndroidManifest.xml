@@ -119,6 +119,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+         <!-- 选择照片-不花区域 -->
+        <activity
+            android:name="com.ybd.yl.common.SelectPhoto2Activity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
         <!-- 找回密码 -->
         <activity
             android:name="com.ybd.yl.login.LoginZhmmActivity"
