@@ -336,7 +336,6 @@ public class ReceiverService extends Service {
         try {
             // 或者创建一个图片消息体 并且设置附件包体（其实图片也是相当于附件）
             // 比如我们发送SD卡里面的一张Tony_2015.jpg图片
-            L.v(path + ":receiver");
             ECMessage msg;
             final ProgressDialog dialog = new ProgressDialog(activity);
             if (path.equals("")) {
@@ -482,6 +481,7 @@ public class ReceiverService extends Service {
 
             String thumbnailFileUrl = null;
             String remoteUrl = null;
+            L.v("接收到图片类型的信息");
             if (type == ECMessage.Type.FILE) {
                 // 在这里处理附件消息
                 ECFileMessageBody fileMsgBody = (ECFileMessageBody) msg.getBody();
@@ -494,7 +494,6 @@ public class ReceiverService extends Service {
                 thumbnailFileUrl = imageMsgBody.getThumbnailFileUrl();
                 // 获得原图地址
                 remoteUrl = imageMsgBody.getRemoteUrl();
-                L.v(remoteUrl + ";:::");
                 JSONObject object;
                 try {
                     object = new JSONObject(msg.getUserData());

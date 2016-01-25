@@ -63,7 +63,7 @@ public class XxTxlLtAdapter extends BaseAdapter {
         }else if(PaseJson.getMapMsg(map, "sender_type").equals("2")){
             return 2;//自己发的图片
         }else if(PaseJson.getMapMsg(map, "sender_type").equals("3")){
-            return 3;//自己发的图片
+            return 3;//别人发的图片
         }
         return 0;
     }
@@ -132,12 +132,11 @@ public class XxTxlLtAdapter extends BaseAdapter {
                 viewHoler4.timeTextView=(TextView) convertView.findViewById(R.id.time_tv);
                 viewHoler4.txImageView = (ImageView) convertView.findViewById(R.id.tx_iv);
                 viewHoler4.nrImageView=(ImageView) convertView.findViewById(R.id.nr_iv);
-                convertView.setTag(viewHoler2);
+                convertView.setTag(viewHoler4);
             } else {
                 viewHoler4 = (ViewHoler2) convertView.getTag();
             }
             viewHoler4.timeTextView.setText(PaseJson.getMapMsg(map, "send_time"));
-//            viewHoler2.nrTextView.setText(PaseJson.getMapMsg(map, "send_content"));
             imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "sender_icon_url"), viewHoler4.txImageView,
                 MainApplication.getRoundOffOptions());
             imageLoader.displayImage(PaseJson.getMapMsg(map, "send_content"), viewHoler4.nrImageView,

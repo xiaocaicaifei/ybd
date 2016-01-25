@@ -160,7 +160,7 @@ public class XxTxlLtActivity extends BaseActivity implements OnClickListener {
                     PaseJson.getMapMsg(map, "voipAccount"))) {//如果当前界面聊天的Id和收到的发送消息的ID一样则显示，否则不显示
                     list.add(m);
                     adapter.notifyDataSetChanged();
-                    listView.setSelection(list.size() - 1);
+                    listView.setSelection(listView.getBottom());
 
                     //发送广播，当前人已经显示信息，在列表页面就不需要再显示未读数量，也就是说这个人的未读数量是0
                     ltDao.updateTalkUser(0, PaseJson.getMapMsg(map, "buser_id"));
@@ -270,12 +270,12 @@ public class XxTxlLtActivity extends BaseActivity implements OnClickListener {
                 String path=arg2.getExtras().getString("path");
                 try {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("type", "3");
+                    jsonObject.put("type", "1");
                     jsonObject.put("send_content", xxEditText.getText().toString());
                     jsonObject.put("sender_icon_url", PaseJson.getMapMsg(map, "icon_url"));
                     jsonObject.put("send_time",
                         DateUtil.getTimeFormat("MM-dd HH:mm", new Date()));
-                    jsonObject.put("sender_type", "1");
+                    jsonObject.put("sender_type", "3");
                     jsonObject.put("sender_id",
                         PropertiesUtil.read(activity, PropertiesUtil.USERID));
                     jsonObject.put("sender_name",
@@ -286,6 +286,7 @@ public class XxTxlLtActivity extends BaseActivity implements OnClickListener {
                         jsonObject.toString(), path,activity);
                     
                     Map<String, Object> m = new HashMap<String, Object>();
+                    m.put("type", "1");
                     m.put("sender_type", "2");//0，代表是本人发的，1代表是接收到他人发的消息,2本人发的图片，3他人发的图片
                     m.put("send_time", DateUtil.getTimeFormat("yyyy-MM-dd HH:mm:ss", new Date()));
                     m.put("send_content", "file://"+path);
@@ -293,8 +294,9 @@ public class XxTxlLtActivity extends BaseActivity implements OnClickListener {
                     m.put("sender_id", PaseJson.getMapMsg(map, "buser_id"));//不是本人的Id，是接收人的ID
                     m.put("sender_name", PaseJson.getMapMsg(map, "nick_name"));//不是本人的name，是接收人的name
                     list.add(m);
-                    ltDao.addTalk(m);//将记录插入到聊天记录表中
+                    ltDao.add(m);//将记录插入到聊天记录表中
                     adapter.notifyDataSetChanged();
+                    listView.setSelection(listView.getBottom());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
