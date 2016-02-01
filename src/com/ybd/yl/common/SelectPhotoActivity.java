@@ -75,9 +75,9 @@ public class SelectPhotoActivity extends BaseActivity {
             Toast.makeText(this, "暂无外部存储", Toast.LENGTH_SHORT).show();
             return;
         }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
                 Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
                 ContentResolver mContentResolver = SelectPhotoActivity.this.getContentResolver();
 
@@ -103,8 +103,8 @@ public class SelectPhotoActivity extends BaseActivity {
                 list.add(map);
                 list.addAll(l);
                 adapter.notifyDataSetChanged();
-            }
-        }).start();
+//            }
+//        }).start();
     }
 
     private void cropImageUri(Uri uri, int outputX, int outputY, int requestCode) {

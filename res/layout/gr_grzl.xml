@@ -1,0 +1,151 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <LinearLayout
+        android:id="@+id/tx_ll"
+        style="@style/style_base_component"
+        android:layout_height="79dip"
+        android:layout_marginTop="16dip"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip" >
+
+        <TextView
+            style="@style/gr_grzl_left_ms"
+            android:text="@string/tx" />
+
+        <ImageView
+            android:id="@+id/tx_iv"
+            android:layout_width="64dip"
+            android:layout_height="64dip"
+            android:layout_gravity="center_vertical"
+            android:scaleType="center" />
+    </LinearLayout>
+
+    <View
+        style="@style/uniform_line"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip" />
+
+    <LinearLayout
+        android:id="@+id/nc_ll"
+        style="@style/style_base_component"
+        android:layout_height="48dip"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip" >
+
+        <TextView
+            style="@style/gr_grzl_left_ms"
+            android:text="@string/nc" />
+
+        <TextView
+            android:id="@+id/nc_tv"
+            style="@style/gr_grzl_left_nr" />
+    </LinearLayout>
+
+    <View
+        style="@style/uniform_line"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip" />
+
+    <LinearLayout
+        android:id="@+id/xb_ll"
+        style="@style/style_base_component"
+        android:layout_height="48dip"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip" >
+
+        <TextView
+            style="@style/gr_grzl_left_ms"
+            android:text="@string/xb" />
+
+        <TextView
+            android:id="@+id/xb_tv"
+            style="@style/gr_grzl_left_nr" />
+    </LinearLayout>
+
+    <View
+        style="@style/uniform_line"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip" />
+
+    <LinearLayout
+        android:id="@+id/qm_ll"
+        style="@style/style_base_component"
+        android:layout_height="48dip"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip" >
+
+        <TextView
+            style="@style/gr_grzl_left_ms"
+            android:text="@string/qm" />
+
+        <TextView
+            android:id="@+id/qm_tv"
+            style="@style/gr_grzl_left_nr" />
+    </LinearLayout>
+
+    <View
+        style="@style/uniform_line"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip" />
+
+    <LinearLayout
+        android:id="@+id/sjh_ll"
+        style="@style/style_base_component"
+        android:layout_height="48dip"
+        android:layout_marginTop="16dip"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip" >
+
+        <TextView
+            style="@style/gr_grzl_left_ms"
+            android:text="@string/sjh" />
+
+        <TextView
+            android:id="@+id/sjh_tv"
+            style="@style/gr_grzl_left_nr" />
+    </LinearLayout>
+
+    <View
+        style="@style/uniform_line"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip" />
+
+    <LinearLayout
+        android:id="@+id/yx_ll"
+        style="@style/style_base_component"
+        android:layout_height="48dip"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip" >
+
+        <TextView
+            style="@style/gr_grzl_left_ms"
+            android:text="@string/yx" />
+
+        <TextView
+            android:id="@+id/yx_tv"
+            style="@style/gr_grzl_left_nr" />
+    </LinearLayout>
+
+    <View
+        style="@style/uniform_line"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip" />
+
+</LinearLayout>

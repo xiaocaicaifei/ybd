@@ -1,5 +1,7 @@
 package com.ybd.yl.xx;
 
+import io.rong.imlib.model.Conversation.ConversationType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ import com.ybd.common.C;
 import com.ybd.common.MainApplication;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.R;
+import com.ybd.yl.service.ReceiverService;
 
 /**
  * 消息列表的适配器
@@ -74,7 +77,7 @@ public class XxIndexAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     list.remove(position);
                     notifyDataSetChanged();
-                    activity.delXxList(PaseJson.getMapMsg(map, "sender_id"));
+                    ReceiverService.mRongIMClient.clearMessages(ConversationType.PRIVATE, PaseJson.getMapMsg(map, "sender_id"), null);
                 }
             });
             slideView.setOnSlideListener(activity);

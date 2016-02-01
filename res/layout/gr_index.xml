@@ -192,7 +192,7 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/grzl_ll"
+                android:id="@+id/grzx_ll"
                 style="@style/grzx_layout"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/uniform_onpress" >
@@ -219,7 +219,7 @@
                 android:layout_height="0.5dip" />
 
             <LinearLayout
-                android:id="@+id/grzl_xc"
+                android:id="@+id/xc_ll"
                 style="@style/grzx_layout"
                 android:layout_height="75dip" >
 
@@ -255,7 +255,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/grzl_qb"
+                android:id="@+id/qb_ll"
                 style="@style/grzx_layout"
                 android:layout_marginTop="11dip" >
 
@@ -277,7 +277,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/grzl_zj"
+                android:id="@+id/zj_ll"
                 style="@style/grzx_layout"
                 android:layout_marginTop="11dip" >
 
@@ -299,7 +299,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/grzl_cy"
+                android:id="@+id/cy_ll"
                 style="@style/grzx_layout"
                 android:layout_marginTop="11dip" >
 
@@ -321,7 +321,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/grzl_sz"
+                android:id="@+id/sz_ll"
                 style="@style/grzx_layout"
                 android:layout_marginTop="11dip" >
 
@@ -343,7 +343,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/grzl_sqrz"
+                android:id="@+id/sqrz_ll"
                 style="@style/grzx_layout"
                 android:layout_marginTop="11dip" >
 

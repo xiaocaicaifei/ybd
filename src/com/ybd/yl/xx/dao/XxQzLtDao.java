@@ -19,7 +19,7 @@ import com.ybd.common.tools.PaseJson;
  * @author cyf
  * @version $Id: TalkUserDao.java, v 0.1 2016-1-18 下午3:37:48 cyf Exp $
  */
-public class XxLtDao {
+public class XxQzLtDao {
 
     private DBOpenHelper   helper;
     private SQLiteDatabase db;
@@ -28,7 +28,7 @@ public class XxLtDao {
      * 实例化类的时候，创建数据库对象
      * @param context
      */
-    public XxLtDao(Context context) {
+    public XxQzLtDao(Context context) {
         helper = DBOpenHelper.getInstance(context);
         db = helper.getWritableDatabase();
     }

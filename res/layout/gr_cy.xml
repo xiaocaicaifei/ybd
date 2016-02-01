@@ -1,0 +1,116 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title" />
+
+    <RelativeLayout
+        android:id="@+id/ndcx_rl"
+        style="@style/style_base_component"
+        android:layout_height="180dip"
+        android:layout_marginTop="10dip"
+        android:background="#fe584a" >
+
+        <LinearLayout
+            style="@style/style_base_component2"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal" >
+
+            <ImageView
+                style="@style/style_base_component2"
+                android:background="@drawable/gr_cy_ndcx" />
+
+            <TextView
+                style="@style/gr_cy_ms"
+                android:layout_marginLeft="11dip"
+                android:text="@string/ndcx" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_height="180dip"
+        android:layout_marginTop="11dip"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/jgcx_rl"
+            style="@style/style_base"
+            android:layout_weight="1"
+            android:background="#f1c40f" >
+
+            <LinearLayout
+                style="@style/style_base_component2"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    style="@style/style_base_component2"
+                    android:background="@drawable/gr_cy_jgcx" />
+
+                <TextView
+                    style="@style/gr_cy_ms"
+                    android:layout_marginLeft="11dip"
+                    android:text="@string/jgcx" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/style_base"
+            android:layout_marginLeft="11dip"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <RelativeLayout 
+                android:id="@+id/kdcx_rl"
+                style="@style/style_base" 
+                android:layout_weight="1"
+                android:background="#93cc2f">
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/style_base_component2"
+                        android:background="@drawable/gr_cy_kdcx" />
+
+                    <TextView
+                        style="@style/gr_cy_ms"
+                        android:layout_marginLeft="11dip"
+                        android:text="@string/kdcx" />
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout 
+                android:id="@+id/xgn_rl"
+                style="@style/style_base" 
+                android:layout_weight="1"
+                android:layout_marginTop="11dip"
+                android:background="#0099ff">
+
+                <LinearLayout
+                    style="@style/style_base_component2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/style_base_component2"
+                        android:background="@drawable/gr_cy_xgn" />
+
+                    <TextView
+                        style="@style/gr_cy_ms"
+                        android:layout_marginLeft="11dip"
+                        android:text="@string/xgntnd" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

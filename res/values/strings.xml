@@ -40,6 +40,14 @@
     <string name="cy">常用</string>
     <string name="sz">设置</string>
     <string name="sqrz">申请认证</string>
+    <string name="ndcx">年代查询</string>
+    <string name="jgcx">价格查询</string>
+    <string name="kdcx">快递查询</string>
+    <string name="xgntnd">新功能，听您的</string>
+    <string name="qm">签名</string>
+    <string name="sjh">手机号</string>
+    <string name="ggcnxhdnc">更改成你喜欢的昵称</string>
+    
     
     <!-- 圈子 -->
     <string name="zan">赞</string>

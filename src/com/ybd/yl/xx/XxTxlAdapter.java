@@ -73,7 +73,9 @@ public class XxTxlAdapter extends BaseAdapter implements SectionIndexer {
             viewHoler.zmLayout.setVisibility(View.VISIBLE);
         }
         viewHoler.ncTextView.setText(PaseJson.getMapMsg(map, "nick_name"));
-        imageLoader.displayImage(C.IP+PaseJson.getMapMsg(map, "icon_url"), viewHoler.txImageView,MainApplication.getRoundOffOptions());
+        if(!PaseJson.getMapMsg(map, "icon_url").equals("")){
+            imageLoader.displayImage(C.IP+PaseJson.getMapMsg(map, "icon_url"), viewHoler.txImageView,MainApplication.getRoundOffOptions());
+        }
 
         return convertView;
     }

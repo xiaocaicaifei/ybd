@@ -4,6 +4,8 @@
  */
 package com.ybd.common;
 
+import java.io.Serializable;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -40,6 +42,14 @@ public class BroadcaseUtil {
      * 根据不同的名字发送广播
      */
     public static void sendBroadcase(String name,Context activity,String content){
+        Intent intent=new Intent(name);
+        intent.putExtra("content", content);
+        LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
+    }
+    /**
+     * 根据不同的名字发送广播
+     */
+    public static void sendBroadcase(String name,Context activity,Serializable content){
         Intent intent=new Intent(name);
         intent.putExtra("content", content);
         LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);

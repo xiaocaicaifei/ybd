@@ -24,12 +24,14 @@ public class C {
     
     public static final String APP_ID = "wxd930ea5d5a258f4f";//测试例子的appID
     
-    public static final String YTX_APPKEY="8a48b55150e162370150e9f58f1e35d7";//容联云的appkey
-    public static final String YTX_TOKEN="49c09bbdac011000b2f343c587337850";//容联云的token
+//    public static final String YTX_APPKEY="8a48b55150e162370150e9f58f1e35d7";//容联云的appkey
+//    public static final String YTX_TOKEN="49c09bbdac011000b2f343c587337850";//容联云的token
+  public static final String RY_APPKEY="8a48b55150e162370150e9f58f1e35d7";//容云的appkey
+  public static final String RY_TOKEN="49c09bbdac011000b2f343c587337850";//容云的token
     
 //    public static final String WX_APP_SECRET = "wxd930ea5d5a258f4f";
 
-    public static String  IP        = "http://192.168.199.235:8080/"; // 毛哥本机
+    public static String  IP        = "http://192.168.199.192:8080/"; // 毛哥本机
 //    public static String  IP        = "http://120.24.175.13:8080/"; // 外网服务器
 
 }

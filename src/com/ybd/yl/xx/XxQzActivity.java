@@ -4,10 +4,13 @@
  */
 package com.ybd.yl.xx;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -56,14 +59,16 @@ public class XxQzActivity extends BaseActivity implements OnClickListener {
         qzListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Map<String, Object> map = ((Map<String, Object>) list.get(arg2));
-                if (PaseJson.getMapMsg(map, "isSelect").equals("")
-                    || PaseJson.getMapMsg(map, "isSelect").equals("0")) {
-                    map.put("isSelect", "1");
-                } else {
-                    map.put("isSelect", "0");
-                }
-                qzAdapter.notifyDataSetChanged();
+                Map<String, Object> map = ((Map<String, Object>) list.get(arg2-1));
+                Intent intent=new Intent();
+                Map<String, Object> m=new HashMap<String, Object>();
+                m.put("nick_name", PaseJson.getMapMsg(map,"groupname"));
+                m.put("buser_id", PaseJson.getMapMsg(map,"id"));
+                m.put("icon_url", PaseJson.getMapMsg(map,"logo_url"));
+                m.put("voipAccount", PaseJson.getMapMsg(map,"groupid"));//发送对象的voip 账号
+                intent.putExtra("qzObject", (Serializable)m);
+                intent.setClass(activity, XxQzLtActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -28,8 +28,6 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <!-- 允许使用PowerManager的WakeLocks保持进程在休眠时从屏幕消失 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!-- 允许请求访问使用照相设备 -->
-    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- 允许程序连接到已配对的蓝牙设备(非必选,由应用选择是否需要) -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -50,6 +48,13 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <!-- 允许程序屏幕波或和更多常规的访问帧缓冲数据 -->
     <!-- uses-permission android:name="android.permission.READ_FRAME_BUFFER" -->
+    
+    <!-- 获取机型信息权限 -->
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
+    <!-- 防止设备休眠 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!-- 添加上支持各种屏幕 -->
     <supports-screens
@@ -354,6 +359,13 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
         
+        <!-- 消息-群组-聊天-->
+        <activity
+            android:name="com.ybd.yl.xx.XxQzLtActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        
          <!-- 消息-好友验证-->
         <activity
             android:name="com.ybd.yl.xx.XxYzxxActivity"
@@ -377,6 +389,38 @@
         <!-- 个人主页面 -->
         <activity
             android:name="com.ybd.yl.gr.GrIndexActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        
+        <!-- 个人-常用 -->
+         <activity
+            android:name="com.ybd.yl.gr.GrCyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        
+         <!-- 个人-个人资料-->
+         <activity
+            android:name="com.ybd.yl.gr.GrGrzlActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <!-- 个人-个人资料-修改签名-->
+         <activity
+            android:name="com.ybd.yl.gr.GrGrzlQmActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+         <!-- 个人-个人资料-修改昵称-->
+         <activity
+            android:name="com.ybd.yl.gr.GrGrzlNcActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <!-- 个人-个人资料-修改邮箱-->
+         <activity
+            android:name="com.ybd.yl.gr.GrGrzlYxActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
@@ -407,16 +451,52 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
         </activity>
         
-        <!-- ECSDK核心服务类 -->
-        <service
-            android:name="com.yuntongxun.ecsdk.ECClientService"
-            android:enabled="true"
-            android:exported="false" />
         
-        <!-- 接收容联云的service -->
+        <!-- 接收容云的service -->
         <service android:name="com.ybd.yl.service.ReceiverService">
             
+       </service>
+       <service
+            android:name="io.rong.push.PushService"
+            android:process="io.rong.push" > <!-- Waring: The name of the push process can't be changed!!! -->
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="io.rong.push" />
+            </intent-filter>
         </service>
+        <service
+            android:name="io.rong.push.CommandService"
+            android:process="io.rong.push" > <!-- Waring: The name of the push process can't be changed!!! -->
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="io.rong.command" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="io.rong.imlib.ipc.RongService"
+            android:process=":ipc" >
+        </service>
+        <service android:name="io.rong.imlib.ReConnectService" />
+
+        <receiver android:name="io.rong.imlib.ConnectChangeReceiver" />
+        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver" >
+            <intent-filter>
+                <action android:name="io.rong.push.message" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="io.rong.imlib.HeartbeatReceiver"
+            android:process=":ipc" />
+
+        <service
+            android:name="com.letv.pp.service.CdeService"
+            android:process=":cde" />
+
+        <meta-data
+            android:name="RONG_CLOUD_APP_KEY"
+            android:value="pvxdm17jxq2or" />
     </application>
 
 </manifest>

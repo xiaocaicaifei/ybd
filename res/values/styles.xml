@@ -129,6 +129,28 @@
         <item name="android:paddingLeft">11dip</item>
         <item name="android:paddingRight">11dip</item>
     </style>
+    
+    <!-- 个人-常用-文字 -->
+    <style name="gr_cy_ms" parent="@style/style_base_component2">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    
+    <!-- 个人-个人资料-描述字体 -->
+	<style name="gr_grzl_left_ms" parent="@style/style_base_component2">
+	    <item name="android:textSize">16sp</item>
+	    <item name="android:textColor">#333333</item>
+	    <item name="android:layout_weight">1</item>
+	    <item name="android:gravity">left</item>
+	    <item name="android:layout_gravity">center_vertical</item>
+	    <item name="android:layout_marginLeft">4dip</item>
+	</style>
+	 <!-- 个人-个人资料-内容字体 -->
+	<style name="gr_grzl_left_nr" parent="@style/style_base_component2">
+	    <item name="android:textSize">16sp</item>
+	    <item name="android:textColor">#666666</item>
+	    <item name="android:layout_gravity">center_vertical</item>
+	</style>
 
     <!-- 艺论 -上传-描述字体的样式 -->
     <style name="yl_sc_ms" parent="@style/style_base_component2">
@@ -235,4 +257,6 @@
        <item name="android:layout_marginRight">11dip</item>
        <item name="android:layout_marginTop">5dip</item>
     </style>
+    
+    
 </resources>

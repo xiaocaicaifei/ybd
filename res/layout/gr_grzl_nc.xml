@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/style_base_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/uniform_title2" />
+
+    <LinearLayout
+        style="@style/style_base_component"
+        android:layout_marginLeft="23dip"
+        android:layout_marginRight="23dip"
+        android:layout_marginTop="30dip"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/qm_et"
+            style="@style/uniform_input"
+            android:layout_weight="1"
+            android:maxLength="30"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <View
+        style="@style/uniform_line"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip" />
+
+    <TextView
+        android:id="@+id/num_tv"
+        style="@style/style_base_component2"
+        android:layout_marginLeft="23dip"
+        android:layout_marginRight="23dip"
+        android:layout_marginTop="10dip"
+        android:text="@string/ggcnxhdnc"
+        android:textColor="@color/login_text_gray"
+        android:textSize="14sp" />
+
+</LinearLayout>

@@ -126,8 +126,10 @@ public class LoginLoginActivity extends BaseActivity implements OnClickListener 
                     PaseJson.getMapMsg(data, "nick_name"));
                 PropertiesUtil.write(activity, PropertiesUtil.VOIPACCOUNT,
                     PaseJson.getMapMsg(data, "voipAccount"));
+                PropertiesUtil.write(activity, PropertiesUtil.HEADIMGURL,
+                    PaseJson.getMapMsg(data, "icon_url"));
                 Intent service=new Intent();
-                service.putExtra("loginZh", PaseJson.getMapMsg(data, "voipAccount"));
+                service.putExtra("loginZh", PaseJson.getMapMsg(data, "subAccountSid"));
                 service.setClass(activity, ReceiverService.class);
                 startService(service);
 //                PropertiesUtil.write(activity, PropertiesUtil.HEADIMGURL,

@@ -1,13 +1,16 @@
 package com.ybd.yl.service;
 
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.RongIMClient.OnReceiveMessageListener;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Conversation.ConversationType;
+import io.rong.imlib.model.Message;
+import io.rong.message.TextMessage;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
-
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -15,43 +18,21 @@ import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.IBinder;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.ybd.common.BroadcaseUtil;
-import com.ybd.common.C;
 import com.ybd.common.L;
+import com.ybd.common.MainApplication;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.R;
 import com.ybd.yl.xx.XxIndexActivity;
-import com.ybd.yl.xx.dao.XxLtDao;
-import com.yuntongxun.ecsdk.ECChatManager;
-import com.yuntongxun.ecsdk.ECDevice;
-import com.yuntongxun.ecsdk.ECError;
-import com.yuntongxun.ecsdk.ECInitParams;
-import com.yuntongxun.ecsdk.ECMessage;
-import com.yuntongxun.ecsdk.ECVoIPCallManager;
-import com.yuntongxun.ecsdk.ECVoIPCallManager.CallType;
-import com.yuntongxun.ecsdk.OnChatReceiveListener;
-import com.yuntongxun.ecsdk.OnMeetingListener;
-import com.yuntongxun.ecsdk.SdkErrorCode;
-import com.yuntongxun.ecsdk.VideoRatio;
-import com.yuntongxun.ecsdk.im.ECFileMessageBody;
-import com.yuntongxun.ecsdk.im.ECImageMessageBody;
-import com.yuntongxun.ecsdk.im.ECTextMessageBody;
-import com.yuntongxun.ecsdk.im.ECVoiceMessageBody;
-import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;
-import com.yuntongxun.ecsdk.meeting.intercom.ECInterPhoneMeetingMsg;
-import com.yuntongxun.ecsdk.meeting.video.ECVideoMeetingMsg;
-import com.yuntongxun.ecsdk.meeting.voice.ECVoiceMeetingMsg;
 
 /**
  * 接收和发送容联云发送过来的信息
@@ -60,18 +41,20 @@ import com.yuntongxun.ecsdk.meeting.voice.ECVoiceMeetingMsg;
  * @version $Id: ReceiverService.java, v 0.1 2016-1-14 下午4:31:31 cyf Exp $
  */
 public class ReceiverService extends Service {
-    private static String loginZh = "";
+    private static String      loginZh = "";
     //    private static boolean connectSuccess=false;
 
     //声明通知（消息）管理器   
-    NotificationManager   m_NotificationManager;
-    Intent                m_Intent;
-    PendingIntent         m_PendingIntent;
+    NotificationManager        m_NotificationManager;
+    Intent                     m_Intent;
+    PendingIntent              m_PendingIntent;
     //声明Notification对象   
-    Notification          m_Notification;
+    Notification               m_Notification;
 
-    private SoundPool     sp;                    //声明一个SoundPool
-    private int           music;                 //定义一个整型用load（）；来设置suondID
+    private SoundPool          sp;                   //声明一个SoundPool
+    private int                music;                //定义一个整型用load（）；来设置suondID
+    public static RongIMClient mRongIMClient;
+    public Context             context;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -80,34 +63,10 @@ public class ReceiverService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        context = this;
         loginZh = intent.getExtras().getString("loginZh");
         initNotify();
-        // 判断SDK是否已经初始化，如果已经初始化则可以直接调用登陆接口
-        // 没有初始化则先进行初始化SDK，然后调用登录接口注册SDK
-        if (!ECDevice.isInitialized()) {
-            ECDevice.initial(ReceiverService.this, new ECDevice.InitListener() {
-                @Override
-                public void onInitialized() {
-                    // SDK已经初始化成功
-                    ytxLogin();//登录容联云
-                }
-
-                @Override
-                public void onError(Exception exception) {
-                    // SDK 初始化失败,可能有如下原因造成
-                    // 1、可能SDK已经处于初始化状态
-                    // 2、SDK所声明必要的权限未在清单文件（AndroidManifest.xml）里配置、
-                    //    或者未配置服务属性android:exported="false";
-                    // 3、当前手机设备系统版本低于ECSDK所支持的最低版本（当前ECSDK支持
-                    //    Android Build.VERSION.SDK_INT 以及以上版本）
-                    Toast
-                        .makeText(ReceiverService.this, "初始化容联云通讯失败！请检测网络是否可用！", Toast.LENGTH_LONG)
-                        .show();
-                }
-            });
-        } else {
-
-        }
+        connect(loginZh);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -122,415 +81,117 @@ public class ReceiverService extends Service {
     }
 
     /**
-     * sdk初始化成功之后
-     * 登录的容联云通讯
+     * 建立与融云服务器的连接
+     *
+     * @param token
      */
-    private void ytxLogin() {
-        //        第二步：设置注册参数、设置通知回调监听
-        // 构建注册所需要的参数信息
-        //5.0.3的SDK初始参数的方法：ECInitParams params = new ECInitParams();5.1.*以上版本如下：
-        ECInitParams params = ECInitParams.createParams();
-        //自定义登录方式：
-        //测试阶段Userid可以填写手机
-        params.setUserid(loginZh);
-        L.v(loginZh);
-        //        params.setPwd(mm);
-        params.setAppKey(C.YTX_APPKEY);
-        params.setToken(C.YTX_TOKEN);
-        // 设置登陆验证模式（是否验证密码）NORMAL_AUTH-自定义方式
-        params.setAuthType(ECInitParams.LoginAuthType.NORMAL_AUTH);
-        // 1代表用户名+密码登陆（可以强制上线，踢掉已经在线的设备）
-        // 2代表自动重连注册（如果账号已经在其他设备登录则会提示异地登陆）
-        // 3 LoginMode（强制上线：FORCE_LOGIN  默认登录：AUTO）
-        params.setMode(ECInitParams.LoginMode.FORCE_LOGIN);
-        //        //voip账号+voip密码方式：
-        //        params.setUserid("voip账号");
-        //        params.setPwd("voip密码");
-        //        params.setAppKey("应用ID");
-        //        params.setToken("应用Token");
-        //        // 设置登陆验证模式（是否验证密码）PASSWORD_AUTH-密码登录方式
-        //        params.setAuthType(ECInitParams.LoginAuthType.PASSWORD_AUTH);
-        //        // 1代表用户名+密码登陆（可以强制上线，踢掉已经在线的设备）
-        //        // 2代表自动重连注册（如果账号已经在其他设备登录则会提示异地登陆）
-        //        // 3 LoginMode（强制上线：FORCE_LOGIN  默认登录：AUTO）
-        //        params.setMode(ECInitParams.LoginMode.FORCE_LOGIN);
+    private void connect(String token) {
 
-        // 设置登陆状态回调
-        params.setOnDeviceConnectListener(new ECDevice.OnECDeviceConnectListener() {
-            public void onConnect() {
-                // 兼容4.0，5.0可不必处理
-            }
+        if (getApplicationInfo().packageName.equals(MainApplication
+            .getCurProcessName(getApplicationContext()))) {
 
-            @Override
-            public void onDisconnect(ECError error) {
-                // 兼容4.0，5.0可不必处理
-            }
+            /**
+             * IMKit SDK调用第二步,建立与服务器的连接
+             */
+            mRongIMClient = RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
 
-            @Override
-            public void onConnectState(ECDevice.ECConnectState state, ECError error) {
-                if (state == ECDevice.ECConnectState.CONNECT_FAILED) {
-                    if (error.errorCode == SdkErrorCode.SDK_KICKED_OFF) {
-                        //账号异地登陆
-                    } else {
-                        //连接状态失败
-                        Log.v("dddd", ":3");
-                    }
-                    return;
-                } else if (state == ECDevice.ECConnectState.CONNECT_SUCCESS) {
-                    Toast.makeText(ReceiverService.this, "登录成功", Toast.LENGTH_LONG).show();
-                    //                    sendMsg();
-                    //                    connectSuccess=true;
-                }
-            }
-        });
-
-        // 设置SDK接收消息回调
-        params.setOnChatReceiveListener(new OnChatReceiveListener() {
-            @Override
-            public void OnReceivedMessage(ECMessage msg) {
-                // 收到新消息
-                Log.v("dddd", ":4");
-                getMsg(msg);
-            }
-
-            @Override
-            public void OnReceiveGroupNoticeMessage(ECGroupNoticeMessage notice) {
-                // 收到群组通知消息（有人加入、退出...）
-                // 可以根据ECGroupNoticeMessage.ECGroupMessageType类型区分不同消息类型
-                Log.v("dddd", ":5");
-            }
-
-            @Override
-            public void onOfflineMessageCount(int count) {
-                // 登陆成功之后SDK回调该接口通知账号离线消息数
-                //                Log.v("dddd", ":6");
-            }
-
-            @Override
-            public void onReceiveOfflineMessageCompletion() {
-                // SDK通知应用离线消息拉取完成
-                //                Log.v("dddd", ":7");
-            }
-
-            @Override
-            public void onServicePersonVersion(int version) {
-                // SDK通知应用当前账号的个人信息版本号
-                //                Log.v("dddd", ":8");
-            }
-
-            @Override
-            public int onGetOfflineMessage() {
-                return 0;
-            }
-
-            @Override
-            public void onReceiveDeskMessage(ECMessage arg0) {
-                Log.v("dddd", ":9");
-            }
-
-            @Override
-            public void onReceiveOfflineMessage(List<ECMessage> arg0) {
-                Log.v("dddd", ":10");
-            }
-
-            @Override
-            public void onSoftVersion(String arg0, int arg1) {
-                Log.v("dddd", ":11");
-            }
-        });
-
-        // 获得SDKVoIP呼叫接口
-        // 注册VoIP呼叫事件回调监听
-        ECVoIPCallManager callInterface = ECDevice.getECVoIPCallManager();
-        if (callInterface != null) {
-            callInterface.setOnVoIPCallListener(new ECVoIPCallManager.OnVoIPListener() {
+                /**
+                 * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+                 */
                 @Override
-                public void onCallEvents(ECVoIPCallManager.VoIPCall voipCall) {
-                    // 处理呼叫事件回调
-                    if (voipCall == null) {
-                        Log.e("SDKCoreHelper", "handle call event error , voipCall null");
-                        return;
-                    }
-                    // 根据不同的事件通知类型来处理不同的业务
-                    ECVoIPCallManager.ECCallState callState = voipCall.callState;
-                    switch (callState) {
-                        case ECCALL_PROCEEDING:
-                            // 正在连接服务器处理呼叫请求
-                            break;
-                        case ECCALL_ALERTING:
-                            // 呼叫到达对方客户端，对方正在振铃
-                            break;
-                        case ECCALL_ANSWERED:
-                            // 对方接听本次呼叫
-                            break;
-                        case ECCALL_FAILED:
-                            // 本次呼叫失败，根据失败原因播放提示音
-                            break;
-                        case ECCALL_RELEASED:
-                            // 通话释放[完成一次呼叫]
-                            break;
-                        default:
-                            Log.e("SDKCoreHelper", "handle call event error , callState "
-                                                   + callState);
-                            break;
-                    }
+                public void onTokenIncorrect() {
+
+                    Log.d("LoginActivity", "--onTokenIncorrect");
                 }
 
+                /**
+                 * 连接融云成功
+                 * @param userid 当前 token
+                 */
                 @Override
-                public void onSwitchCallMediaTypeRequest(String arg0, CallType arg1) {
+                public void onSuccess(String userid) {
+                    Toast.makeText(ReceiverService.this, "连接成功" + userid, Toast.LENGTH_LONG).show();
+                    receiverMsg();
                 }
 
+                /**
+                 * 连接融云失败
+                 * @param errorCode 错误码，可到官网 查看错误码对应的注释
+                 *                  http://www.rongcloud.cn/docs/android.html#常见错误码
+                 */
                 @Override
-                public void onSwitchCallMediaTypeResponse(String arg0, CallType arg1) {
-                }
+                public void onError(RongIMClient.ErrorCode errorCode) {
 
-                @Override
-                public void onVideoRatioChanged(VideoRatio arg0) {
-                }
-
-                @Override
-                public void onDtmfReceived(String arg0, char arg1) {
+                    //                    Log.d("LoginActivity", "--onError" + errorCode);
+                    Log.v("dddd", "连接失败" + errorCode);
                 }
             });
-        }
-
-        // 注册会议消息处理监听 
-        if (ECDevice.getECMeetingManager() != null) {
-            ECDevice.getECMeetingManager().setOnMeetingListener(new OnMeetingListener() {
-                @Override
-                public void onReceiveInterPhoneMeetingMsg(ECInterPhoneMeetingMsg msg) {
-                    // 处理实时对讲消息Push
-                }
-
-                @Override
-                public void onReceiveVoiceMeetingMsg(ECVoiceMeetingMsg msg) {
-                    // 处理语音会议消息push
-                }
-
-                @Override
-                public void onReceiveVideoMeetingMsg(ECVideoMeetingMsg msg) {
-                    // 处理视频会议消息Push（暂未提供）
-                }
-
-                @Override
-                public void onVideoRatioChanged(VideoRatio arg0) {
-                }
-            });
-        }
-
-        //第三步：验证参数是否正确，注册SDK
-        if (params.validate()) {
-            // 判断注册参数是否正确
-            ECDevice.login(params);
         }
     }
 
-    /**
-     * 发送消息
-     */
-    public static void sendMsg(String jszZh, String nr, String path, final Activity activity) {
-        //        if(connectSuccess){
-        //           L.v("用户没有登录，不能直接发送信息了");
-        //           return;
-        //        }
-        try {
-            // 或者创建一个图片消息体 并且设置附件包体（其实图片也是相当于附件）
-            // 比如我们发送SD卡里面的一张Tony_2015.jpg图片
-            ECMessage msg;
-            final ProgressDialog dialog = new ProgressDialog(activity);
-            if (path.equals("")) {
-                // 组建一个待发送的ECMessage
-                msg = ECMessage.createECMessage(ECMessage.Type.TXT);
-                //设置消息的属性：发出者，接受者，发送时间等
-                msg.setForm(loginZh);
-                msg.setMsgTime(System.currentTimeMillis());
-                L.v("发送者：" + loginZh + " 接受者：" + jszZh);
-                // 设置消息接收者
-                msg.setTo(jszZh);
-                msg.setSessionId(jszZh);
-                // 设置消息发送类型（发送或者接收）
-                msg.setDirection(ECMessage.Direction.SEND);
-                // 创建一个文本消息体，并添加到消息对象中
-                ECTextMessageBody msgBody = new ECTextMessageBody(nr);
-                msg.setBody(msgBody);
-            } else {
-                // 组建一个待发送的ECMessage
-                msg = ECMessage.createECMessage(ECMessage.Type.IMAGE);
-                //设置消息的属性：发出者，接受者，发送时间等
-                msg.setForm(loginZh);
-                msg.setMsgTime(System.currentTimeMillis());
-                L.v("发送者：" + loginZh + " 接受者：" + jszZh);
-                // 设置消息接收者
-                msg.setTo(jszZh);
-                msg.setSessionId(jszZh);
-                // 设置消息发送类型（发送或者接收）
-                msg.setDirection(ECMessage.Direction.SEND);
-                ECImageMessageBody imgBody = new ECImageMessageBody();
-                // 设置附件名
-                imgBody.setFileName(path);
-                String ext = path.substring(path.lastIndexOf(".") + 1, path.length());
-                // 设置附件扩展名
-                imgBody.setFileExt(ext);
-                // 设置附件本地路径
-                imgBody.setLocalUrl(path);
-                msg.setBody(imgBody);
-                msg.setUserData(nr);
-                //                msg.setUserData(arg0);
+    @SuppressWarnings("static-access")
+    public void receiverMsg() {
+        mRongIMClient.setOnReceiveMessageListener(new OnReceiveMessageListener() {
 
-                //设置进度条风格，风格为圆形，旋转的 
-                dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                //设置ProgressDialog 标题 
-                dialog.setTitle("图片上传进度框");
-                //设置ProgressDialog 提示信息 
-                dialog.setMessage("上传进度");
-                //设置ProgressDialog 标题图标 
-                dialog.setIcon(android.R.drawable.ic_dialog_info);
-                //设置ProgressDialog的最大进度 
-                dialog.setMax(100);
-                //设置ProgressDialog 是否可以按退回按键取消 
-                dialog.setCancelable(true);
-            }
+            @Override
+            public boolean onReceived(Message arg0, int arg1) {
+                if (arg0.getConversationType() == ConversationType.GROUP) {//如果接受到的是群组的信息
 
-            // 或者创建一个创建附件消息体
-            // 比如我们发送SD卡里面的一个Tony_2015.zip文件
-            //            ECFileMessageBody msgBody  = new ECFileMessageBody();
-            //            // 设置附件名
-            //            msgBody.setFileName("Tony_2015.zip");
-            //            // 设置附件扩展名
-            //            msgBody.setFileExt(zip);
-            //            // 设置附件本地路径
-            //            msgBody.setLocalUrl("../Tony_2015.zip");
-            //            // 设置附件长度
-            //            msgBody.setLength("$Tony_2015.zip文件大小");
-
-            // 将消息体存放到ECMessage中
-            // 调用SDK发送接口发送消息到服务器
-            ECChatManager manager = ECDevice.getECChatManager();
-            manager.sendMessage(msg, new ECChatManager.OnSendMessageListener() {
-                @Override
-                public void onSendMessageComplete(ECError error, ECMessage message) {
-                    // 处理消息发送结果
-                    if (message == null) {
-                        return;
-                    }
-                    // 将发送的消息更新到本地数据库并刷新UI
-                }
-
-                @Override
-                public void onProgress(String msgId, int totalByte, int progressByte) {
-                    // 处理文件发送上传进度（尽上传文件、图片时候SDK回调该方法）
-                    L.v(progressByte + ":" + totalByte + ":" + msgId);
-
-                    if (totalByte == progressByte) {
-                        dialog.dismiss();
+                } else if (arg0.getConversationType() == ConversationType.PRIVATE) {//如果接收到是信息时私聊的信息
+                    if (isBackgroundRunning()) {
+                        //状态栏显示信息
+                        showNotification("您有新的艺论消息");
                     } else {
-                        dialog.show();
+                        //提示音
+                        sp.play(music, 1, 1, 0, 0, 1);
                     }
-                    //显示 
-                    dialog.setProgress(progressByte/totalByte*100);
-                    //设置ProgressDialog的当前进度 
+                    if (arg0.getContent() instanceof TextMessage) {//如果接受到的是文字消息
+                        TextMessage textMessage = (TextMessage) arg0.getContent();
+                        L.v(textMessage.getExtra());
+                        @SuppressWarnings("unchecked")
+                        Map<String, Object> map = (Map<String, Object>) PaseJson
+                            .paseJsonToObject(textMessage.getExtra());
+                        //                    if(PaseJson.getMapMsg(map, "type").equals("1")){//说明是聊天消息
+                        map.put("sender_type", "0");
+                        map.put("send_content", textMessage.getContent());
+                        BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT, context,
+                            (Serializable) map);
+                        //                    }
+                    }
+                    return false;
                 }
-
-            });
-        } catch (Exception e) {
-            // 处理发送异常
-            Log.e("ECSDK_Demo", "send message fail , e=" + e.getMessage());
-            Log.v("dddd", "发送异常");
-            e.printStackTrace();
-        }
+                return false;
+            }
+        });
     }
 
     /**
-     * 接收消息
-     * 
-     * @param msg
+     * 判断应用是否在后台运行
+     * @return
      */
-    public void getMsg(ECMessage msg) {
-        if (msg == null) {
-            return;
-        }
-        if (isBackgroundRunning()) {
-            //状态栏显示信息
-            showNotification("您有新的艺论消息");
-            //          MyApplication.getInstance().exit();
-        } else {
-            //提示音
-            sp.play(music, 1, 1, 0, 0, 1);
-        }
-        // 接收到的IM消息，根据IM消息类型做不同的处理(IM消息类型：ECMessage.Type)
-        ECMessage.Type type = msg.getType();
-        if (type == ECMessage.Type.TXT) {
-            // 在这里处理文本消息
-            ECTextMessageBody textMessageBody = (ECTextMessageBody) msg.getBody();
+    private boolean isBackgroundRunning() {
+        String processName = "com.ybd.yl";
 
-            @SuppressWarnings("unchecked")
-            Map<String, Object> map = (Map<String, Object>) PaseJson
-                .paseJsonToObject(textMessageBody.getMessage());
-            String XxType = PaseJson.getMapMsg(map, "type");
-            if (XxType.equals("1")) {//代表是聊天消息
-                BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT, this.getApplicationContext(),
-                    textMessageBody.getMessage());
-                XxLtDao ltDao = new XxLtDao(ReceiverService.this);
-                ltDao.add(map);//保存信息到数据库中
-            }
-            L.v(textMessageBody.getMessage() + ":::" + msg.getForm() + ":" + msg.getMsgStatus());
-            Toast.makeText(ReceiverService.this,
-                textMessageBody.getMessage() + ":::" + msg.getForm() + ":" + msg.getMsgStatus(),
-                Toast.LENGTH_LONG).show();
-        } else {
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
 
-            String thumbnailFileUrl = null;
-            String remoteUrl = null;
-            L.v("接收到图片类型的信息");
-            if (type == ECMessage.Type.FILE) {
-                // 在这里处理附件消息
-                ECFileMessageBody fileMsgBody = (ECFileMessageBody) msg.getBody();
-                // 获得下载地址
-                remoteUrl = fileMsgBody.getRemoteUrl();
-            } else if (type == ECMessage.Type.IMAGE) {
-                // 在这里处理图片消息
-                ECImageMessageBody imageMsgBody = (ECImageMessageBody) msg.getBody();
-                // 获得缩略图地址
-                thumbnailFileUrl = imageMsgBody.getThumbnailFileUrl();
-                // 获得原图地址
-                remoteUrl = imageMsgBody.getRemoteUrl();
-                JSONObject object;
-                try {
-                    object = new JSONObject(msg.getUserData());
-                    L.v(msg.getUserData());
-                    object.put("send_content", thumbnailFileUrl);
-                    BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT, this.getApplicationContext(),
-                        object.toString());
-                    @SuppressWarnings("unchecked")
-                    Map<String, Object> map = (Map<String, Object>) PaseJson
-                        .paseJsonToObject(object.toString());
-                    XxLtDao ltDao = new XxLtDao(ReceiverService.this);
-                    ltDao.add(map);//保存信息到数据库中
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            } else if (type == ECMessage.Type.VOICE) {
-                // 在这里处理语音消息
-                ECVoiceMessageBody voiceMsgBody = (ECVoiceMessageBody) msg.getBody();
-                // 获得下载地址
-                remoteUrl = voiceMsgBody.getRemoteUrl();
-            } else {
-                Log.e("ECSDK_Demo", "Can't handle msgType=" + type.name() + " , then ignore.");
-                // 后续还会支持（地址位置、视频以及自定义等消息类型）
-            }
-
-            if (TextUtils.isEmpty(remoteUrl)) {
-                return;
-            }
-            if (!TextUtils.isEmpty(thumbnailFileUrl)) {
-                // 先下载缩略图
-            } else {
-                // 下载附件
+        if (activityManager == null)
+            return false;
+        // get running application processes
+        List<ActivityManager.RunningAppProcessInfo> processList = activityManager
+            .getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo process : processList) {
+            if (process.processName.startsWith(processName)) {
+                boolean isBackground = process.importance != IMPORTANCE_FOREGROUND
+                                       && process.importance != IMPORTANCE_VISIBLE;
+                boolean isLockedState = keyguardManager.inKeyguardRestrictedInputMode();
+                if (isBackground || isLockedState)
+                    return true;
+                else
+                    return false;
             }
         }
-        // 根据不同类型处理完消息之后，将消息序列化到本地存储（sqlite）
-        // 通知UI有新消息到达
+        return false;
     }
 
     //显示状态栏的通知
@@ -562,31 +223,64 @@ public class ReceiverService extends Service {
     }
 
     /**
-     * 判断应用是否在后台运行
-     * @return
+     * 发送消息，默认发送的是私聊的消息
+     * @param activity
+     * @param contentMsg
+     * @param extraMsg
+     * @param userid
      */
-    private boolean isBackgroundRunning() {
-        String processName = "com.ybd.yl";
+    public static void sendMessage(Activity activity, String contentMsg, String extraMsg,
+                                   String userid) {
+        if (mRongIMClient != null) {
+            TextMessage textMessage = TextMessage.obtain(contentMsg);
+            textMessage.setExtra(extraMsg);
+            //            textMessage.setExtra("文字消息Extra");
+            mRongIMClient.sendMessage(Conversation.ConversationType.PRIVATE, userid, textMessage,
+                null, null, new RongIMClient.SendMessageCallback() {
+                    @Override
+                    public void onError(Integer integer, RongIMClient.ErrorCode errorCode) {
+                        Log.d("sendMessage",
+                            "----发发发发发--发送消息失败----ErrorCode----" + errorCode.getValue());
+                    }
 
-        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-
-        if (activityManager == null)
-            return false;
-        // get running application processes
-        List<ActivityManager.RunningAppProcessInfo> processList = activityManager
-            .getRunningAppProcesses();
-        for (ActivityManager.RunningAppProcessInfo process : processList) {
-            if (process.processName.startsWith(processName)) {
-                boolean isBackground = process.importance != IMPORTANCE_FOREGROUND
-                                       && process.importance != IMPORTANCE_VISIBLE;
-                boolean isLockedState = keyguardManager.inKeyguardRestrictedInputMode();
-                if (isBackground || isLockedState)
-                    return true;
-                else
-                    return false;
-            }
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        L.v("发送成功");
+                    }
+                });
+        } else {
+            Toast.makeText(activity, "请先连接。。。", Toast.LENGTH_LONG).show();
         }
-        return false;
+    }
+
+    /**
+     * 发送消息，消息类型用户自定义
+     * @param activity
+     * @param contentMsg
+     * @param extraMsg
+     * @param userid
+     */
+    public static void sendMessage(Activity activity, String contentMsg, String extraMsg,
+                                   String userid, ConversationType conversationType) {
+        if (mRongIMClient != null) {
+            TextMessage textMessage = TextMessage.obtain(contentMsg);
+            textMessage.setExtra(extraMsg);
+            //            textMessage.setExtra("文字消息Extra");
+            mRongIMClient.sendMessage(conversationType, userid, textMessage, null, null,
+                new RongIMClient.SendMessageCallback() {
+                    @Override
+                    public void onError(Integer integer, RongIMClient.ErrorCode errorCode) {
+                        Log.d("sendMessage",
+                            "----发发发发发--发送消息失败----ErrorCode----" + errorCode.getValue());
+                    }
+
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        L.v("发送成功");
+                    }
+                });
+        } else {
+            Toast.makeText(activity, "请先连接。。。", Toast.LENGTH_LONG).show();
+        }
     }
 }

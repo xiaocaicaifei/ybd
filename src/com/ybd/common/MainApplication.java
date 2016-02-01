@@ -4,6 +4,9 @@
  */
 package com.ybd.common;
 
+import io.rong.imlib.RongIMClient;
+import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,6 +19,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.ybd.yl.DemoContext;
 import com.ybd.yl.R;
 
 /**
@@ -57,6 +61,46 @@ public class MainApplication extends Application {
         roundOffOptions=b.displayer(new RoundedBitmapDisplayer(8)).build();
 
         //        initEngineManager(this);
+        
+        //容云初始化
+        if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
+                "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
+
+            /**
+             * IMKit SDK调用第一步 初始化
+             */
+            RongIMClient.init(this);
+
+            if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
+
+                DemoContext.init(this);
+            }
+        }
+    }
+	
+	/**
+     * 获得当前进程的名字（荣云使用）
+     *
+     * @param context
+     * @return
+     */
+    @SuppressLint("NewApi")
+    public static String getCurProcessName(Context context) {
+
+        int pid = android.os.Process.myPid();
+
+        ActivityManager activityManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+
+        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager
+                .getRunningAppProcesses()) {
+
+            if (appProcess.pid == pid) {
+
+                return appProcess.processName;
+            }
+        }
+        return null;
     }
     public static DisplayImageOptions getOptions() {
         return defaultOptions;

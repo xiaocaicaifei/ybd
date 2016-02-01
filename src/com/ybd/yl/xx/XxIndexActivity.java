@@ -4,6 +4,9 @@
  */
 package com.ybd.yl.xx;
 
+import io.rong.imlib.model.Conversation;
+import io.rong.message.TextMessage;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,12 +24,13 @@ import android.widget.BaseAdapter;
 
 import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.L;
+import com.ybd.common.PropertiesUtil;
 import com.ybd.common.delListView.ListViewCompat;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
+import com.ybd.yl.service.ReceiverService;
 import com.ybd.yl.xx.XxIndexSlideView.OnSlideListener;
-import com.ybd.yl.xx.dao.XxLtDao;
 
 /**
  * 消息-主页
@@ -40,13 +44,13 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     ListViewCompat          listView;
     private XxIndexSlideView mLastSlideViewWithStatusOn;
-    XxLtDao xxLtDao;//聊天的数据库操作类
+//    XxTxlLtDao xxLtDao;//聊天的数据库操作类
 
     @Override
     protected void initComponentBase() {
         setContentView(R.layout.xx_index);
         initPublicView("消息列表", R.drawable.xx_title_left, 0, XxIndexActivity.this, null);
-        xxLtDao=new XxLtDao(activity);
+//        xxLtDao=new XxTxlLtDao(activity);
         init();
         initBroadcast();
         findDbMsg();
@@ -74,9 +78,9 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
                     intent.putExtra("xxObject", (Serializable)m);
                     intent.setClass(activity, XxTxlLtActivity.class);
                     startActivity(intent);
-                    xxLtDao.updateTalkUser(0, PaseJson.getMapMsg(map,"sender_id"));//修改数据库未读消息数量
+//                    xxLtDao.updateTalkUser(0, PaseJson.getMapMsg(map,"sender_id"));//修改数据库未读消息数量
 //                    findDbMsg();
-                    ((Map<String, Object>)list.get(position)).put("unread_num", "0");
+//                    ((Map<String, Object>)list.get(position)).put("unread_num", "0");
                     xxAdapter.notifyDataSetChanged();
                 }else if(PaseJson.getMapMsg(map,"type").equals("4")){//艺论群组
                     Intent intent=new Intent();
@@ -92,7 +96,33 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
      */
     private void findDbMsg(){
         list.clear();
-        list.addAll(xxLtDao.findAllLt());
+//        list.addAll(xxLtDao.findAllLt());
+        int size=ReceiverService.mRongIMClient.getConversationList().size();
+        L.v(size+":::::::::");
+        for(int i=0;i<size;i++){
+            Conversation c=ReceiverService.mRongIMClient.getConversationList().get(i);
+            TextMessage message=(TextMessage) c.getLatestMessage();
+            if(message==null||message.getExtra()==null ||message.getExtra().equals("")){
+                return;
+            }
+            @SuppressWarnings("unchecked")
+            Map<String, Object> m=(Map<String, Object>) PaseJson.paseJsonToObject(message.getExtra());
+            Map<String, Object> map=new HashMap<String, Object>();
+            if(PaseJson.getMapMsg(m, "senderUserId").equals(PropertiesUtil.read(activity, PropertiesUtil.USERID))){//如果最后一条消息是本人发送的
+                map.put("sender_icon_url",PaseJson.getMapMsg(m, "receiverNickPicUrl"));
+                map.put("sender_name", PaseJson.getMapMsg(m, "receiverNickName"));
+                map.put("sender_id", PaseJson.getMapMsg(m, "receiverUserId"));
+            }else{
+                map.put("sender_icon_url",PaseJson.getMapMsg(m, "senderNickPicUrl"));
+                map.put("sender_name", PaseJson.getMapMsg(m, "senderNickName"));
+                map.put("sender_id", PaseJson.getMapMsg(m, "senderUserId"));
+            }
+            map.put("send_content",message.getContent() );
+            map.put("send_time", PaseJson.getMapMsg(m, "latestTime"));
+            map.put("unread_num", c.getUnreadMessageCount());
+            list.add(map);
+        }
+        
         //添加艺论一下，在列表的最上面
         Map<String, Object> map=new HashMap<String, Object>();
         map.put("sender_icon_url", "assets://xx_index_qz.png");
@@ -123,12 +153,12 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
         }, BroadcaseUtil.XX_LT);
         
         //接收到当前聊天窗口已经接收到信息的广播
-        BroadcaseUtil.registBroadcase(activity, new BroadcastReceiver() {
-          @Override
-          public void onReceive(Context context, Intent intent) {
-              findDbMsg();//重新查询数据库更新（这样可能会出现刷新不动的情况，如果出现后面再做调整）
-          }
-      }, BroadcaseUtil.XX_LT_RECEIVED);
+//        BroadcaseUtil.registBroadcase(activity, new BroadcastReceiver() {
+//          @Override
+//          public void onReceive(Context context, Intent intent) {
+//              findDbMsg();//重新查询数据库更新（这样可能会出现刷新不动的情况，如果出现后面再做调整）
+//          }
+//      }, BroadcaseUtil.XX_LT_RECEIVED);
     }
 
     //    INetWork init=new INetWork() {
@@ -178,8 +208,8 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
         }
     }
     
-    public void delXxList(String userid){
-        xxLtDao.delete(userid);
-    }
+//    public void delXxList(String userid){
+//        xxLtDao.delete(userid);
+//    }
 
 }
