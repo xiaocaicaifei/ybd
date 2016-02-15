@@ -57,7 +57,6 @@
 	            style="@style/style_base_component2"
 	            android:focusable="false"
 	            android:enabled="false"
-	            android:text="35"
 	            android:textSize="12sp"
 	            android:textColor="@color/white"
 	            android:background="@drawable/xx_ts_yuandian"

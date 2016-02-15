@@ -60,13 +60,18 @@ public class XxQzAdapter extends BaseAdapter {
             viewHoler.nameTextView = (TextView) convertView.findViewById(R.id.name_tv);
             viewHoler.ztTextView = (TextView) convertView.findViewById(R.id.zt_tv);
             viewHoler.ldImageView=(ImageView) convertView.findViewById(R.id.ld_iv);
+            viewHoler.slButton=(Button) convertView.findViewById(R.id.sl_b);
             convertView.setTag(viewHoler);
         } else {
             viewHoler = (ViewHoler) convertView.getTag();
         }
         imageLoader.displayImage(C.IP+PaseJson.getMapMsg(map, "logo_url"), viewHoler.txImageView,MainApplication.getRoundOffOptions());
         viewHoler.nameTextView.setText(PaseJson.getMapMsg(map, "groupname"));
-       
+        if(PaseJson.getMapMsg(map, "unread_num").equals("0")){
+            viewHoler.slButton.setVisibility(View.GONE);
+        }else{
+            viewHoler.slButton.setText(PaseJson.getMapMsg(map, "unread_num"));
+        }
         if(PaseJson.getMapMsg(map, "state").equals("1")){
             viewHoler.ztTextView.setText("未开放");
         }else if(PaseJson.getMapMsg(map, "state").equals("2")){

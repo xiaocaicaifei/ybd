@@ -31,7 +31,9 @@ public class PropertiesUtil {
     public static final String ACCOUNT="account";
     /** 密码*/
     public static final String PASSWORD="password";
-    /** 登录用户的void 用户容联云聊天*/
+    /** 是否是大V*/
+    public static String ISDV="isdv";
+//    /** 登录用户的void 用户容联云聊天*/
     public static final String VOIPACCOUNT="voipaccount";
     /**直接上拍上拍*/
     public static final String SCSP="scsp";

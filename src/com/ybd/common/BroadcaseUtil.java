@@ -29,6 +29,8 @@ public class BroadcaseUtil {
     public static final String PM_JYK_SUCCESS="pm_jyk_success";
     /**接收聊天消息的广播*/
     public static final String XX_LT="xx_lt";
+    /**接收群组消息的广播*/
+    public static final String XX_LT_QZ="xx_lt_qz";
     /**当前聊天窗口，已经接收信息的广播，之后广播到消息列表界面，修改未读信息为0*/
     public static final String XX_LT_RECEIVED="xx_lt_received";
     /**

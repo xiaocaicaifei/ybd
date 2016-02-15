@@ -1,13 +1,22 @@
 package com.ybd.yl.service;
 
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.RongIMClient.ErrorCode;
 import io.rong.imlib.RongIMClient.OnReceiveMessageListener;
+import io.rong.imlib.RongIMClient.SendImageMessageCallback;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Conversation.ConversationType;
 import io.rong.imlib.model.Message;
+import io.rong.message.ImageMessage;
 import io.rong.message.TextMessage;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
 import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +30,13 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -136,7 +150,17 @@ public class ReceiverService extends Service {
             @Override
             public boolean onReceived(Message arg0, int arg1) {
                 if (arg0.getConversationType() == ConversationType.GROUP) {//如果接受到的是群组的信息
-
+                    if (arg0.getContent() instanceof TextMessage) {//如果接受到的是文字消息
+                        TextMessage textMessage = (TextMessage) arg0.getContent();
+                        L.v(textMessage.getExtra());
+                        @SuppressWarnings("unchecked")
+                        Map<String, Object> map = (Map<String, Object>) PaseJson
+                            .paseJsonToObject(textMessage.getExtra());
+                        map.put("sender_type", "0");
+                        map.put("send_content", textMessage.getContent());
+                        BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT_QZ, context,
+                            (Serializable) map);
+                    }
                 } else if (arg0.getConversationType() == ConversationType.PRIVATE) {//如果接收到是信息时私聊的信息
                     if (isBackgroundRunning()) {
                         //状态栏显示信息
@@ -147,16 +171,22 @@ public class ReceiverService extends Service {
                     }
                     if (arg0.getContent() instanceof TextMessage) {//如果接受到的是文字消息
                         TextMessage textMessage = (TextMessage) arg0.getContent();
-                        L.v(textMessage.getExtra());
                         @SuppressWarnings("unchecked")
                         Map<String, Object> map = (Map<String, Object>) PaseJson
                             .paseJsonToObject(textMessage.getExtra());
-                        //                    if(PaseJson.getMapMsg(map, "type").equals("1")){//说明是聊天消息
                         map.put("sender_type", "0");
                         map.put("send_content", textMessage.getContent());
                         BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT, context,
                             (Serializable) map);
-                        //                    }
+                    }else if (arg0.getContent() instanceof ImageMessage){
+                        ImageMessage imageMessage=(ImageMessage) arg0.getContent();
+                        @SuppressWarnings("unchecked")
+                        Map<String, Object> map = (Map<String, Object>) PaseJson
+                            .paseJsonToObject(imageMessage.getExtra());
+                        map.put("sender_type", "2");
+                        map.put("send_content", imageMessage.getThumUri().toString());
+                        BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT, context,
+                            (Serializable) map);
                     }
                     return false;
                 }
@@ -282,5 +312,78 @@ public class ReceiverService extends Service {
         } else {
             Toast.makeText(activity, "请先连接。。。", Toast.LENGTH_LONG).show();
         }
+    }
+    /**
+     * 发送消息，消息类型用户自定义
+     * @param activity
+     * @param contentMsg
+     * @param extraMsg
+     * @param userid
+     */
+    public static void sendImageMessage(Activity activity, String path, String extraMsg,
+                                   String userid, ConversationType conversationType) {
+        if (mRongIMClient != null) {
+            ImageMessage imageMessage=generateImageMessage(activity, path);
+//            Uri uri=Uri.parse(path);
+//            imageMessage.setLocalUri(uri);
+            imageMessage.setExtra(extraMsg);
+            mRongIMClient.sendImageMessage(conversationType,userid,imageMessage, "", "", new SendImageMessageCallback() {
+                @Override
+                public void onSuccess(Message arg0) {
+                }
+                @Override
+                public void onProgress(Message arg0, int arg1) {
+                    L.v(arg1+"：receiver");
+                }
+                @Override
+                public void onError(Message arg0, ErrorCode arg1) {
+                }
+                @Override
+                public void onAttached(Message arg0) {
+                }
+            });
+        } else {
+            Toast.makeText(activity, "请先连接。。。", Toast.LENGTH_LONG).show();
+        }
+    }
+    
+    private static ImageMessage generateImageMessage(Activity activity,String path){
+        File imageFileSource = new File(activity.getCacheDir(), "source.jpg");
+        File imageFileThumb = new File(activity.getCacheDir(), "thumb.jpg");
+
+        try {
+            // 读取图片。
+            FileInputStream fis=new FileInputStream(path);
+//            InputStream is = new 
+
+            Bitmap bmpSource = BitmapFactory.decodeStream(fis);
+
+            imageFileSource.createNewFile();
+
+            FileOutputStream fosSource = new FileOutputStream(imageFileSource);
+
+            // 保存原图。
+            bmpSource.compress(Bitmap.CompressFormat.JPEG, 100, fosSource);
+
+            // 创建缩略图变换矩阵。
+            Matrix m = new Matrix();
+            m.setRectToRect(new RectF(0, 0, bmpSource.getWidth(), bmpSource.getHeight()), new RectF(0, 0, 240, 240), Matrix.ScaleToFit.CENTER);
+
+            // 生成缩略图。
+            Bitmap bmpThumb = Bitmap.createBitmap(bmpSource, 0, 0, bmpSource.getWidth(), bmpSource.getHeight(), m, true);
+
+            imageFileThumb.createNewFile();
+
+            FileOutputStream fosThumb = new FileOutputStream(imageFileThumb);
+
+            // 保存缩略图。
+            bmpThumb.compress(Bitmap.CompressFormat.JPEG, 100, fosThumb);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ImageMessage imgMsg = ImageMessage.obtain(Uri.fromFile(imageFileThumb), Uri.fromFile(imageFileSource));
+        return imgMsg;
     }
 }

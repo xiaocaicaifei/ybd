@@ -5,6 +5,8 @@
 package com.ybd.yl.xx;
 
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.MessageContent;
+import io.rong.message.ImageMessage;
 import io.rong.message.TextMessage;
 
 import java.io.Serializable;
@@ -68,7 +70,7 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Map<String, Object> map=list.get(position);//一直存在报序列化问题,所以下面又新建了一个Map
-                if(PaseJson.getMapMsg(map,"type").equals("1")){//如果是1说明是对话类型
+//                if(PaseJson.getMapMsg(map,"type").equals("1")){//如果是1说明是对话类型
                     Intent intent=new Intent();
                     Map<String, Object> m=new HashMap<String, Object>();
                     m.put("nick_name", PaseJson.getMapMsg(map,"sender_name"));
@@ -82,11 +84,11 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
 //                    findDbMsg();
 //                    ((Map<String, Object>)list.get(position)).put("unread_num", "0");
                     xxAdapter.notifyDataSetChanged();
-                }else if(PaseJson.getMapMsg(map,"type").equals("4")){//艺论群组
-                    Intent intent=new Intent();
-                    intent.setClass(activity, XxQzActivity.class);
-                    startActivity(intent);
-                }
+//                }else if(PaseJson.getMapMsg(map,"type").equals("4")){//艺论群组
+//                    Intent intent=new Intent();
+//                    intent.setClass(activity, XxQzActivity.class);
+//                    startActivity(intent);
+//                }
             }
         });
     }
@@ -94,19 +96,35 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
     /**
      * 查询本地数据库中的聊天记录信息
      */
+    @SuppressWarnings("unchecked")
     private void findDbMsg(){
         list.clear();
-//        list.addAll(xxLtDao.findAllLt());
+        if(ReceiverService.mRongIMClient==null||ReceiverService.mRongIMClient.getConversationList()==null){
+            return;
+        }
         int size=ReceiverService.mRongIMClient.getConversationList().size();
-        L.v(size+":::::::::");
         for(int i=0;i<size;i++){
             Conversation c=ReceiverService.mRongIMClient.getConversationList().get(i);
-            TextMessage message=(TextMessage) c.getLatestMessage();
-            if(message==null||message.getExtra()==null ||message.getExtra().equals("")){
-                return;
+            MessageContent messageContent=c.getLatestMessage();
+            Map<String, Object> m = null;
+            String content="";
+            if(messageContent instanceof ImageMessage){
+                ImageMessage message=(ImageMessage) c.getLatestMessage();
+                if(message==null||message.getExtra()==null ||message.getExtra().equals("")){
+                    continue;
+                }
+                content="[图片]";
+                m=(Map<String, Object>) PaseJson.paseJsonToObject(message.getExtra());
+            }else if(messageContent instanceof TextMessage){
+                TextMessage message=(TextMessage) c.getLatestMessage();
+                if(message==null||message.getExtra()==null ||message.getExtra().equals("")){
+                    continue;
+                }
+                content=message.getContent();
+                m=(Map<String, Object>) PaseJson.paseJsonToObject(message.getExtra());
             }
-            @SuppressWarnings("unchecked")
-            Map<String, Object> m=(Map<String, Object>) PaseJson.paseJsonToObject(message.getExtra());
+            
+           
             Map<String, Object> map=new HashMap<String, Object>();
             if(PaseJson.getMapMsg(m, "senderUserId").equals(PropertiesUtil.read(activity, PropertiesUtil.USERID))){//如果最后一条消息是本人发送的
                 map.put("sender_icon_url",PaseJson.getMapMsg(m, "receiverNickPicUrl"));
@@ -117,7 +135,7 @@ public class XxIndexActivity extends BaseActivity implements OnClickListener,OnS
                 map.put("sender_name", PaseJson.getMapMsg(m, "senderNickName"));
                 map.put("sender_id", PaseJson.getMapMsg(m, "senderUserId"));
             }
-            map.put("send_content",message.getContent() );
+            map.put("send_content",content);
             map.put("send_time", PaseJson.getMapMsg(m, "latestTime"));
             map.put("unread_num", c.getUnreadMessageCount());
             list.add(map);

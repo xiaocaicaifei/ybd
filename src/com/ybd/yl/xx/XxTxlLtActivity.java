@@ -9,6 +9,7 @@ import io.rong.imlib.RongIMClient.ResultCallback;
 import io.rong.imlib.model.Conversation.ConversationType;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.Message.MessageDirection;
+import io.rong.message.ImageMessage;
 import io.rong.message.TextMessage;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -34,7 +36,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.tencent.mm.sdk.platformtools.LVBuffer;
 import com.ybd.common.BroadcaseUtil;
 import com.ybd.common.L;
 import com.ybd.common.PropertiesUtil;
@@ -150,23 +151,46 @@ public class XxTxlLtActivity extends BaseActivity implements OnClickListener {
      * 查询该用户的聊天记录
      */
     private void findAllMsg() {
+        if(ReceiverService.mRongIMClient==null){
+            return;
+        }
         ReceiverService.mRongIMClient.getLatestMessages(ConversationType.PRIVATE,
             PaseJson.getMapMsg(map, "buser_id"), 100, new ResultCallback<List<Message>>() {
-
                 @Override
                 public void onSuccess(List<Message> arg0) {
                     if (arg0 != null) {
                         for (Message message : arg0) {
-                            TextMessage textMessage= (TextMessage) message.getContent();
-                            if(!textMessage.getExtra().equals("")){ 
+                            String extra="";
+                            String content="";
+                            boolean isImage=false;
+                            if (message.getContent() instanceof TextMessage) {//如果接受到的是文字消息
+                                TextMessage textMessage= (TextMessage) message.getContent();
+                                extra=textMessage.getExtra();
+                                content=textMessage.getContent();
+                                isImage=false;
+                            }else if(message.getContent() instanceof ImageMessage){
+                                ImageMessage imageMessage=(ImageMessage) message.getContent();
+                                extra=imageMessage.getExtra();
+                                content=imageMessage.getThumUri()==null?"":imageMessage.getThumUri().toString();
+                                isImage=true;
+                            }
+                            if(extra!=null&&!extra.equals("")){ 
                                 @SuppressWarnings("unchecked")
                                 Map<String, Object> map = (Map<String, Object>) PaseJson
-                                .paseJsonToObject(textMessage.getExtra());
-                                map.put("send_content", textMessage.getContent());
+                                .paseJsonToObject(extra);
+                                map.put("send_content", content);
                                 if(message.getMessageDirection()==MessageDirection.RECEIVE){
-                                    map.put("sender_type", "0");
+                                    if(isImage){
+                                        map.put("sender_type", "2");
+                                    }else{
+                                        map.put("sender_type", "0");
+                                    }
                                 }else{
-                                    map.put("sender_type", "1");
+                                    if(isImage){
+                                        map.put("sender_type", "3");
+                                    }else{
+                                        map.put("sender_type", "1");
+                                    }
                                 }
                                 list.add(map);
                                 adapter.notifyDataSetChanged();
@@ -305,31 +329,24 @@ public class XxTxlLtActivity extends BaseActivity implements OnClickListener {
                 try {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("type", "1");
-                    jsonObject.put("send_content", xxEditText.getText().toString());
-                    jsonObject.put("sender_icon_url", PaseJson.getMapMsg(map, "icon_url"));
-                    jsonObject.put("send_time",
-                        DateUtil.getTimeFormat("yyyy-MM-dd HH:mm:ss", new Date()));
-                    jsonObject.put("sender_type", "3");
-                    jsonObject.put("sender_id",
+                    jsonObject.put("senderNickPicUrl",
+                        PropertiesUtil.read(activity, PropertiesUtil.HEADIMGURL));
+                    jsonObject.put("senderUserId",
                         PropertiesUtil.read(activity, PropertiesUtil.USERID));
-                    jsonObject.put("sender_name",
+                    jsonObject.put("senderNickName",
                         PropertiesUtil.read(activity, PropertiesUtil.NICKNAME));
-                    jsonObject.put("voip_account",
-                        PropertiesUtil.read(activity, PropertiesUtil.VOIPACCOUNT));
-                    //                    ReceiverService.sendMsg(PaseJson.getMapMsg(map, "voipAccount"),
-                    //                        jsonObject.toString(), path,activity);
-
-                    //                    Map<String, Object> m = new HashMap<String, Object>();
-                    //                    m.put("type", "1");
-                    //                    m.put("sender_type", "2");//0，代表是本人发的，1代表是接收到他人发的消息,2本人发的图片，3他人发的图片
-                    //                    m.put("send_time", DateUtil.getTimeFormat("yyyy-MM-dd HH:mm:ss", new Date()));
-                    //                    m.put("send_content", "file://" + path);
-                    //                    m.put("sender_icon_url", PaseJson.getMapMsg(map, "icon_url"));
-                    //                    m.put("sender_id", PaseJson.getMapMsg(map, "buser_id"));//不是本人的Id，是接收人的ID
-                    //                    m.put("sender_name", PaseJson.getMapMsg(map, "nick_name"));//不是本人的name，是接收人的name
-                    //                    m.put("void_account", PaseJson.getMapMsg(map, "voipAccount"));//接收人的voip账号
-                    //                    list.add(m);
-                    //                    ltDao.add(m);//将记录插入到聊天记录表中
+                    jsonObject.put("latestTime",
+                        DateUtil.getTimeFormat("yyyy-MM-dd HH:mm:ss", new Date()));
+                    jsonObject.put("receiverUserId", PaseJson.getMapMsg(map, "buser_id"));
+                    jsonObject.put("receiverNickPicUrl", PaseJson.getMapMsg(map, "icon_url"));
+                    jsonObject.put("receiverNickName", PaseJson.getMapMsg(map, "nick_name"));
+                    ReceiverService.sendImageMessage(activity, path,
+                        jsonObject.toString(), PaseJson.getMapMsg(map, "buser_id"),ConversationType.PRIVATE);
+                    @SuppressWarnings("unchecked")
+                    Map<String, Object> map=(Map<String, Object>) PaseJson.paseJsonToObject(jsonObject.toString());
+                    map.put("sender_type", "3");
+                    map.put("send_content", "file:///"+path);
+                    list.add(map);
                     adapter.notifyDataSetChanged();
                     listView.setSelection(listView.getBottom());
                 } catch (JSONException e) {

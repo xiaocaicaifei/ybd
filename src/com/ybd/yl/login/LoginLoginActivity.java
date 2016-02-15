@@ -124,6 +124,8 @@ public class LoginLoginActivity extends BaseActivity implements OnClickListener 
                 PropertiesUtil.write(activity, PropertiesUtil.PASSWORD, mmEditText.getText().toString());
                 PropertiesUtil.write(activity, PropertiesUtil.NICKNAME,
                     PaseJson.getMapMsg(data, "nick_name"));
+                PropertiesUtil.write(activity, PropertiesUtil.ISDV,
+                    PaseJson.getMapMsg(data, "is_bv"));
                 PropertiesUtil.write(activity, PropertiesUtil.VOIPACCOUNT,
                     PaseJson.getMapMsg(data, "voipAccount"));
                 PropertiesUtil.write(activity, PropertiesUtil.HEADIMGURL,

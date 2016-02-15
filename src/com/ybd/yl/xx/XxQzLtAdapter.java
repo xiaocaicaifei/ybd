@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ybd.common.C;
-import com.ybd.common.L;
 import com.ybd.common.MainApplication;
 import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.R;
@@ -80,7 +79,7 @@ public class XxQzLtAdapter extends BaseAdapter {
         if(type==0){
             if (convertView == null) {
                 viewHoler = new ViewHoler();
-                convertView = LayoutInflater.from(activity).inflate(R.layout.xx_qz_lt_item, null);// 这个过程相当耗时间
+                convertView = LayoutInflater.from(activity).inflate(R.layout.xx_txl_lt_item, null);// 这个过程相当耗时间
                 viewHoler.timeTextView=(TextView) convertView.findViewById(R.id.time_tv);
                 viewHoler.txImageView = (ImageView) convertView.findViewById(R.id.tx_iv);
                 viewHoler.nrTextView=(TextView) convertView.findViewById(R.id.nr_tv);
@@ -88,14 +87,14 @@ public class XxQzLtAdapter extends BaseAdapter {
             } else {
                 viewHoler = (ViewHoler) convertView.getTag();
             }
-            viewHoler.timeTextView.setText(PaseJson.getMapMsg(map, "send_time"));
+            viewHoler.timeTextView.setText(PaseJson.getMapMsg(map, "latestTime"));
             viewHoler.nrTextView.setText(PaseJson.getMapMsg(map, "send_content"));
-            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "sender_icon_url"), viewHoler.txImageView,
+            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "senderNickPicUrl"), viewHoler.txImageView,
                 MainApplication.getRoundOffOptions());
         }else if(type==1){
             if (convertView == null) {
                 viewHoler2 = new ViewHoler();
-                convertView = LayoutInflater.from(activity).inflate(R.layout.xx_qz_lt_item2, null);// 这个过程相当耗时间
+                convertView = LayoutInflater.from(activity).inflate(R.layout.xx_txl_lt_item2, null);// 这个过程相当耗时间
                 viewHoler2.timeTextView=(TextView) convertView.findViewById(R.id.time_tv);
                 viewHoler2.txImageView = (ImageView) convertView.findViewById(R.id.tx_iv);
                 viewHoler2.nrTextView=(TextView) convertView.findViewById(R.id.nr_tv);
@@ -103,14 +102,14 @@ public class XxQzLtAdapter extends BaseAdapter {
             } else {
                 viewHoler2 = (ViewHoler) convertView.getTag();
             }
-            viewHoler2.timeTextView.setText(PaseJson.getMapMsg(map, "send_time"));
+            viewHoler2.timeTextView.setText(PaseJson.getMapMsg(map, "latestTime"));
             viewHoler2.nrTextView.setText(PaseJson.getMapMsg(map, "send_content"));
-            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "sender_icon_url"), viewHoler2.txImageView,
+            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "senderNickPicUrl"), viewHoler2.txImageView,
                 MainApplication.getRoundOffOptions());
         }else if(type==2){
             if (convertView == null) {
                 viewHoler3 = new ViewHoler2();
-                convertView = LayoutInflater.from(activity).inflate(R.layout.xx_qz_lt_item3, null);// 这个过程相当耗时间
+                convertView = LayoutInflater.from(activity).inflate(R.layout.xx_txl_lt_item3, null);// 这个过程相当耗时间
                 viewHoler3.timeTextView=(TextView) convertView.findViewById(R.id.time_tv);
                 viewHoler3.txImageView = (ImageView) convertView.findViewById(R.id.tx_iv);
                 viewHoler3.nrImageView=(ImageView) convertView.findViewById(R.id.nr_iv);
@@ -118,17 +117,16 @@ public class XxQzLtAdapter extends BaseAdapter {
             } else {
                 viewHoler3 = (ViewHoler2) convertView.getTag();
             }
-            viewHoler3.timeTextView.setText(PaseJson.getMapMsg(map, "send_time"));
+            viewHoler3.timeTextView.setText(PaseJson.getMapMsg(map, "latestTime"));
 //            viewHoler2.nrTextView.setText(PaseJson.getMapMsg(map, "send_content"));
-            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "sender_icon_url"), viewHoler3.txImageView,
+            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "senderNickPicUrl"), viewHoler3.txImageView,
                 MainApplication.getRoundOffOptions());
-            L.v(PaseJson.getMapMsg(map, "send_content")+"ad 3");
             imageLoader.displayImage(PaseJson.getMapMsg(map, "send_content"), viewHoler3.nrImageView,
                 MainApplication.getRoundOffOptions());
         }else if(type==3){
             if (convertView == null) {
                 viewHoler4= new ViewHoler2();
-                convertView = LayoutInflater.from(activity).inflate(R.layout.xx_qz_lt_item4, null);// 这个过程相当耗时间
+                convertView = LayoutInflater.from(activity).inflate(R.layout.xx_txl_lt_item4, null);// 这个过程相当耗时间
                 viewHoler4.timeTextView=(TextView) convertView.findViewById(R.id.time_tv);
                 viewHoler4.txImageView = (ImageView) convertView.findViewById(R.id.tx_iv);
                 viewHoler4.nrImageView=(ImageView) convertView.findViewById(R.id.nr_iv);
@@ -136,8 +134,8 @@ public class XxQzLtAdapter extends BaseAdapter {
             } else {
                 viewHoler4 = (ViewHoler2) convertView.getTag();
             }
-            viewHoler4.timeTextView.setText(PaseJson.getMapMsg(map, "send_time"));
-            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "sender_icon_url"), viewHoler4.txImageView,
+            viewHoler4.timeTextView.setText(PaseJson.getMapMsg(map, "latestTime"));
+            imageLoader.displayImage(C.IP + PaseJson.getMapMsg(map, "senderNickPicUrl"), viewHoler4.txImageView,
                 MainApplication.getRoundOffOptions());
             imageLoader.displayImage(PaseJson.getMapMsg(map, "send_content"), viewHoler4.nrImageView,
                 MainApplication.getRoundOffOptions());

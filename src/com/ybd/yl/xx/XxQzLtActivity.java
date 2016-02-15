@@ -4,9 +4,15 @@
  */
 package com.ybd.yl.xx;
 
+import io.rong.imlib.RongIMClient.ErrorCode;
+import io.rong.imlib.RongIMClient.ResultCallback;
+import io.rong.imlib.model.Conversation.ConversationType;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.Message.MessageDirection;
+import io.rong.message.TextMessage;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +42,7 @@ import com.ybd.common.tools.PaseJson;
 import com.ybd.yl.BaseActivity;
 import com.ybd.yl.R;
 import com.ybd.yl.common.SelectPhoto2Activity;
-import com.ybd.yl.xx.dao.XxTxlLtDao;
+import com.ybd.yl.service.ReceiverService;
 
 /**
  * 消息-通讯录-开始聊天
@@ -52,7 +58,7 @@ public class XxQzLtActivity extends BaseActivity implements OnClickListener {
     EditText                  xxEditText;                                             //聊天输入框
     Button                    fsButton;                                               //发送消息的按钮
     Button                    tjButton;                                               //添加按钮
-    XxTxlLtDao                   ltDao;
+                                                                                       //    XxTxlLtDao                ltDao;
     BroadcastReceiver         xxLtBroadcastReceiver;                                  //消息聊天的
     LinearLayout              fjgnLayout;                                             //附件功能的层
     ImageView                 tpImageView;                                            //图片
@@ -66,16 +72,7 @@ public class XxQzLtActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void initComponentBase() {
         setContentView(R.layout.xx_txl_lt);
-        ltDao = new XxTxlLtDao(activity);
         String titleName = "聊天";
-        if (this.getIntent().hasExtra("hyObject")) {//从通讯录进入
-            map = (Map<String, Object>) this.getIntent().getExtras().getSerializable("hyObject");
-            titleName = PaseJson.getMapMsg(map, "nick_name");
-        }
-        if (this.getIntent().hasExtra("xxObject")) {//从消息列表进入
-            map = (Map<String, Object>) this.getIntent().getExtras().getSerializable("xxObject");
-            titleName = PaseJson.getMapMsg(map, "nick_name");
-        }
         if (this.getIntent().hasExtra("qzObject")) {//从群组列表进入
             map = (Map<String, Object>) this.getIntent().getExtras().getSerializable("qzObject");
             titleName = PaseJson.getMapMsg(map, "nick_name");
@@ -83,6 +80,7 @@ public class XxQzLtActivity extends BaseActivity implements OnClickListener {
         initPublicView(titleName, R.drawable.login_fh, R.drawable.xx_txl_grzl, null, this);
         init();
         findAllMsg();//查询聊天记录
+        initBroadcast();
     }
 
     /**
@@ -136,17 +134,44 @@ public class XxQzLtActivity extends BaseActivity implements OnClickListener {
                 }
             }
         });
-
     }
 
     /**
      * 查询该用户的聊天记录
      */
     private void findAllMsg() {
-        list.clear();
-        list.addAll(ltDao.findUserAllLt(PaseJson.getMapMsg(map, "buser_id")));
+        ReceiverService.mRongIMClient.getLatestMessages(ConversationType.GROUP,
+            PaseJson.getMapMsg(map, "buser_id"), 100, new ResultCallback<List<Message>>() {
+
+                @Override
+                public void onSuccess(List<Message> arg0) {
+                    if (arg0 != null) {
+                        for (Message message : arg0) {
+                            TextMessage textMessage = (TextMessage) message.getContent();
+                            if (!textMessage.getExtra().equals("")) {
+                                @SuppressWarnings("unchecked")
+                                Map<String, Object> map = (Map<String, Object>) PaseJson
+                                    .paseJsonToObject(textMessage.getExtra());
+                                map.put("send_content", textMessage.getContent());
+                                if (message.getMessageDirection() == MessageDirection.RECEIVE) {
+                                    map.put("sender_type", "0");
+                                } else {
+                                    map.put("sender_type", "1");
+                                }
+                                list.add(map);
+                                adapter.notifyDataSetChanged();
+                                listView.setSelection(listView.getBottom());
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(ErrorCode arg0) {
+                }
+            });
         adapter.notifyDataSetChanged();
-        listView.setSelection(list.size() - 1);
+        listView.setSelection(listView.getBottom());
     }
 
     /**
@@ -157,22 +182,22 @@ public class XxQzLtActivity extends BaseActivity implements OnClickListener {
             @SuppressWarnings("unchecked")
             @Override
             public void onReceive(Context context, Intent intent) {
-                Map<String, Object> m = (Map<String, Object>) PaseJson.paseJsonToObject(intent
-                    .getExtras().getString("content"));
-                if (PaseJson.getMapMsg(m, "voip_account").equals(
-                    PaseJson.getMapMsg(map, "voipAccount"))) {//如果当前界面聊天的Id和收到的发送消息的ID一样则显示，否则不显示
+                Map<String, Object> m = (Map<String, Object>) intent.getExtras().getSerializable(
+                    "content");
+                if (PaseJson.getMapMsg(m, "senderUserId").equals(
+                    PaseJson.getMapMsg(map, "buser_id"))) {//如果当前界面聊天的Id和收到的发送消息的ID一样则显示，否则不显示
                     list.add(m);
                     adapter.notifyDataSetChanged();
                     listView.setSelection(listView.getBottom());
-
-                    //发送广播，当前人已经显示信息，在列表页面就不需要再显示未读数量，也就是说这个人的未读数量是0
-                    ltDao.updateTalkUser(0, PaseJson.getMapMsg(map, "buser_id"));
-                    //                   BroadcaseUtil.sendBroadcase(BroadcaseUtil.XX_LT_RECEIVED, activity);
+                    String targetId = PaseJson.getMapMsg(map, "buser_id");
+                    //设置消息已读
+                    ReceiverService.mRongIMClient.clearMessagesUnreadStatus(
+                        ConversationType.PRIVATE, targetId, null);
                 }
             }
         };
         //接收聊天消息的广播
-        BroadcaseUtil.registBroadcase(activity, xxLtBroadcastReceiver, BroadcaseUtil.XX_LT);
+        BroadcaseUtil.registBroadcase(activity, xxLtBroadcastReceiver, BroadcaseUtil.XX_LT_QZ);
     }
 
     @Override
@@ -186,33 +211,30 @@ public class XxQzLtActivity extends BaseActivity implements OnClickListener {
                 if (xxEditText.getText().toString().equals("")) {
                     toastShow("发送消息不能为空！");
                 } else {
-                    Map<String, Object> m = new HashMap<String, Object>();
-                    m.put("type", "1");//说明是对话类型
-                    m.put("sender_type", "0");//0，代表是本人发的，1代表是接收到他人发的消息
-                    m.put("send_time", DateUtil.getTimeFormat("yyyy-MM-dd HH:mm:ss", new Date()));
-                    m.put("send_content", xxEditText.getText().toString());
-                    m.put("sender_icon_url", PaseJson.getMapMsg(map, "icon_url"));
-                    m.put("sender_id", PaseJson.getMapMsg(map, "buser_id"));//不是本人的Id，是接收人的ID
-                    m.put("sender_name", PaseJson.getMapMsg(map, "nick_name"));//不是本人的name，是接收人的name
-                    m.put("void_account", PaseJson.getMapMsg(map,"voipAccount"));//接收人的voip账号
-                    list.add(m);
-                    ltDao.add(m);//将记录插入到聊天记录表中
                     try {
                         JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("type", "1");
-                        jsonObject.put("sender_type", "1");
-                        jsonObject.put("send_time",
-                            DateUtil.getTimeFormat("MM-dd HH:mm", new Date()));
-                        jsonObject.put("send_content", xxEditText.getText().toString());
-                        jsonObject.put("sender_icon_url", PaseJson.getMapMsg(map, "icon_url"));
-                        jsonObject.put("sender_id",
+                        jsonObject.put("type", "4");
+                        jsonObject.put("senderNickPicUrl",
+                            PropertiesUtil.read(activity, PropertiesUtil.HEADIMGURL));
+                        jsonObject.put("senderUserId",
                             PropertiesUtil.read(activity, PropertiesUtil.USERID));
-                        jsonObject.put("sender_name",
+                        jsonObject.put("senderNickName",
                             PropertiesUtil.read(activity, PropertiesUtil.NICKNAME));
-                        jsonObject.put("voip_account",
-                            PropertiesUtil.read(activity, PropertiesUtil.VOIPACCOUNT));
-//                        ReceiverService.sendMsg(PaseJson.getMapMsg(map, "voipAccount"),
-//                            jsonObject.toString(), "",activity);//发送人的voip账号
+                        jsonObject.put("latestTime",
+                            DateUtil.getTimeFormat("yyyy-MM-dd HH:mm:ss", new Date()));
+                        jsonObject.put("receiverUserId", PaseJson.getMapMsg(map, "buser_id"));
+                        jsonObject.put("receiverNickPicUrl", PaseJson.getMapMsg(map, "icon_url"));
+                        jsonObject.put("receiverNickName", PaseJson.getMapMsg(map, "nick_name"));
+                        ReceiverService.sendMessage(activity, xxEditText.getText().toString(),
+                            jsonObject.toString(), PaseJson.getMapMsg(map, "buser_id"),ConversationType.GROUP);
+                        @SuppressWarnings("unchecked")
+                        Map<String, Object> map = (Map<String, Object>) PaseJson
+                            .paseJsonToObject(jsonObject.toString());
+                        map.put("sender_type", "1");
+                        map.put("send_content", xxEditText.getText().toString());
+                        list.add(map);
+                        adapter.notifyDataSetChanged();
+                        listView.setSelection(listView.getBottom());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -257,7 +279,6 @@ public class XxQzLtActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        initBroadcast();
     }
 
     @Override
@@ -269,17 +290,17 @@ public class XxQzLtActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         super.onActivityResult(arg0, arg1, arg2);
-        if(arg1==RESULT_OK){
-            if(arg0==SELECT_TP_RESULT){
+        if (arg1 == RESULT_OK) {
+            if (arg0 == SELECT_TP_RESULT) {
                 //选择完图片后，发送图片
-                String path=arg2.getExtras().getString("path");
+                String path = arg2.getExtras().getString("path");
                 try {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("type", "1");
                     jsonObject.put("send_content", xxEditText.getText().toString());
                     jsonObject.put("sender_icon_url", PaseJson.getMapMsg(map, "icon_url"));
                     jsonObject.put("send_time",
-                        DateUtil.getTimeFormat("MM-dd HH:mm", new Date()));
+                        DateUtil.getTimeFormat("yyyy-MM-dd HH:mm:ss", new Date()));
                     jsonObject.put("sender_type", "3");
                     jsonObject.put("sender_id",
                         PropertiesUtil.read(activity, PropertiesUtil.USERID));
@@ -287,20 +308,20 @@ public class XxQzLtActivity extends BaseActivity implements OnClickListener {
                         PropertiesUtil.read(activity, PropertiesUtil.NICKNAME));
                     jsonObject.put("voip_account",
                         PropertiesUtil.read(activity, PropertiesUtil.VOIPACCOUNT));
-//                    ReceiverService.sendMsg(PaseJson.getMapMsg(map, "voipAccount"),
-//                        jsonObject.toString(), path,activity);
-                    
-                    Map<String, Object> m = new HashMap<String, Object>();
-                    m.put("type", "1");
-                    m.put("sender_type", "2");//0，代表是本人发的，1代表是接收到他人发的消息,2本人发的图片，3他人发的图片
-                    m.put("send_time", DateUtil.getTimeFormat("yyyy-MM-dd HH:mm:ss", new Date()));
-                    m.put("send_content", "file://"+path);
-                    m.put("sender_icon_url", PaseJson.getMapMsg(map, "icon_url"));
-                    m.put("sender_id", PaseJson.getMapMsg(map, "buser_id"));//不是本人的Id，是接收人的ID
-                    m.put("sender_name", PaseJson.getMapMsg(map, "nick_name"));//不是本人的name，是接收人的name
-                    m.put("void_account", PaseJson.getMapMsg(map,"voipAccount"));//接收人的voip账号
-                    list.add(m);
-                    ltDao.add(m);//将记录插入到聊天记录表中
+                    //                    ReceiverService.sendMsg(PaseJson.getMapMsg(map, "voipAccount"),
+                    //                        jsonObject.toString(), path,activity);
+
+                    //                    Map<String, Object> m = new HashMap<String, Object>();
+                    //                    m.put("type", "1");
+                    //                    m.put("sender_type", "2");//0，代表是本人发的，1代表是接收到他人发的消息,2本人发的图片，3他人发的图片
+                    //                    m.put("send_time", DateUtil.getTimeFormat("yyyy-MM-dd HH:mm:ss", new Date()));
+                    //                    m.put("send_content", "file://" + path);
+                    //                    m.put("sender_icon_url", PaseJson.getMapMsg(map, "icon_url"));
+                    //                    m.put("sender_id", PaseJson.getMapMsg(map, "buser_id"));//不是本人的Id，是接收人的ID
+                    //                    m.put("sender_name", PaseJson.getMapMsg(map, "nick_name"));//不是本人的name，是接收人的name
+                    //                    m.put("void_account", PaseJson.getMapMsg(map, "voipAccount"));//接收人的voip账号
+                    //                    list.add(m);
+                    //                    ltDao.add(m);//将记录插入到聊天记录表中
                     adapter.notifyDataSetChanged();
                     listView.setSelection(listView.getBottom());
                 } catch (JSONException e) {
